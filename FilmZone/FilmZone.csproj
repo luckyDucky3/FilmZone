@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FilmZone.DAL\FilmZone.DAL.csproj" />
+    <ProjectReference Include="..\FilmZone.Domain\FilmZone.Domain.csproj" />
+    <ProjectReference Include="..\FilmZone.Service\FilmZone.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\User\Registration.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\User\ForgotPassword.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\User\Registration.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\User\ForgotPassword.cshtml" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,9 @@
+.vs/
+FilmZone/obj/
+FilmZone/bin/
+FilmZone.Service/obj/
+FilmZone.Service/bin/
+FilmZone.DAL/obj/
+FilmZone.DAL/bin/
+FilmZone.Domain/obj/
+FilmZone.Domain/bin/

@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\FilmZone.DAL\FilmZone.DAL.csproj" />
     <ProjectReference Include="..\FilmZone.Domain\FilmZone.Domain.csproj" />
     <ProjectReference Include="..\FilmZone.Service\FilmZone.Service.csproj" />

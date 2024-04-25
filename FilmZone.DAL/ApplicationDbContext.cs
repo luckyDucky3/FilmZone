@@ -21,6 +21,7 @@ namespace FilmZone.DAL
             optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=filmdb;Username=postgres;Password=100506Ki");
         }
         public DbSet<Film> Film { get; set; }
+        public DbSet<User> User { get; set; }
     }
 
 }

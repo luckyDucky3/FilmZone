@@ -1,0 +1,16 @@
+﻿@model bool
+<h2>Регистрация</h2>
+    <form method="post" action="/User/Registration" id="Search">
+        <input type="text" name="LastName" placeholder="Иванов"/>
+        <input type="text" name="FirstName" placeholder="Иван"/>
+        <input type="text" name="NickName" placeholder="LuckyDucky"/>
+        <input type="text" name="Email" placeholder="LuckyDucky@mail.ru"/>
+        @if (Model)
+        {
+        <p>Пароли не совпадают, повторите попытку</p>
+        }
+        <input type="password" name="Password1" placeholder="Введите пароль"/>
+        <input type="password" name="Password2" placeholder="Повторите пароль"/>
+        <input type="submit" class="btn" value="Зарегестрироваться"/>
+    </form>
+

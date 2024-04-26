@@ -10,22 +10,26 @@ namespace FilmZone.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Registration()
+        public IActionResult RegistrationPage(bool PasswordError)
         {
-            return View();
+            return View(PasswordError);
         }
 
         [HttpPost]
-        public string Registration(string LastName, string FirstName, string NickName, string Email, string Password1, string Password2)
+        public RedirectToActionResult Registration (string LastName, string FirstName, string NickName, string Email, string Password1, string Password2)
         {
             if (Password1 == Password2)
-                return
-                    $"Your lastname: {LastName}, firstname: {FirstName}, nickname: {NickName}, email: {Email}, password: {Password1}";
+                return RedirectToAction("SendMessageToEmail");
             else
-                return "Пароли не совпадают, повторите попытку";
+                return RedirectToAction("RegistrationPage", new { PasswordError = true });
         }
         [HttpGet]
         public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult SendMessageToEmail()
         {
             return View();
         }

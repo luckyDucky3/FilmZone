@@ -1,6 +1,8 @@
 using FilmZone.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using FilmZone.Service.Interfaces;
+using FilmZone.Domain.Models;
+using FilmZone.Domain.Response;
 
 namespace FilmZone.Controllers
 {
@@ -47,7 +49,7 @@ namespace FilmZone.Controllers
         }
         //[HttpPost]
         [HttpGet]
-        public async Task<IActionResult> Search(string searchField)
+        public async Task<IActionResult> SearchByName(string searchField)
         {
             var response = await filmService.GetFilmByName(searchField);
             if (response.StatusCode == Domain.Enum.StatusCode.OK ||
@@ -56,32 +58,57 @@ namespace FilmZone.Controllers
                 if (response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
                 {
                     ViewData["Message"] = "  сожалению такой фильм или сериал не найден :((";
-                    return View(null);
+                    return RedirectToAction("SearchFilm", null);
                 }
                 else
                 {
-                    FilmViewModel film = new FilmViewModel()
-                    {
-                        Description = response.Data.Description,
-                        Id = response.Data.Id,
-                        Name = response.Data.Name,
-                        ReleaseFilmDate = response.Data.ReleaseFilmDate,
-                        Type = response.Data.Type,
-                        Director = response.Data.Director,
-                        Preview = response.Data.Preview,
-                        LinkF = response.Data.LinkF,
-                        LinkS = response.Data.LinkS
-                    };
-                    return View(film);
+                    FilmViewModel film = CopyFilm(response.Data);
+                    return View("SearchFilm", film);
                 }
             }
+            return RedirectToAction("Error");
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> SearchById(int Id)
+        {
+            var response = await filmService.GetFilm(Id);
+            if (response.StatusCode == Domain.Enum.StatusCode.OK ||
+                response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
+            {
+                if (response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
+                {
+                    ViewData["Message"] = "  сожалению такой фильм или сериал не найден :((";
+                    return RedirectToAction("SearchFilm", null);
+                }
+                else
+                {
+                    FilmViewModel film = CopyFilm(response.Data);
+                    return View("SearchFilm", film);
+                }
+            }
             return RedirectToAction("Error");
         }
 
         public IActionResult Error()
         {
             return View();
+        }
+        private FilmViewModel CopyFilm(ref readonly Film _film)
+        {
+            FilmViewModel film = new FilmViewModel()
+            {
+                Description = _film.Description,
+                Id = _film.Id,
+                Name = _film.Name,
+                ReleaseFilmDate = _film.ReleaseFilmDate,
+                Type = _film.Type,
+                Director = _film.Director,
+                Preview = _film.Preview,
+                LinkF = _film.LinkF,
+                LinkS = _film.LinkS
+            };
+            return film;
         }
     }
 }

@@ -190,6 +190,8 @@ namespace FilmZone.Service.Implementations
             {
                 Id = film.Id,
                 Name = film.Name,
+                PathToImage = film.PathToImage,
+                filmOrSerial = film.filmOrSerial,
                 Description = film.Description,
                 ReleaseFilmDate = film.ReleaseFilmDate,
                 Type = film.Type,
@@ -207,6 +209,8 @@ namespace FilmZone.Service.Implementations
             {
                 Id = film.Id,
                 Name = film.Name,
+                PathToImage = film.PathToImage,
+                filmOrSerial = film.filmOrSerial,
                 Description = film.Description,
                 ReleaseFilmDate = film.ReleaseFilmDate,
                 Type = film.Type,

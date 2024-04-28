@@ -101,6 +101,8 @@ namespace FilmZone.Controllers
             {
                 Description = _film.Description,
                 Id = _film.Id,
+                PathToImage = _film.PathToImage,
+                filmOrSerial = _film.filmOrSerial,
                 Name = _film.Name,
                 ReleaseFilmDate = _film.ReleaseFilmDate,
                 Type = _film.Type,

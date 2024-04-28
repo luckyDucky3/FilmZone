@@ -32,7 +32,7 @@ namespace FilmZone.DAL.Repositories
             return true;
         }
 
-        public async Task<Film> Get(int id)
+        public async Task<Film> GetById(int id)
         {
             return await _db.Film.FirstOrDefaultAsync(x => x.Id == id);
         }

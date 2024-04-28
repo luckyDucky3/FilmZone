@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "pcwACSZXElCp3VjvgT28cffylfivimS6AbZDYE1iSYl3axlydDY7Faj8iP4i4sWzkZnYhxi0Uar39ePKTEqb5w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\maxle\\Desktop\\FilmZone\\TGBot\\TGBot.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\maxle\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\maxle\\.nuget\\packages\\telegram.bot\\19.0.0\\telegram.bot.19.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

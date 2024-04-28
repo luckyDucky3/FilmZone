@@ -24,7 +24,7 @@ namespace FilmZone.DAL.Repositories
             return true;
         }
 
-        public async Task<User> Get(int id)
+        public async Task<User> GetById(int id)
         {
             return await _db.User.FirstOrDefaultAsync(x => x.ID == id);
         }

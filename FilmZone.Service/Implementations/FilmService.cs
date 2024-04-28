@@ -23,7 +23,7 @@ namespace FilmZone.Service.Implementations
             var baseResponse = new BaseResponse<FilmViewModel>();
             try
             {
-                var film = await _filmRepository.Get(id);
+                var film = await _filmRepository.GetById(id);
                 if (film == null)
                 {
                     baseResponse.Description = "Film not found";
@@ -75,7 +75,7 @@ namespace FilmZone.Service.Implementations
             };
             try
             {
-                var film = await _filmRepository.Get(id);
+                var film = await _filmRepository.GetById(id);
                 if (film == null)
                 {
                     baseResponse.Description = "Film not found";
@@ -132,7 +132,7 @@ namespace FilmZone.Service.Implementations
             var baseResponse = new BaseResponse<Film>();
             try
             {
-                var film = await _filmRepository.Get(id);
+                var film = await _filmRepository.GetById(id);
                 if (film == null)
                 {
                     baseResponse.StatusCode = StatusCode.FilmNotFound;

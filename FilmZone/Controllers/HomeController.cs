@@ -19,9 +19,21 @@ namespace FilmZone.Controllers
             this.filmService = filmService;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            int i = 1;
+            List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
+            for (int j = 0; j < 10; j++)
+            {
+                var response = await filmService.GetFilm(i);
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    ListOfFilm.Add(response.Data);
+                    i++;
+                }
+            }
+
+            return View(ListOfFilm);
         }
         [HttpGet]
         public IActionResult Films()
@@ -95,6 +107,8 @@ namespace FilmZone.Controllers
         {
             return View();
         }
+
+
         private FilmViewModel TransformToFilmViewModel(ref readonly Film _film)
         {
             FilmViewModel film = new FilmViewModel()

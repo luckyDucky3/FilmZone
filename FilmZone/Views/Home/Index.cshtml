@@ -1,17 +1,33 @@
-﻿<div class="Content">
+﻿@using FilmZone.Domain.Enum
+@model List<FilmZone.Domain.ViewModels.FilmViewModel>
+<div class="Content">
     <h1>Новые фильмы</h1>
     <div class="FilmsBlock">
-        <a href="Home/SearchById/3"><img src="~/img/matrix.png" alt=""></a>
+        @foreach (var film in Model)
+        {
+            if (film.filmOrSerial == FilmOrSerial.Film)
+            {
+                <a href="Home/SearchById/@film.Id"><img src="@film.PathToImage" alt=""></a>
+            }
+        }
+@*         <a href="Home/SearchById/3"><img src="~/img/matrix.png" alt=""></a>
         <a href="Home/SearchById/7"><img src="~/img/cloud.png" alt=""></a>
         <a href="Home/SearchById/2"><img src="~/img/inter.png" alt=""></a>
-        <a href="Home/SearchById/1"><img src="~/img/max.png" alt=""></a>
+        <a href="Home/SearchById/1"><img src="~/img/max.png" alt=""></a> *@
     </div>
     <h2>Новые Сериалы</h2>
     <div class="SerialsBlock">
-        <a href="#"><img src="~/img/breakingbad.png" alt=""></a>
+        @* <a href="#"><img src="~/img/breakingbad.png" alt=""></a>
         <a href="#"><img src="~/img/dead.png" alt=""></a>
         <a href="#"><img src="~/img/silicon.png" alt=""></a>
-        <a href="#"><img src="~/img/xfiles.png" alt=""></a>
+        <a href="#"><img src="~/img/xfiles.png" alt=""></a> *@
+        @foreach (var film in Model)
+        {
+            if (film.filmOrSerial == FilmOrSerial.Serial)
+            {
+                <a href="Home/SearchById/@film.Id"><img src="@film.PathToImage" alt=""></a>
+            }
+        }
     </div>
     <div class="Posts">
         <hr>

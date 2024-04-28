@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using FilmZone.Service.Interfaces;
 using FilmZone.Domain.Models;
 using FilmZone.Domain.Response;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FilmZone.Controllers
 {
@@ -62,7 +63,7 @@ namespace FilmZone.Controllers
                 }
                 else
                 {
-                    FilmViewModel film = CopyFilm(response.Data);
+                    FilmViewModel film = TransformToFilmViewModel(response.Data);
                     return View("SearchFilm", film);
                 }
             }
@@ -83,7 +84,7 @@ namespace FilmZone.Controllers
                 }
                 else
                 {
-                    FilmViewModel film = CopyFilm(response.Data);
+                    FilmViewModel film = TransformToFilmViewModel(response.Data);
                     return View("SearchFilm", film);
                 }
             }
@@ -94,7 +95,7 @@ namespace FilmZone.Controllers
         {
             return View();
         }
-        private FilmViewModel CopyFilm(ref readonly Film _film)
+        private FilmViewModel TransformToFilmViewModel(ref readonly Film _film)
         {
             FilmViewModel film = new FilmViewModel()
             {
@@ -105,9 +106,11 @@ namespace FilmZone.Controllers
                 Type = _film.Type,
                 Director = _film.Director,
                 Preview = _film.Preview,
-                LinkF = _film.LinkF,
-                LinkS = _film.LinkS
+                Links = new List<string>(_film.Links),
+                Price = new List<string>(_film.Price),
+                Advertisement = new List<string>(_film.Advertisement)
             };
+            
             return film;
         }
     }

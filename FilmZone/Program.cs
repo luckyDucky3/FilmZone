@@ -17,22 +17,26 @@ builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddControllersWithViews();
 
-using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
-{
-    //Film film1 = new Film()
-    //{
-    //    Name = "Облачный атлас",
-    //    Description =
-    //        "Цепочка перерождений связывает героев из разных эпох. Фантастический блокбастер с Томом Хэнксом и Холли Берри о том, " +
-    //        "как чья-то сохранившаяся на бумаге история, попадает в руки незнакомому человеку и совершенно завладевает его мыслями, " +
-    //        "продлевая себе жизнь в чужой памяти.",
-    //    ReleaseFilmDate = 2012,
-    //    Type = TypeFilm.Fantasy,
-    //    Director = "Лана и Эндрю Вачовски и Том Тыквер",
-    //    Preview = "https://youtu.be/K2VtiZSvwuo",
-    //    LinkF = "https://vk.com/video-110645251_456240683",
-    //    LinkS = "https://rutube.ru/video/71fa0ae2c405383724e143f6fee38330/?t=1"
-    //};
+//using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
+//{
+//    Film film1 = new Film()
+//    {
+//        Name = "Облачный атлас",
+//        Description =
+//            "Цепочка перерождений связывает героев из разных эпох. Фантастический блокбастер с Томом Хэнксом и Холли Берри о том, " +
+//            "как чья-то сохранившаяся на бумаге история, попадает в руки незнакомому человеку и совершенно завладевает его мыслями, " +
+//            "продлевая себе жизнь в чужой памяти.",
+//        ReleaseFilmDate = 2012,
+//        Type = TypeFilm.Fantasy,
+//        Director = "Лана и Эндрю Вачовски и Том Тыквер",
+//        Preview = "https://youtu.be/K2VtiZSvwuo",
+//    };
+//    film1.Links.Add("https://vk.com/video-110645251_456240683");
+//    film1.Price.Add("Бесплатно");
+//    film1.Advertisement.Add("C рекламой");
+//    film1.Links.Add("https://rutube.ru/video/71fa0ae2c405383724e143f6fee38330/?t=1");
+//    film1.Price.Add("Бесплатно");
+//    film1.Advertisement.Add("C рекламой");
     //Film film2 = new Film()
     //{
     //    Name = "Интерстеллар",
@@ -58,12 +62,12 @@ using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
     //    LinkF = "https://vk.com/video-127060916_456239110",
     //    LinkS = "https://rutube.ru/video/c68d9ffbe75b9ca5c0f2e5d75e9ae448/?t=5"
     //};
-    //db.Film.Add(film1);
-    //db.SaveChanges();
-}
+    //    db.Film.Add(film1);
+    //    db.SaveChanges();
+    //}
 
 
-var app = builder.Build();
+    var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

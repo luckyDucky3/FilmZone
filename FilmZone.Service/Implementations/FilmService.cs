@@ -4,6 +4,7 @@ using FilmZone.Domain.Models;
 using FilmZone.Domain.Enum;
 using FilmZone.Domain.Response;
 using FilmZone.Domain.ViewModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FilmZone.Service.Implementations
 {
@@ -30,18 +31,7 @@ namespace FilmZone.Service.Implementations
                     return baseResponse;
                 }
 
-                var data = new FilmViewModel()
-                {
-                    Id = film.Id,
-                    Name = film.Name,
-                    Description = film.Description,
-                    ReleaseFilmDate = film.ReleaseFilmDate,
-                    Type = film.Type,
-                    Director = film.Director,
-                    Preview = film.Preview,
-                    LinkF = film.LinkF,
-                    LinkS = film.LinkS
-                };
+                var data = TransformToFilmViewModel(ref film);
 
                 baseResponse.StatusCode = StatusCode.OK;
                 baseResponse.Data = data;
@@ -62,19 +52,7 @@ namespace FilmZone.Service.Implementations
             var baseResponse = new BaseResponse<FilmViewModel>();
             try
             {
-                var film = new Film()
-                {
-                    Description = filmViewModel.Description,
-                    Id = filmViewModel.Id,
-                    Name = filmViewModel.Name,
-                    ReleaseFilmDate = filmViewModel.ReleaseFilmDate,
-                    Type = (TypeFilm)Convert.ToInt32(filmViewModel.Type),
-                    Director = filmViewModel.Director,
-                    Preview = filmViewModel.Preview,
-                    LinkF = filmViewModel.LinkF,
-                    LinkS = filmViewModel.LinkS
-                };
-
+                Film film = TransformToFilm(ref filmViewModel);
                 await _filmRepository.Create(film);
                 baseResponse.StatusCode = StatusCode.OK;
             }
@@ -162,15 +140,7 @@ namespace FilmZone.Service.Implementations
                     return baseResponse;
                 }
 
-                film.Id = model.Id;
-                film.Name = model.Name;
-                film.Description = model.Description;
-                film.ReleaseFilmDate = model.ReleaseFilmDate;
-                film.Type = model.Type;
-                film.Director = model.Director;
-                film.Preview = model.Preview;
-                film.LinkF = model.LinkF;
-                film.LinkS = model.LinkS;
+                film = TransformToFilm(ref model);
                 await _filmRepository.Update(film);
 
                 return baseResponse;
@@ -212,6 +182,41 @@ namespace FilmZone.Service.Implementations
                     StatusCode = StatusCode.InternalServerError
                 };
             }
+        }
+
+        private FilmViewModel TransformToFilmViewModel(ref readonly Film film)
+        {
+            FilmViewModel model = new FilmViewModel()
+            {
+                Id = film.Id,
+                Name = film.Name,
+                Description = film.Description,
+                ReleaseFilmDate = film.ReleaseFilmDate,
+                Type = film.Type,
+                Director = film.Director,
+                Preview = film.Preview,
+                Links = new List<string>(film.Links),
+                Price = new List<string>(film.Price),
+                Advertisement = new List<string>(film.Advertisement)
+            };
+            return model;
+        }
+        private Film TransformToFilm(ref readonly FilmViewModel film)
+        {
+            Film model = new Film()
+            {
+                Id = film.Id,
+                Name = film.Name,
+                Description = film.Description,
+                ReleaseFilmDate = film.ReleaseFilmDate,
+                Type = film.Type,
+                Director = film.Director,
+                Preview = film.Preview,
+                Links = new List<string>(film.Links),
+                Price = new List<string>(film.Price),
+                Advertisement = new List<string>(film.Advertisement)
+            };
+            return model;
         }
     }
 }

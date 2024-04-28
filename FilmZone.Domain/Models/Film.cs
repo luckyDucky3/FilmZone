@@ -12,7 +12,8 @@ namespace FilmZone.Domain.Models
         public int ReleaseFilmDate { get; set; } = 0;
         public string Director { get; set; } = "";
         public string Preview { get; set; } = "";
-        public string LinkF { get; set; } = "";
-        public string LinkS { get; set; } = "";
+        public List<string> Links { get; set; } = new List<string>();
+        public List<string> Price { get; set; } = new List<string>();
+        public List<string> Advertisement { get; set; } = new List<string>();
     }
 }

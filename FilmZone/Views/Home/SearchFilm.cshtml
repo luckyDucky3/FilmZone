@@ -15,8 +15,16 @@
 <div class="DescriptionFilm">
     <img src="img/inter.png" alt="">
     <p>@Model.Description</p>
-        <p><a href="@Model.LinkF">@Model.LinkF</a></p>
-        <p><a href="@Model.LinkS">@Model.LinkS</a></p>
+    <ul>
+    @for (int i = 0; i < Model.Links.Count; i++)
+    {
+        <li>
+            <a href="@Model.Links[i]">@Model.Links[i]</a>
+            <br/>@Model.Price[i]
+            <br/>@Model.Advertisement[i]
+        </li>
+    }
+    </ul>
 </div>
 <hr>
 <h2>Отзывы о фильме</h2>

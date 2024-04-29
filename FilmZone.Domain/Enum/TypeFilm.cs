@@ -25,6 +25,8 @@ namespace FilmZone.Domain.Enum
         History,
         [Display(Name = "Комедия")]
         Comedy,
+        [Display(Name = "Криминал")]
+        Criminal,
         [Display(Name = "Короткометражка")]
         ShortFilm,
         [Display(Name = "Мелодрама")]

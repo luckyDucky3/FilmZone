@@ -5,9 +5,9 @@
     <div class="FilmsBlock">
         @foreach (var film in Model)
         {
-            if (film.filmOrSerial == FilmOrSerial.Film)
+            if (film.FilmOrSerial == FilmOrSerial.Film)
             {
-                <a href="Home/SearchById/@film.Id"><img src="@film.PathToImage" alt=""></a>
+                <a href="Home/SearchById/@film.Id"><img src="@Url.Content(film.PathToImage)" alt=""></a>
             }
         }
 @*         <a href="Home/SearchById/3"><img src="~/img/matrix.png" alt=""></a>
@@ -23,9 +23,9 @@
         <a href="#"><img src="~/img/xfiles.png" alt=""></a> *@
         @foreach (var film in Model)
         {
-            if (film.filmOrSerial == FilmOrSerial.Serial)
+            if (film.FilmOrSerial == FilmOrSerial.Serial)
             {
-                <a href="Home/SearchById/@film.Id"><img src="@film.PathToImage" alt=""></a>
+                <a href="Home/SearchById/@film.Id"><img src="@Url.Content(film.PathToImage)" alt=""></a>
             }
         }
     </div>

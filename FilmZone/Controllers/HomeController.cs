@@ -71,7 +71,7 @@ namespace FilmZone.Controllers
                 if (response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
                 {
                     ViewData["Message"] = "  сожалению такой фильм или сериал не найден :((";
-                    return RedirectToAction("SearchFilm", null);
+                    return View("SearchFilm", null);
                 }
                 else
                 {
@@ -116,7 +116,7 @@ namespace FilmZone.Controllers
                 Description = _film.Description,
                 Id = _film.Id,
                 PathToImage = _film.PathToImage,
-                filmOrSerial = _film.filmOrSerial,
+                FilmOrSerial = _film.FilmOrSerial,
                 Name = _film.Name,
                 ReleaseFilmDate = _film.ReleaseFilmDate,
                 Type = _film.Type,

@@ -8,7 +8,7 @@ namespace FilmZone.Domain.Models
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string PathToImage { get; set; } = "~/img/layoutImage";
-        public FilmOrSerial filmOrSerial { get; set; } = FilmOrSerial.Film;
+        public FilmOrSerial FilmOrSerial { get; set; } = FilmOrSerial.Film;
         public TypeFilm Type { get; set; } = TypeFilm.Anime;
         public int ReleaseFilmDate { get; set; } = 0;
         public string Director { get; set; } = "";

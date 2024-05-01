@@ -201,6 +201,7 @@ ul.Menu {
     .FilmsBlock img, .SerialsBlock img {
         border-radius: 5px;
         width: 22%;
+        height: 200px;
         border: solid 3px #dad7d5;
     }
 
@@ -294,7 +295,7 @@ ul.Menu {
     }
 
 .Button {
-    background-color: #7268ad;
+    background-color: #5d5d5d;
     padding: 2%;
     color: white;
     border-radius: 5px;
@@ -308,6 +309,13 @@ ul.Menu {
         color: white;
         text-decoration: none;
     }
+
+.ButtonWatchMore {
+    margin-bottom: 3%;
+    margin-top: 1%;
+    float: none;
+    text-align: center;
+}
 
 table {
     width: 100%;

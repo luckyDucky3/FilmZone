@@ -1,3 +1,4 @@
+using FilmZone.Domain.Enum;
 using FilmZone.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using FilmZone.Service.Interfaces;
@@ -22,23 +23,57 @@ namespace FilmZone.Controllers
         public async Task<IActionResult> Index()
         {
             int i = 1;
+            int countFilm = 0, countSerial = 0;
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
-            for (int j = 0; j < 10; j++)
+            while (i < 16)
             {
                 var response = await filmService.GetFilm(i);
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    ListOfFilm.Add(response.Data);
-                    i++;
+                    if (response.Data.FilmOrSerial == FilmOrSerial.Film && countFilm < 8)
+                    {
+                        countFilm++;
+                        ListOfFilm.Add(response.Data);
+                        i++;
+                    }
+                    else if(response.Data.FilmOrSerial == FilmOrSerial.Serial && countSerial < 8)
+                    {
+                        countSerial++;
+                        ListOfFilm.Add(response.Data);
+                        i++;
+                    }
+                }
+                else if(response.StatusCode == Domain.Enum.StatusCode.InternalServerError 
+                        || response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
+                {
+                    break;
                 }
             }
 
             return View(ListOfFilm);
         }
         [HttpGet]
-        public IActionResult Films()
+        public async Task<IActionResult> Films()
         {
-            return View();
+            int i = 1;
+            int countF = 0;
+            List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
+            while(countF < 4)
+            {
+                var response = await filmService.GetFilm(i);
+                if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data.FilmOrSerial == FilmOrSerial.Film)
+                {
+                    ListOfFilm.Add(response.Data);
+                    countF++;
+                }
+                if (response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
+                {
+                    break;
+                }
+                i++;
+            }
+
+            return View(ListOfFilm);
         }
         [HttpGet]
         public IActionResult Interstellar()
@@ -46,9 +81,27 @@ namespace FilmZone.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Serials()
+        public async Task<IActionResult> Serials()
         {
-            return View();
+            int i = 1;
+            int countS = 0;
+            List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
+            while (countS < 4)
+            {
+                var response = await filmService.GetFilm(i);
+                if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data.FilmOrSerial == FilmOrSerial.Serial)
+                {
+                    ListOfFilm.Add(response.Data);
+                    countS++;
+                }
+                if (response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
+                {
+                    break;
+                }
+                i++;
+            }
+
+            return View(ListOfFilm);
         }
         [HttpGet]
         public IActionResult Rating()

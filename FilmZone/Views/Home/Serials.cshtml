@@ -1,1 +1,12 @@
-﻿
+﻿@using FilmZone.Domain.Enum
+@model List<FilmZone.Domain.ViewModels.FilmViewModel>
+<div class="Content">
+    @foreach (var film in Model)
+    {
+        <div class="InfoFilm">
+            <img src="@Url.Content(film.PathToImage)" />
+            @film.Description
+            <div class="Button"><a href="/Home/SearchById/@film.Id">Смотреть</a></div>
+        </div>
+    }
+</div>

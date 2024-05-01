@@ -21,50 +21,55 @@ using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
 {
     //Film film1 = new Film()
     //{
-    //    Name = "Облачный атлас",
-    //    PathToImage = @"~/img/cloud.png",
+    //    Name = "Силиконовая долина",
+    //    PathToImage = @"~/img/silicon.png",
     //    Description =
-    //        "Цепочка перерождений связывает героев из разных эпох. Фантастический блокбастер с Томом Хэнксом и Холли Берри о том, " +
-    //        "как чья-то сохранившаяся на бумаге история, попадает в руки незнакомому человеку и совершенно завладевает его мыслями, " +
-    //        "продлевая себе жизнь в чужой памяти.",
-    //    ReleaseFilmDate = 2012,
-    //    Type = TypeFilm.Fantasy,
-    //    Director = "Лана и Эндрю Вачовски и Том Тыквер",
-    //    FilmOrSerial = FilmOrSerial.Film,
-    //    Preview = @"https://www.youtube.com/embed/K2VtiZSvwuo?si=XUF0ThhXcKrr9Gr3"
-    //};
-    //film1.Links.Add(@"https://vk.com/video-110645251_456240683");
-    //film1.Price.Add("Бесплатно");
-    //film1.Advertisement.Add("C рекламой");
-    //film1.Links.Add(@"https://rutube.ru/video/71fa0ae2c405383724e143f6fee38330/?t=1");
-    //film1.Price.Add("Бесплатно");
-    //film1.Advertisement.Add("C рекламой");
-    //Film film2 = new Film()
-    //{
-    //    Name = "Интерстеллар",
-    //    PathToImage = @"~/img/inter.png",
-    //    Description = "Когда засуха, пыльные бури и вымирание растений приводят человечество к продовольственному кризису,коллектив исследователей" +
-    //                      "и учёных отправляется сквозь червоточину (которая предположительно соединяетобласти пространства-времени через большое" +
-    //                      "расстояние) в путешествие, чтобы превзойти прежние ограничения для космических путешествий человека и найти планету с" +
-    //                      "подходящими для человечества условиями.",
+    //        "История о группе гиков, готовящих к запуску собственные стартапы в высокотехнологичном центре Сан-Франциско. Главные герои сериала бесплатно " +
+    //        "проживают в доме местного миллионера, но взамен им придётся отдать по 10% прибыли от будущих проектов.",
     //    ReleaseFilmDate = 2014,
-    //    Type = TypeFilm.Fantasy,
-    //    Director = "Кристофер Нолан",
-    //    FilmOrSerial = FilmOrSerial.Film,
-    //    Preview = @"https://www.youtube.com/embed/qcPfI0y7wRU?si=wip5_nml6yQBHsJO",
+    //    Type = TypeFilm.Comedy,
+    //    Director = "Майк Джадж, Алек Берг, Джеми Бэббит",
+    //    FilmOrSerial = FilmOrSerial.Serial,
+    //    Preview = @"https://www.youtube.com/embed/BbyByc47qno?si=Q1Bjzfw9p4mckGdt"
     //};
-    //film2.Links.Add(@"https://vk.com/video-213377389_456241538");
-    //film2.Price.Add("Бесплатно");
-    //film2.Advertisement.Add("C рекламой");
-    //film2.Links.Add(@"https://my.mail.ru/mail/ppalekss/video/5/160.html");
-    //film2.Price.Add("Бесплатно");
-    //film2.Advertisement.Add("Без рекламы");
-    //film2.Links.Add(@"https://lordfilmi.org/982-film-interstellar.html");
-    //film2.Price.Add("Бесплатно");
-    //film2.Advertisement.Add("C рекламой");
-    //film2.Links.Add(@"https://interstellar-lordfilms.ru/");
-    //film2.Price.Add("Бесплатно");
-    //film2.Advertisement.Add("C рекламой");
+    //film1.Links.Add(@"https://hd.lordserialx.online/426-silikonovaja-dolina-2014.html");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("C рекламой");
+    //film1.Links.Add(@"https://vk.com/video-182169551_456256578");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("C рекламой");
+    //film1.Links.Add(@"https://silicon-valley-kubik.net/");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("C рекламой");
+    //film1.Links.Add(@"https://www.ivi.ru/watch/silikonovaya-dolina");
+    //film1.Price.Add("Платно");
+    //film1.Advertisement.Add("Без рекламы");
+    //    Film film2 = new Film()
+    //    {
+    //        Name = "Секретные материалы",
+    //        PathToImage = @"~/img/xfiles.png",
+    //        Description = "Агентам ФБР Дане Скалли и Фоксу Малдеру поручают работу над проектом «Секретные материалы». Это архив нераскрытых дел, связанных" +
+    //                      " с паранормальными явлениями. Малдер верит в пришельцев и пытается убедить скептика Скалли, что не всё поддаётся разумному объяснению." +
+    //                      " Постепенно взаимное недоверие перерастает в дружбу и даже в более глубокое чувство.",
+    //        ReleaseFilmDate = 1993,
+    //        Type = TypeFilm.Fantasy,
+    //        Director = "Ким Мэннерс, Роб Боумен, Дэвид Наттер",
+    //        FilmOrSerial = FilmOrSerial.Serial,
+    //        Preview = @"https://www.youtube.com/embed/Xcf44Nit7_A?si=-Qkq2w0K-a_Rmew0",
+    //    };
+    //    film2.Links.Add(@"https://rutube.ru/plst/351666/");
+    //    film2.Price.Add("Бесплатно");
+    //    film2.Advertisement.Add("C рекламой");
+    //    film2.Links.Add(@"https://vk.com/video/playlist/-221125343_172");
+    //    film2.Price.Add("Бесплатно");
+    //    film2.Advertisement.Add("C рекламой");
+    //    film2.Links.Add(@"https://xfiles.top/seasons?utm_referrer=https%3A%2F%2Fyandex.ru%2F");
+    //    film2.Price.Add("Бесплатно");
+    //    film2.Advertisement.Add("C рекламой");
+    //    film2.Links.Add(@"https://9lordserial.art/289-sekretnye-materialy-11-sezon-v186.html");
+    //    film2.Price.Add("Бесплатно");
+    //    film2.Advertisement.Add("C рекламой");
+
     //Film film3 = new Film()
     //{
     //    Name = "Матрица: революция",
@@ -164,7 +169,52 @@ using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
     //film6.Links.Add(@"https://walking-dead.homes/?utm_referrer=https%3A%2F%2Fyandex.ru%2F");
     //film6.Price.Add("Бесплатно");
     //film6.Advertisement.Add("C рекламой");
-    //db.Film.AddRange(film1, film2, film3, film4, film5, film6);
+    //Film film1 = new Film()
+    //{
+    //    Name = "Триггер",
+    //    PathToImage = @"http://www.prdisk.ru/images/trigger_dvd_16_serijj._5_dvd_r_f3d_big.jpeg",
+    //    Description =
+    //        "Психолог Артём Стрелецкий — сторонник шоковой терапии в лечении больных. Он считает, что единственный способ для человека решить свои " +
+    //        "проблемы — это понять себя и перестать себе врать. Если большинство психологов нянчатся с клиентами, по полгода выслушивают жалобы на жизнь" +
+    //        ", сочувствуют и получают при этом немалые деньги за цикл сеансов, то Артём постоянно провоцирует клиентов: оскорбляет их, смеется над ними," +
+    //        " намеренно выталкивает из зоны комфорта. Практика Артема процветает, пока один из его пациентов не кончает жизнь самоубийством.",
+    //    ReleaseFilmDate = 2020,
+    //    Type = TypeFilm.Drama,
+    //    Director = "Дмитрий Тюрин, Игорь Твердохлебов",
+    //    FilmOrSerial = FilmOrSerial.Serial,
+    //    Preview = @"https://www.youtube.com/embed/L5955NbSKRM?si=OIEeKmfM6jirrc4X"
+    //};
+    //film1.Links.Add(@"https://hd.kinopoisk.ru/film/4f3c027cbce13606b74124a9d5b140c7");
+    //film1.Price.Add("Платно");
+    //film1.Advertisement.Add("Без рекламы");
+    //film1.Links.Add(@"https://trigger.lordfilm.ph/");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("C рекламой");
+    //film1.Links.Add(@"https://pro.hdprolord.run/325-film-djavol-nosit-prada.html");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("C рекламой");
+    //Film film2 = new Film()
+    //{
+    //    Name = "Вам и не снилось",
+    //    PathToImage = @"https://upload.wikimedia.org/wikipedia/ru/thumb/2/25/1981_vam_i_ne_snilos.jpg/184px-1981_vam_i_ne_snilos.jpg",
+    //    Description =
+    //        "Взрослые пытаются помешать отношениям двух подростков. Великое, пронзительно нежное кино о первой любви",
+    //    ReleaseFilmDate = 1980,
+    //    Type = TypeFilm.Melodrama,
+    //    Director = "Илья Фрэз",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/aBiPSjBs7XI?si=EB3_WwXU03gEC-UX"
+    //};
+    //film2.Links.Add(@"https://www.kinopoisk.ru/film/45660/?utm_referrer=www.google.com");
+    //film2.Price.Add("Бесплатно");
+    //film2.Advertisement.Add("Без рекламы");
+    //film2.Links.Add(@"https://www.youtube.com/embed/K7nTbO8kMAo?si=j5JTv3uaMiHfdUoY");
+    //film2.Price.Add("Бесплатно");
+    //film2.Advertisement.Add("Без рекламы");
+    //film2.Links.Add(@"https://www.ivi.ru/watch/51623");
+    //film2.Price.Add("Бесплатно");
+    //film2.Advertisement.Add("Без рекламы");
+    //db.Film.AddRange(film1, film2);
     //db.SaveChanges();
 }
 

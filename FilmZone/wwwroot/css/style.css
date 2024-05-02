@@ -205,23 +205,35 @@ ul.Menu {
         border: solid 3px #dad7d5;
     }
 
+.ContentFilm {
+    background-color: #cccccc36;
+    border-radius: 7px;
+}
+
 .InfoFilm {
-    margin-top: 2%;
+    background-color: #f3f3f3;
+    border-radius: 7px;
+    margin-bottom: 5%;
+    padding: 5%;
+    height: 280px;
+}
+.InfoAboutFilm {
+    margin-top: 3%;
     margin-bottom: 4%;
 }
 
-    .InfoFilm .Label {
+    .InfoAboutFilm .Label {
         font-size: 1.2em;
     }
 
-    .InfoFilm .Value {
+    .InfoAboutFilm .Value {
         font-size: 1em;
         color: #49945a;
         margin-right: 3%;
     }
 
 .DescriptionFilm {
-    margin-top: 5%;
+    margin-top: 1%;
     padding-right: 260px;
     width: 600px;
 }
@@ -279,19 +291,13 @@ ul.Menu {
         border-radius: 5px;
     }
 
-.InfoFilm {
-    margin-bottom: 5%;
-    padding: 5%;
-    background-color: #f9f9f9;
-    height: 270px;
-}
-
     .InfoFilm img {
         float: left;
         border-radius: 5px;
         border: solid 3px #dad7d5;
         width: 25%;
         margin-right: 3%;
+        height: 200px;
     }
 
 .Button {
@@ -300,7 +306,7 @@ ul.Menu {
     color: white;
     border-radius: 5px;
     float: right;
-    margin-top: 7%;
+    margin-top: 25px;
     clear: both;
     font-size: 0.8em;
 }

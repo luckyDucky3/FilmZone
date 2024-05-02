@@ -1,13 +1,30 @@
 ﻿@using FilmZone.Domain.Enum
 @model List<FilmZone.Domain.ViewModels.FilmViewModel>
+@{
+    int count = Model.Count + 4;
+    string filmDesc;
+}
 <div class="Content">
     @foreach (var film in Model)
     {
         <div class="InfoFilm">
             <img src="@Url.Content(film.PathToImage)" />
-            @film.Description
+            @{
+                if (film.Description.Length > 400)
+                {
+                    filmDesc = film.Description[..400] + "...";
+                }
+                else
+                {
+                    filmDesc = film.Description;
+                }
+            }
+            @filmDesc
             <div class="Button"><a href="/Home/SearchById/@film.Id">Смотреть</a></div>
         </div>
     }
-    <div class="Button ButtonWatchMore"><a href="#">Смотреть еще</a></div>
+    @if (ViewData["Message"] != "Конец")
+    {
+        <div class="Button ButtonWatchMore"><a href="/Home/Films?countFMax=@count">Смотреть еще</a></div>
+    }
 </div>

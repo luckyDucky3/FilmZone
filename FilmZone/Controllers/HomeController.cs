@@ -53,12 +53,12 @@ namespace FilmZone.Controllers
             return View(ListOfFilm);
         }
         [HttpGet]
-        public async Task<IActionResult> Films()
+        public async Task<IActionResult> Films(int countFMax)
         {
             int i = 1;
             int countF = 0;
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
-            while(countF < 4)
+            while(countF < countFMax)
             {
                 var response = await filmService.GetFilm(i);
                 if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data.FilmOrSerial == FilmOrSerial.Film)
@@ -68,6 +68,7 @@ namespace FilmZone.Controllers
                 }
                 if (response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
                 {
+                    ViewData["Message"] = "Конец";
                     break;
                 }
                 i++;

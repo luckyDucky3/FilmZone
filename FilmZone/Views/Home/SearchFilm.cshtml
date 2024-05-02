@@ -1,14 +1,15 @@
 ﻿@model FilmZone.Domain.ViewModels.FilmViewModel
 @if(Model != null)
 {
-<div class="Content">
+<div class="Content ContentFilm">
     <h1>@Model.Name</h1>
     <iframe width="560" height="315" src=@Model.Preview title="@Model.Name" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
-<div class="InfoFilm">
+<div class="InfoAboutFilm">
     <span class="Label">Рейтинг: </span><span class="Value">8.1</span>
     <span class="Label">Год: </span><span class="Value">@Model.ReleaseFilmDate</span>
     <span class="Label">Режиссер: </span><span class="Value">@Model.Director</span>
+    <span class="Id">Id: </span><span class="Value">@Model.Id</span>
 </div>
 <hr>
 <h2>Описание фильма</h2>

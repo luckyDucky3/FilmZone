@@ -19,6 +19,30 @@ builder.Services.AddControllersWithViews();
 
 using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
 {
+    //Film viewModel = new Film()
+    //{
+    //    Name = "Облачный атлас",
+    //    Description = "Цепочка перерождений связывает героев из разных эпох. Фантастический блокбастер с Томом Хэнксом и Холли Берри о том, как чья-то сохранившаяся на бумаге исто" +
+    //                  "рия, попадает в руки незнакомому человеку и совершенно завладевает его мыслями, продлевая себе жизнь в чужой памяти.",
+    //    PathToImage = "~/img/CloudAtlas.png",
+    //    ReleaseFilmDate = 2012,
+    //    Type = TypeFilm.Fantasy,
+    //    Director = "Лана Вачовски, Том Тыквер, Лилли Вачовски",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = "https://www.youtube.com/embed/K2VtiZSvwuo?si=edMZkW70pSaRGQOl",
+    //};
+    //viewModel.Links.Add("https://www.kinopoisk.ru/film/464484/");
+    //viewModel.Price.Add("Платно");
+    //viewModel.Advertisement.Add("Без рекламы");
+    //viewModel.Links.Add("https://okko.tv/movie/cloud-atlas");
+    //viewModel.Price.Add("Платно");
+    //viewModel.Advertisement.Add("Без рекламы");
+    //viewModel.Links.Add("https://vk.com/video-220018529_456240240");
+    //viewModel.Price.Add("Беслатно");
+    //viewModel.Advertisement.Add("С рекламой");
+    //viewModel.Links.Add("https://ru.lordsfilm.space/333-oblachnyj-atlas.html");
+    //viewModel.Price.Add("Беслатно");
+    //viewModel.Advertisement.Add("С рекламой");
     //Film film1 = new Film()
     //{
     //    Name = "Силиконовая долина",

@@ -34,14 +34,13 @@ namespace FilmZone.Controllers
                     {
                         countFilm++;
                         ListOfFilm.Add(response.Data);
-                        i++;
                     }
                     else if(response.Data.FilmOrSerial == FilmOrSerial.Serial && countSerial < 8)
                     {
                         countSerial++;
                         ListOfFilm.Add(response.Data);
-                        i++;
                     }
+                    i++;
                 }
                 else if(response.StatusCode == Domain.Enum.StatusCode.InternalServerError 
                         || response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
@@ -82,21 +81,22 @@ namespace FilmZone.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> Serials()
+        public async Task<IActionResult> Serials(int countSMax)
         {
             int i = 1;
-            int countS = 0;
+            int countF = 0;
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
-            while (countS < 4)
+            while (countF < countSMax)
             {
                 var response = await filmService.GetFilm(i);
                 if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data.FilmOrSerial == FilmOrSerial.Serial)
                 {
                     ListOfFilm.Add(response.Data);
-                    countS++;
+                    countF++;
                 }
                 if (response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
                 {
+                    ViewData["Message"] = "Конец";
                     break;
                 }
                 i++;

@@ -27,7 +27,7 @@ namespace FilmZone.Controllers
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
             while (i < 16)
             {
-                var response = await filmService.GetFilm(i);
+                var response = await filmService.GetFilmById(i);
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
                     if (response.Data.FilmOrSerial == FilmOrSerial.Film && countFilm < 8)
@@ -59,7 +59,7 @@ namespace FilmZone.Controllers
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
             while(countF < countFMax)
             {
-                var response = await filmService.GetFilm(i);
+                var response = await filmService.GetFilmById(i);
                 if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data.FilmOrSerial == FilmOrSerial.Film)
                 {
                     ListOfFilm.Add(response.Data);
@@ -88,7 +88,7 @@ namespace FilmZone.Controllers
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
             while (countF < countSMax)
             {
-                var response = await filmService.GetFilm(i);
+                var response = await filmService.GetFilmById(i);
                 if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data.FilmOrSerial == FilmOrSerial.Serial)
                 {
                     ListOfFilm.Add(response.Data);
@@ -139,7 +139,7 @@ namespace FilmZone.Controllers
         [HttpGet]
         public async Task<IActionResult> SearchById(int Id)
         {
-            var response = await filmService.GetFilm(Id);
+            var response = await filmService.GetFilmById(Id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK ||
                 response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
             {

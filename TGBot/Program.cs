@@ -11,7 +11,7 @@ namespace TGBot
         static async Task Main(string[] args)
         {
             var botClient = new TelegramBotClient("6675853481:AAHnkqbJ4zRgUMAzhfnhqtLS_Wik6q596ho");
-
+            string assistantUserName = "@AssistantInUA";
             using CancellationTokenSource cts = new();
 
             // // Начало приема не блокирует вызывающий поток. Получение выполняется в пуле потоков.

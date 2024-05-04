@@ -13,14 +13,14 @@ namespace FilmZone.Service.Interfaces
     {
         Task<IBaseResponse<IEnumerable<User>>> GetUsers();
 
-        Task<IBaseResponse<User>> GetUser(int id);
+        Task<IBaseResponse<User>> GetUserById(int id);
 
-        Task<IBaseResponse<User>> CreateUser(FilmViewModel carViewModel);
+        Task<IBaseResponse<bool>> CreateUser(User user);
 
         Task<IBaseResponse<bool>> DeleteUser(int id);
 
-        Task<IBaseResponse<Film>> GetUserByLastName(string name);
+        Task<IBaseResponse<User>> GetUserByNickName(string name);
 
-        Task<IBaseResponse<Film>> Edit(int id, User model);
+        Task<IBaseResponse<User>> Edit(int id, User model);
     }
 }

@@ -18,7 +18,7 @@ namespace FilmZone.Service.Implementations
             _filmRepository = filmRepository;
         }
 
-        public async Task<IBaseResponse<FilmViewModel>> GetFilm(int id)
+        public async Task<IBaseResponse<FilmViewModel>> GetFilmById(int id)
         {
             var baseResponse = new BaseResponse<FilmViewModel>();
             try
@@ -41,27 +41,29 @@ namespace FilmZone.Service.Implementations
             {
                 return new BaseResponse<FilmViewModel>()
                 {
-                    Description = $"[GetFilm] : {ex.Message}",
+                    Description = $"[GetFilmById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
         }
 
-        public async Task<IBaseResponse<FilmViewModel>> CreateFilm(FilmViewModel filmViewModel)
+        public async Task<IBaseResponse<bool>> CreateFilm(FilmViewModel filmViewModel)
         {
-            var baseResponse = new BaseResponse<FilmViewModel>();
+            var baseResponse = new BaseResponse<bool>();
             try
             {
                 Film film = TransformToFilm(ref filmViewModel);
                 await _filmRepository.Create(film);
                 baseResponse.StatusCode = StatusCode.OK;
+                baseResponse.Data = true;
             }
             catch (Exception ex)
             {
-                return new BaseResponse<FilmViewModel>()
+                return new BaseResponse<bool>()
                 {
                     Description = $"[CreateFilm] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    StatusCode = StatusCode.InternalServerError,
+                    Data = false
                 };
             }
             return baseResponse;
@@ -95,7 +97,8 @@ namespace FilmZone.Service.Implementations
                 return new BaseResponse<bool>()
                 {
                     Description = $"[DeleteFilm] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    StatusCode = StatusCode.InternalServerError,
+                    Data = false
                 };
             }
         }
@@ -140,6 +143,7 @@ namespace FilmZone.Service.Implementations
                     return baseResponse;
                 }
 
+                film.Id = id;
                 film = TransformToFilm(ref model);
                 await _filmRepository.Update(film);
 
@@ -164,8 +168,8 @@ namespace FilmZone.Service.Implementations
                 var films = await _filmRepository.Select();
                 if (films.Count == 0)
                 {
-                    baseResponse.Description = "Найдено 0 элементов";
-                    baseResponse.StatusCode = StatusCode.OK;
+                    baseResponse.Description = "Film not found";
+                    baseResponse.StatusCode = StatusCode.FilmNotFound;
                     return baseResponse;
                 }
 

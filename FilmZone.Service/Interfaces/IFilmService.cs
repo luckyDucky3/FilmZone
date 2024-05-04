@@ -8,9 +8,9 @@ namespace FilmZone.Service.Interfaces
     {
         Task<IBaseResponse<IEnumerable<Film>>> GetFilms();
 
-        Task<IBaseResponse<FilmViewModel>> GetFilm(int id);
+        Task<IBaseResponse<FilmViewModel>> GetFilmById(int id);
 
-        Task<IBaseResponse<FilmViewModel>> CreateFilm(FilmViewModel carViewModel);
+        Task<IBaseResponse<bool>> CreateFilm(FilmViewModel filmViewModel);
 
         Task<IBaseResponse<bool>> DeleteFilm(int id);
 

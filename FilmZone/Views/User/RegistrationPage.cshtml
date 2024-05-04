@@ -1,16 +1,25 @@
 ﻿@model bool
 <h2>Регистрация</h2>
-    <form method="post" action="/User/Registration" id="Search">
-        <input type="text" name="LastName" placeholder="Иванов"/>
-        <input type="text" name="FirstName" placeholder="Иван"/>
-        <input type="text" name="NickName" placeholder="LuckyDucky"/>
-        <input type="text" name="Email" placeholder="LuckyDucky@mail.ru"/>
+<div class="Content">
+<div class="RegistrationForm">
+    <form method="post" action="/User/Registration" id="RegForm">
+        <span class = "RegLabel">Фамилия:</span>
+        <br /><input type="text" name="LastName" />
+        <span class="RegLabel"><br />Имя:</span>
+        <br /><input type="text" name="FirstName" />
+        <span class="RegLabel"><br />Логин(для входа в лк):</span>
+        <br /><input type="text" name="NickName" />
+        <span class="RegLabel"><br />Почта:</span>
+        <br /><input type="text" name="Email" />
         @if (Model)
         {
-        <p>Пароли не совпадают, повторите попытку</p>
+            <br /><span class="ErrorForm">Пароли не совпадают, повторите попытку</span>
         }
-        <input type="password" name="Password1" placeholder="Введите пароль"/>
-        <input type="password" name="Password2" placeholder="Повторите пароль"/>
-        <input type="submit" class="btn" value="Зарегестрироваться"/>
+        <span class="RegLabel"><br />Пароль:</span>
+        <br /><input type="password" name="Password1" />
+        <span class="RegLabel"><br />Повторите пароль:</span>
+        <br /><input type="password" name="Password2" />
+        <br/><input type="submit" class="btn btnRegForm" value="Зарегестрироваться"/>
     </form>
-
+</div>
+</div>

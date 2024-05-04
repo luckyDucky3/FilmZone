@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FilmZone.DAL.Interfaces;
+using FilmZone.DAL.Repositories;
+using FilmZone.Domain.Enum;
 using FilmZone.Domain.Models;
 using FilmZone.Domain.Response;
 using FilmZone.Domain.ViewModels;
@@ -12,34 +15,177 @@ namespace FilmZone.Service.Implementations
 {
     public class UserService : IUserService
     {
-        public Task<IBaseResponse<IEnumerable<User>>> GetUsers()
+        private readonly IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
         {
-            throw new NotImplementedException();
+            _userRepository = userRepository;
+        }
+        public async Task<IBaseResponse<IEnumerable<User>>> GetUsers()
+        {
+            var baseResponse = new BaseResponse<IEnumerable<User>>();
+            try
+            {
+                var films = await _userRepository.Select();
+                if (films.Count == 0)
+                {
+                    baseResponse.Description = "User Not Found";
+                    baseResponse.StatusCode = StatusCode.UserNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = films;
+                baseResponse.StatusCode = StatusCode.OK;
+
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<IEnumerable<User>>()
+                {
+                    Description = $"[GetUsers] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }
 
-        public Task<IBaseResponse<User>> GetUser(int id)
+        public async Task<IBaseResponse<User>> GetUserById(int id)
         {
-            throw new NotImplementedException();
+            var baseResponse = new BaseResponse<User>();
+            try
+            {
+                var user = await _userRepository.GetById(id);
+                if (user == null)
+                {
+                    baseResponse.Description = "User not found";
+                    baseResponse.StatusCode = StatusCode.UserNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.StatusCode = StatusCode.OK;
+                baseResponse.Data = user;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<User>()
+                {
+                    Description = $"[GetUserById] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }
 
-        public Task<IBaseResponse<User>> CreateUser(FilmViewModel carViewModel)
+        public async Task<IBaseResponse<bool>> CreateUser(User user)
         {
-            throw new NotImplementedException();
+            var baseResponse = new BaseResponse<bool>();
+            try
+            {
+                await _userRepository.Create(user);
+                baseResponse.StatusCode = StatusCode.OK;
+                baseResponse.Data = true;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Description = $"[CreateUser] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                    Data = false
+                };
+            }
+            return baseResponse;
         }
 
-        public Task<IBaseResponse<bool>> DeleteUser(int id)
+        public async Task<IBaseResponse<bool>> DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            var baseResponse = new BaseResponse<bool>()
+            {
+                Data = true
+            };
+            try
+            {
+                var user = await _userRepository.GetById(id);
+                if (user == null)
+                {
+                    baseResponse.Description = "User not found";
+                    baseResponse.StatusCode = StatusCode.UserNotFound;
+                    baseResponse.Data = false;
+
+                    return baseResponse;
+                }
+
+                await _userRepository.Delete(user);
+                baseResponse.StatusCode = StatusCode.OK;
+
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Description = $"[DeleteFilm] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                    Data = false
+                };
+            }
         }
 
-        public Task<IBaseResponse<Film>> GetUserByLastName(string name)
+        public async Task<IBaseResponse<User>> GetUserByNickName(string name)
         {
-            throw new NotImplementedException();
+            var baseResponse = new BaseResponse<User>();
+            try
+            {
+                var user = await _userRepository.GetByNickname(name);
+                if (user == null)
+                {
+                    baseResponse.Description = "User not found";
+                    baseResponse.StatusCode = StatusCode.UserNotFound;
+
+                    return baseResponse;
+                }
+                baseResponse.StatusCode = StatusCode.OK;
+                baseResponse.Data = user;
+
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<User>()
+                {
+                    Description = $"[GetUserByNickName] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }
 
-        public Task<IBaseResponse<Film>> Edit(int id, User model)
+        public async Task<IBaseResponse<User>> Edit(int id, User model)
         {
-            throw new NotImplementedException();
+            var baseResponse = new BaseResponse<User>();
+            try
+            {
+                var user = await _userRepository.GetById(id);
+                if (user == null)
+                {
+                    baseResponse.StatusCode = StatusCode.UserNotFound;
+                    baseResponse.Description = "User not found";
+                    return baseResponse;
+                }
+
+                user.ID = id;
+                await _userRepository.Update(model);
+                return baseResponse;
+
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<User>()
+                {
+                    Description = $"[EditUser] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+            
         }
     }
 }

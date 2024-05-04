@@ -1,0 +1,24 @@
+﻿.RegLabel {
+    color: #49945a;
+    font-size: 0.8em;
+    padding-bottom: 10px;
+    font-family: math;
+}
+
+.btnRegForm {
+    margin-top: 20px;
+}
+
+#RegForm input[type="text"] {
+    margin-bottom: 10px;
+}
+
+#RegForm input[type="text"]::placeholder {
+    color: #e6e3e3;
+}
+
+.ErrorForm {
+    color: #fa0202;
+    font-family: monospace;
+    font-size: small;
+}

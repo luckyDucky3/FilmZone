@@ -47,6 +47,7 @@ input[type="text"], input[type="password"], input[type="search"] {
     width: 60%;
     padding: 8px;
     border-radius: 5px;
+    margin-bottom: 5px;
 }
 
 input, textarea {
@@ -58,7 +59,7 @@ input, textarea {
 h1, h2 {
     font: normal 170% 'century gothic', arial;
     margin: 0 0 15px 0;
-    padding: 15px 0 5px 0;
+    padding: 5px 0 5px 0;
     color: #000;
 }
 
@@ -159,7 +160,7 @@ ul.Menu {
 
 .Button {
     background-color: #5d5d5d;
-    padding: 2%;
+    padding: 1.9%;
     color: white;
     border-radius: 5px;
     float: right;
@@ -167,3 +168,8 @@ ul.Menu {
     clear: both;
     font-size: 0.8em;
 }
+
+    .Button a {
+        color: white;
+        text-decoration: none;
+    }

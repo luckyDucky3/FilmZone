@@ -22,3 +22,47 @@
     font-family: monospace;
     font-size: small;
 }
+
+.icon {
+    border-radius: 50%;
+    width: 30px;
+}
+
+/* Кнопка выпадающего списка */
+.dropbtn {
+    border-radius: 50%;
+}
+
+/* Контейнер <div> - необходим для размещения выпадающего содержимого */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Выпадающее содержимое (скрыто по умолчанию) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+    /* Ссылки внутри выпадающего списка */
+    .dropdown-content a {
+        padding: 12px 16px;
+        color: black;
+        border-radius: 5px;
+    }
+
+        /* Изменение цвета выпадающих ссылок при наведении курсора */
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+/* Показать выпадающее меню при наведении курсора */
+.dropdown:hover .dropdown-content {
+    display: block;
+}

@@ -47,7 +47,6 @@
 
 .Message {
     font-weight: 100;
-    font-style: italic;
     font-family: system-ui;
 }
 
@@ -55,7 +54,7 @@
     text-align: left;
     width: 620px;
     float: left;
-    padding: 0 0 0 5px;
+    /*padding: 0 0 0 5px;*/
 }
 
 .PostsContent {
@@ -173,23 +172,26 @@
         height: 200px;
     }
 
+.ButtonWatchMore {
+    margin-bottom: 5%;
+    text-align: center;
+    background-color: #5d5d5d;
+    padding: 1.8%;
+    border-radius: 15px;
+    font-size: 0.8em;
+    width: 40%;
+    margin-left: 27%;
+}
 
-    .Button a {
+    .ButtonWatchMore a, a:hover{
         color: white;
         text-decoration: none;
     }
 
-.ButtonWatchMore {
-    margin-bottom: 3%;
-    margin-top: 1%;
-    float: none;
-    text-align: center;
-}
-
-table {
-    width: 100%;
-    border: solid 1px #f4f4f4;
-}
+    table {
+        width: 100%;
+        border: solid 1px #f4f4f4;
+    }
 
 td {
     padding: 2%;

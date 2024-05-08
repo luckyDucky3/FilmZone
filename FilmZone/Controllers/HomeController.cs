@@ -22,6 +22,33 @@ namespace FilmZone.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            //var response1 = await filmService.GetFilms();
+            //int count = response1.Data.Count();
+            //FilmViewModel film1 = new FilmViewModel()
+            //{
+            //    Name = "Триггер",
+            //    PathToImage = @"https://kupi-vse.ru/wa-data/public/shop/products/23/61/26123/images/30383/30383.750x0.jpg",
+            //    Description =
+            //        "Психолог Артём Стрелецкий — сторонник шоковой терапии в лечении больных. Он считает, что единственный способ для человека решить свои " +
+            //        "проблемы — это понять себя и перестать себе врать. Если большинство психологов нянчатся с клиентами, по полгода выслушивают жалобы на жизнь" +
+            //        ", сочувствуют и получают при этом немалые деньги за цикл сеансов, то Артём постоянно провоцирует клиентов: оскорбляет их, смеется над ними," +
+            //        " намеренно выталкивает из зоны комфорта. Практика Артема процветает, пока один из его пациентов не кончает жизнь самоубийством.",
+            //    ReleaseFilmDate = 2020,
+            //    Type = TypeFilm.Drama,
+            //    Director = "Дмитрий Тюрин, Игорь Твердохлебов",
+            //    FilmOrSerial = FilmOrSerial.Serial,
+            //    Preview = @"https://www.youtube.com/embed/L5955NbSKRM?si=OIEeKmfM6jirrc4X"
+            //};
+            //film1.Links.Add(@"https://hd.kinopoisk.ru/film/4f3c027cbce13606b74124a9d5b140c7");
+            //film1.Price.Add("Платно");
+            //film1.Advertisement.Add("Без рекламы");
+            //film1.Links.Add(@"https://trigger.lordfilm.ph/");
+            //film1.Price.Add("Бесплатно");
+            //film1.Advertisement.Add("C рекламой");
+            //film1.Links.Add(@"https://pro.hdprolord.run/325-film-djavol-nosit-prada.html");
+            //film1.Price.Add("Бесплатно");
+            //film1.Advertisement.Add("C рекламой");
+            //var resp1 = await filmService.Edit(12, film1);
             int i = 1;
             int countFilm = 0, countSerial = 0;
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
@@ -74,11 +101,6 @@ namespace FilmZone.Controllers
             }
 
             return View(ListOfFilm);
-        }
-        [HttpGet]
-        public IActionResult Interstellar()
-        {
-            return View();
         }
         [HttpGet]
         public async Task<IActionResult> Serials(int countSMax)

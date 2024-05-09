@@ -1,24 +1,44 @@
-﻿@model bool
+﻿@model List<bool>
 <h2>Регистрация</h2>
 <div class="Content">
 <div class="RegistrationForm">
     <form method="post" action="/User/Registration" id="RegForm">
-        <span class = "RegLabel">Фамилия:</span>
-        <br /><input type="text" name="LastName" />
-        <span class="RegLabel"><br />Имя:</span>
-        <br /><input type="text" name="FirstName" />
-        <span class="RegLabel"><br />Логин(для входа в лк):</span>
-        <br /><input type="text" name="NickName" />
-        <span class="RegLabel"><br />Почта:</span>
-        <br /><input type="text" name="Email" />
-        @if (Model)
+        @if (Model[0])
         {
-            <br /><span class="ErrorForm">Пароли не совпадают, повторите попытку</span>
+            <span class="ErrorForm">Фамилия должна быть от 2 до 20 символов</span>
         }
-        <span class="RegLabel"><br />Пароль:</span>
-        <br /><input type="password" name="Password1" />
-        <span class="RegLabel"><br />Повторите пароль:</span>
-        <br /><input type="password" name="Password2" />
+        <span class="RegLabel"><br />Фамилия:</span>
+        <br/><input type="text" name="LastName"/>
+        @if (Model[1])
+        {
+            <br />
+            <span class="ErrorForm">Имя должно быть от 2 до 15 символов</span>
+        }
+        <span class="RegLabel"><br/>Имя:</span>
+        <br/><input type="text" name="FirstName"/>
+        @if (Model[2])
+        {
+            <br />
+            <span class="ErrorForm">Логин должен быть от 3 до 20 символов</span>
+        }
+        <span class="RegLabel"><br/>Логин(для входа в лк):</span>
+        <br/><input type="text" name="NickName"/>
+        @if (Model[3])
+        {
+            <br />
+            <span class="ErrorForm">Почта должна содержать символ '@@'</span>
+        }
+        <span class="RegLabel"><br/>Почта:</span>
+        <br/><input type="text" name="Email"/>
+        @if (Model[4])
+        {
+            <br />
+            <span class="ErrorForm">Пароли не совпадают, повторите попытку</span>
+        }
+        <span class="RegLabel"><br/>Пароль:</span>
+        <br/><input type="password" name="Password1"/>
+        <span class="RegLabel"><br/>Повторите пароль:</span>
+        <br/><input type="password" name="Password2"/>
         <br/><input type="submit" class="btn btnRegForm" value="Зарегестрироваться"/>
     </form>
 </div>

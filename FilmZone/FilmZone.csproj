@@ -20,4 +20,8 @@
     <UpToDateCheckInput Remove="Views\User\ForgotPassword.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.5.0" />
+  </ItemGroup>
+
 </Project>

@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\User\ConfirmRegistration.cshtml" />
     <_ContentIncludedByDefault Remove="Views\User\ForgotPassword.cshtml" />
   </ItemGroup>
 
@@ -22,6 +23,10 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\User\ConfirmRegistration.cshtml" />
   </ItemGroup>
 
 </Project>

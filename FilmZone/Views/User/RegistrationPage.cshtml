@@ -33,6 +33,16 @@
         @if (Model[4])
         {
             <br />
+                <span class="ErrorForm">Пароль содержит символы, отличные от латинских символов, цифр или указанных специальных знаков: (! ? , . % # * $)</span>
+        }
+        @if (Model[5])
+        {
+            <br />
+            <span class="ErrorForm">Пароль должен быть из 8 и более символов</span>
+        }
+        @if (Model[6])
+        {
+            <br />
             <span class="ErrorForm">Пароли не совпадают, повторите попытку</span>
         }
         <span class="RegLabel"><br/>Пароль:</span>

@@ -3,6 +3,7 @@ using System.Xml;
 using Microsoft.AspNetCore.Mvc;
 using MailKit.Net.Smtp;
 using MimeKit;
+using System.Text.RegularExpressions;
 
 namespace FilmZone.Controllers
 {
@@ -18,7 +19,7 @@ namespace FilmZone.Controllers
         public IActionResult RegistrationPage(List<bool> Errors)
         {
             if (Errors.Count == 0)
-                Errors = new List<bool>(){false, false, false, false, false};
+                Errors = new List<bool>(){false, false, false, false, false, false, false};
             return View(Errors);
         }
 
@@ -29,6 +30,8 @@ namespace FilmZone.Controllers
                 errorLengthFirstName = false,
                 errorLengthNickName = false,
                 errorEmail = false,
+                errorPassword1 = false,
+                errorPassword1Length = false,
                 errorPasswords = false;
             if (LastName.Length > 20 || LastName.Length < 2)
                 errorLengthLastName = true;
@@ -40,9 +43,16 @@ namespace FilmZone.Controllers
                 errorEmail = true;
             if (Password1 != Password2)
                 errorPasswords = true;
-            if (errorLengthLastName || errorLengthFirstName || errorLengthNickName || errorEmail || errorPasswords)
+            Regex pattern = new Regex("^[a-zA-Z0-9!?,.%#*\\$]+$");
+            if (!pattern.IsMatch(Password1))
             {
-                List<bool> listErrors = new List<bool>() { errorLengthLastName, errorLengthFirstName, errorLengthNickName, errorEmail, errorPasswords };
+                errorPassword1 = true;
+            }
+            if (Password1.Length < 8)
+                errorPassword1Length = true;
+            if (errorLengthLastName || errorLengthFirstName || errorLengthNickName || errorEmail || errorPassword1 || errorPassword1Length ||errorPasswords)
+            {
+                List<bool> listErrors = new List<bool>() { errorLengthLastName, errorLengthFirstName, errorLengthNickName, errorEmail, errorPassword1, errorPassword1Length ,errorPasswords };
                 return RedirectToAction("RegistrationPage", new { Errors = listErrors}); 
                 
             }
@@ -117,6 +127,11 @@ namespace FilmZone.Controllers
                     client.Disconnect(true);
                 }
             }
+            return View();
+        }
+        public IActionResult ConfirmRegistration()
+        {
+
             return View();
         }
     }

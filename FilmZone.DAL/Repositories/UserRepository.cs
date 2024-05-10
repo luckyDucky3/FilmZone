@@ -26,7 +26,7 @@ namespace FilmZone.DAL.Repositories
 
         public async Task<User> GetById(int id)
         {
-            return await _db.User.FirstOrDefaultAsync(x => x.ID == id);
+            return await _db.User.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<User>> Select()
@@ -51,7 +51,7 @@ namespace FilmZone.DAL.Repositories
 
         public async Task<User> GetByNickname(string name)
         {
-            return await _db.User.FirstOrDefaultAsync(x => x.NickName == name);
+            return await _db.User.FirstOrDefaultAsync(x => x.LoginName == name);
         }
     }
 }

@@ -131,7 +131,7 @@ namespace FilmZone.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<User>> GetUserByNickName(string name)
+        public async Task<IBaseResponse<User>> GetUserByLogin(string name)
         {
             var baseResponse = new BaseResponse<User>();
             try
@@ -153,7 +153,7 @@ namespace FilmZone.Service.Implementations
             {
                 return new BaseResponse<User>()
                 {
-                    Description = $"[GetUserByNickName] : {ex.Message}",
+                    Description = $"[GetUserByLogin] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -172,7 +172,7 @@ namespace FilmZone.Service.Implementations
                     return baseResponse;
                 }
 
-                user.ID = id;
+                user.Id = id;
                 await _userRepository.Update(model);
                 return baseResponse;
 

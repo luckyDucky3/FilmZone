@@ -4,11 +4,21 @@ using Microsoft.AspNetCore.Mvc;
 using MailKit.Net.Smtp;
 using MimeKit;
 using System.Text.RegularExpressions;
+using FilmZone.Domain.Models;
+using FilmZone.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FilmZone.Controllers
 {
     public class UserController : Controller
     {
+        private IUserService userService;
+
+        public UserController(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
         public IActionResult Index(string LoginField, string PasswordField)
         {
             ViewData["LoginField"] = LoginField;
@@ -24,7 +34,7 @@ namespace FilmZone.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Registration (string LastName, string FirstName, string NickName, string Email, string Password1, string Password2)
+        public async Task<IActionResult> Registration (string LastName, string FirstName, string LoginName, string Email, string Password1, string Password2)
         {
             bool errorLengthLastName = false,
                 errorLengthFirstName = false,
@@ -37,7 +47,7 @@ namespace FilmZone.Controllers
                 errorLengthLastName = true;
             if (FirstName.Length > 15 || FirstName.Length < 2)
                 errorLengthFirstName = true;
-            if(NickName.Length > 20 || NickName.Length < 3)
+            if(LoginName.Length > 20 || LoginName.Length < 3)
                 errorLengthNickName = true;
             if(!Email.Contains('@'))
                 errorEmail = true;
@@ -58,7 +68,26 @@ namespace FilmZone.Controllers
             }
             else
             {
-                return RedirectToAction("SendMessageToEmail", new {mail = Email, login = NickName});
+                byte[] tokenbytes = new byte[32];
+                using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+                {
+                    rng.GetBytes(tokenbytes);
+                }
+                string token = Convert.ToBase64String(tokenbytes);
+                User user = new User()
+                {
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    Email = Email,
+                    LoginName = LoginName,
+                    Password = Password1,
+                    Token = token
+                };
+                int userId = user.Id;
+                await userService.CreateUser(user);
+                SendMessageAboutRegistrationToEmail(Email, LoginName, token);
+                Timer timer = new Timer(RemoveTokenCallback, user, TimeSpan.FromMinutes(40), Timeout.InfiniteTimeSpan);
+                return View("SendMessageToEmail");
             }
         }
         [HttpGet]
@@ -73,22 +102,45 @@ namespace FilmZone.Controllers
             return "Ссылка о смене пароля отправленна вам на почту:)\nЕсли ссылка не приходит, пожалуйста, еще раз проверьте правильность введенной почты или проверьте папку спам";
         }
 
+        //[HttpGet]
+        //public IActionResult SendMessageToEmail(string mail, string login, string token)
+        //{
+
+        //    return View();
+        //}
+
         [HttpGet]
-        public IActionResult SendMessageToEmail(string mail, string login)
+        public async Task<IActionResult> ConfirmRegistration(string login, string token)
+        {
+            var response = await userService.GetUserByLogin(login);
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                var user = response.Data;
+                if (user.Token == token)
+                    return View(true);
+                else
+                    return View(false);
+            }
+            else
+            {
+                return View("Error");
+            }
+
+        }
+
+
+
+
+
+        private void SendMessageAboutRegistrationToEmail(string login, string mail, string token)
         {
             using var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("FilmZone (Подтверждение регистрации)", "makslebed04@mail.ru"));
             emailMessage.To.Add(new MailboxAddress("Подтверждение регистрации", mail));
             emailMessage.Subject = "Завершите регистрацию";
             var builder = new BodyBuilder();
-            byte[] tokenbytes = new byte[32];
-            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(tokenbytes);
-            }
-
-            string token = Convert.ToBase64String(tokenbytes);
-            string confirmationLink = Url.Action("ConfirmRegistration", "User", new { token = token });
+            
+            string confirmationLink = Url.Action("ConfirmRegistration", "User", new { login = login, token = token });
             builder.HtmlBody = string.Format(@$"<p>Привет, {login}!<br>
 <p>Поздравляем с регистрацией на FilmZone! Просим вас подтвердить Email адрес {mail}, для продолжения регистрации на нашем сайте перейдите по ссылке: {confirmationLink}<br>
 <p>Вы получили это письмо, поскольку являетесь зарегистрированным пользователем нашего сайта и указали {mail} при регистрации");
@@ -114,7 +166,7 @@ namespace FilmZone.Controllers
                 catch (MailKit.CommandException ex)
                 {
                     Console.WriteLine(
-                        $"Ошибка клиентского метода(скорее всего пользователь ввел неверный адрес эл. почты): {ex.Message}");
+                        $"Ошибка клиентского метода: {ex.Message}");
                     Console.WriteLine(ex.Data);
                 }
                 catch (Exception ex)
@@ -125,14 +177,14 @@ namespace FilmZone.Controllers
                 finally
                 {
                     client.Disconnect(true);
+
                 }
             }
-            return View();
         }
-        public IActionResult ConfirmRegistration()
-        {
 
-            return View();
+        private void RemoveTokenCallback(object state)
+        {
+            //userService.Edit(, );
         }
     }
 }

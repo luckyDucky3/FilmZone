@@ -12,8 +12,8 @@ namespace FilmZone.Controllers
     {
         //private readonly ILogger<HomeController> _logger;
 
-        IFilmService filmService;
-
+        private IFilmService filmService;
+        
         public HomeController(IFilmService filmService)
         {
             //_logger = logger;

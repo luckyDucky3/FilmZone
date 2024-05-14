@@ -6,6 +6,7 @@ using Telegram.Bot.Polling;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using GigaChatAdapter;
 
 namespace TGBot
 {
@@ -15,9 +16,13 @@ namespace TGBot
         {
             var botClient = new TelegramBotClient("6675853481:AAHnkqbJ4zRgUMAzhfnhqtLS_Wik6q596ho");
             botClient.StartReceiving(Update, Error);
-
+            
             Console.ReadLine();
         }
+
+        //аутентификационные данные из личного кабинета для Gigachat
+        //static string authData = "ZWYyOWM3YTQtNjAxOS00NWRmLTkzOTItNTk2YjhiZjAwNDczOjI2OTM1ZTM3LTZjNWMtNDIxYy1iZDFjLTdkMGY5ZWIzZjJlYw==";
+
 
         private static bool problem = false;
         async private static Task Update(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -27,6 +32,7 @@ namespace TGBot
             ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
             {
                 new KeyboardButton[] { "Cообщить о проблеме", "Задонатить разработчикам" },
+                new KeyboardButton[] { "Спросить совета у ИИ" },
             })
             {
                 ResizeKeyboard = true
@@ -61,6 +67,8 @@ namespace TGBot
                 problem = false;
                 return;
             }
+
+
         }
 
 

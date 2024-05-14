@@ -21,6 +21,6 @@ namespace FilmZone.Service.Interfaces
 
         Task<IBaseResponse<User>> GetUserByLogin(string name);
 
-        Task<IBaseResponse<User>> Edit(int id, User model);
+        Task<IBaseResponse<User>> UpdateUser(string login, User model);
     }
 }

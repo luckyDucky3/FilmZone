@@ -48,7 +48,7 @@ namespace FilmZone.Controllers
             //film1.Links.Add(@"https://pro.hdprolord.run/325-film-djavol-nosit-prada.html");
             //film1.Price.Add("Бесплатно");
             //film1.Advertisement.Add("C рекламой");
-            //var resp1 = await filmService.Edit(12, film1);
+            //var resp1 = await filmService.UpdateUser(12, film1);
             int i = 1;
             int countFilm = 0, countSerial = 0;
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();

@@ -9,6 +9,6 @@ namespace FilmZone.DAL.Interfaces
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        Task<User> GetByNickname(string name);
+        Task<User> GetByLogin(string name);
     }
 }

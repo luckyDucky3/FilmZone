@@ -5,6 +5,7 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using System.Text.RegularExpressions;
 using FilmZone.Domain.Models;
+using FilmZone.Domain.Response;
 using FilmZone.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
@@ -83,10 +84,13 @@ namespace FilmZone.Controllers
                     Password = Password1,
                     Token = token
                 };
-                int userId = user.Id;
-                await userService.CreateUser(user);
-                SendMessageAboutRegistrationToEmail(Email, LoginName, token);
-                Timer timer = new Timer(RemoveTokenCallback, user, TimeSpan.FromMinutes(40), Timeout.InfiniteTimeSpan);
+                var response = await userService.CreateUser(user);
+                if (response.Data)
+                {
+                    SendMessageAboutRegistrationToEmail(LoginName, Email, token);
+                    Timer timer = new Timer(RemoveTokenCallback, user, TimeSpan.FromMinutes(40),
+                        Timeout.InfiniteTimeSpan);
+                }
                 return View("SendMessageToEmail");
             }
         }
@@ -184,7 +188,17 @@ namespace FilmZone.Controllers
 
         private void RemoveTokenCallback(object state)
         {
-            //userService.Edit(, );
+            var user = (User)state;
+            userService.UpdateUser(user.LoginName, new User()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                LoginName = user.LoginName,
+                Password = user.Password,
+                Token = null
+            });
         }
     }
 }

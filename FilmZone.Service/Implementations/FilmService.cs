@@ -130,12 +130,12 @@ namespace FilmZone.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<Film>> Edit(int id, FilmViewModel model)
+        public async Task<IBaseResponse<Film>> UpdateFilm(string name, FilmViewModel model)
         {
             var baseResponse = new BaseResponse<Film>();
             try
             {
-                var film = await _filmRepository.GetById(id);
+                var film = await _filmRepository.GetByName(name);
                 if (film == null)
                 {
                     baseResponse.StatusCode = StatusCode.FilmNotFound;
@@ -143,7 +143,7 @@ namespace FilmZone.Service.Implementations
                     return baseResponse;
                 }
 
-                film.Id = id;
+                model.Id = film.Id;
                 film = TransformToFilm(ref model);
                 await _filmRepository.Update(film);
 

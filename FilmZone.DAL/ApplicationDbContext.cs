@@ -9,7 +9,7 @@ namespace FilmZone.DAL
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { 
             //Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         public ApplicationDbContext()

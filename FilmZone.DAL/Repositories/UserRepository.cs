@@ -49,7 +49,7 @@ namespace FilmZone.DAL.Repositories
             return entity;
         }
 
-        public async Task<User> GetByNickname(string name)
+        public async Task<User> GetByLogin(string name)
         {
             return await _db.User.FirstOrDefaultAsync(x => x.LoginName == name);
         }

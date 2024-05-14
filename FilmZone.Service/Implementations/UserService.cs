@@ -136,7 +136,7 @@ namespace FilmZone.Service.Implementations
             var baseResponse = new BaseResponse<User>();
             try
             {
-                var user = await _userRepository.GetByNickname(name);
+                var user = await _userRepository.GetByLogin(name);
                 if (user == null)
                 {
                     baseResponse.Description = "User not found";
@@ -159,20 +159,19 @@ namespace FilmZone.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<User>> Edit(int id, User model)
+        public async Task<IBaseResponse<User>> UpdateUser(string login, User model)
         {
             var baseResponse = new BaseResponse<User>();
             try
             {
-                var user = await _userRepository.GetById(id);
+                var user = await _userRepository.GetByLogin(login);
                 if (user == null)
                 {
                     baseResponse.StatusCode = StatusCode.UserNotFound;
                     baseResponse.Description = "User not found";
                     return baseResponse;
                 }
-
-                user.Id = id;
+                model.Id = user.Id;
                 await _userRepository.Update(model);
                 return baseResponse;
 

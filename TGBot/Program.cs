@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Net.Mime;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
+
 namespace TGBot
 {
     internal class Program
@@ -11,64 +14,59 @@ namespace TGBot
         static async Task Main(string[] args)
         {
             var botClient = new TelegramBotClient("6675853481:AAHnkqbJ4zRgUMAzhfnhqtLS_Wik6q596ho");
-            string assistantUserName = "@AssistantInUA";
-            using CancellationTokenSource cts = new();
+            botClient.StartReceiving(Update, Error);
 
-            // // Начало приема не блокирует вызывающий поток. Получение выполняется в пуле потоков.
-            ReceiverOptions receiverOptions = new()
+            Console.ReadLine();
+        }
+
+        private static bool problem = false;
+        async private static Task Update(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+        {
+            var message = update.Message;
+            Console.WriteLine($"Received a '{message.Text}' message in chat {message.Chat.Id}.");
+            ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
             {
-                AllowedUpdates = Array.Empty<UpdateType>() // получать все типы обновлений, кроме обновлений, связанных с участниками чата
+                new KeyboardButton[] { "Cообщить о проблеме", "Задонатить разработчикам" },
+            })
+            {
+                ResizeKeyboard = true
             };
 
-            botClient.StartReceiving(
-                updateHandler: HandleUpdateAsync,
-                pollingErrorHandler: HandlePollingErrorAsync,
-                receiverOptions: receiverOptions,
-                cancellationToken: cts.Token
-            );
-
-            var me = await botClient.GetMeAsync();
-
-            Console.WriteLine($"Start listening for @{me.Username}");
-            Console.ReadLine();
-
-            // Отправьте запрос на отмену, чтобы остановить бота
-            cts.Cancel();
-
-            async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+            if (replyKeyboardMarkup.Keyboard.ElementAt(0).ElementAt(0).Text == update.Message.Text)
             {
-                // Обрабатывать только обновления сообщений: https://core.telegram.org/bots/api#message
-                if (update.Message is not { } message)
-                    return;
-                // Обрабатывайте только текстовые сообщения
-                if (message.Text is not { } messageText)
-                    return;
-
-                var chatId = message.Chat.Id;
-
-                Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
-
-                //Текст полученного эхо-сообщения
-                Message sentMessage = await botClient.SendTextMessageAsync(
-                    chatId: chatId,
-                    text: "You said:\n" + messageText,
+                await botClient.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: "Введите Вашу проблему:",
+                    replyMarkup: replyKeyboardMarkup,
                     cancellationToken: cancellationToken);
+                problem = true;
+                return;
             }
-
-            Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+            if (replyKeyboardMarkup.Keyboard.ElementAt(0).ElementAt(1).Text == update.Message.Text)
             {
-                var ErrorMessage = exception switch
-                {
-                    ApiRequestException apiRequestException
-                        => $"Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}",
-                    _ => exception.ToString()
-                };
-
-                Console.WriteLine(ErrorMessage);
-                return Task.CompletedTask;
+                await botClient.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: "Реквизиты:\n2202 2017 4364 6693\nСбербанк",
+                    replyMarkup: replyKeyboardMarkup,
+                    cancellationToken: cancellationToken);
+                return;
             }
+            if (problem)
+            {
+                await botClient.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: "Спасибо, Вашу проблему обязательно разберут!",
+                    replyMarkup: replyKeyboardMarkup,
+                    cancellationToken: cancellationToken);
+                problem = false;
+                return;
+            }
+        }
 
-            Console.ReadLine();
+
+        async private static Task Error(ITelegramBotClient botClient, Exception arg2, CancellationToken arg3)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -82,7 +82,7 @@ namespace TGBot
                     chatId: message.Chat.Id,
                     text:
                     "Здесь вы можете спросить совета у ИИ, какой фильм вам больше подойдет на основе самых разных предпочтений. Это могут быть отрывки " +
-                    "фильма, которые вы помните или просто необычные запросы и пожелания",
+                    "фильма, которые вы помните или просто необычные запросы и пожелания. Обрабатывается только текст.",
                     replyMarkup: replyKeyboardMarkup,
                     cancellationToken: cancellationToken);
                 Authorization auth = new Authorization(authData, GigaChatAdapter.Auth.RateScope.GIGACHAT_API_PERS);
@@ -95,8 +95,29 @@ namespace TGBot
                         "Введите ваш запрос:",
                         replyMarkup: replyKeyboardMarkup,
                         cancellationToken: cancellationToken);
-                    Completion completion = new Completion();
-                    //теперь нужно передавать сюда промт. Обратить внимание на проблему с message
+                    async Task Update(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+                    {
+                        Completion completion = new Completion();
+                        if (update.Message.Text == null)
+                            return;
+                        var prompt = update.Message.Text;
+                        await auth.UpdateToken();
+                        var result = await completion.SendRequest(auth.LastResponse.GigaChatAuthorizationResponse?.AccessToken, prompt);
+                        if (result.RequestSuccessed)
+                        {
+                            Console.WriteLine();
+                            await botClient.SendTextMessageAsync(
+                                chatId: message.Chat.Id,
+                                text:
+                                result.GigaChatCompletionResponse.Choices.LastOrDefault().Message.Content,
+                                replyMarkup: replyKeyboardMarkup,
+                                cancellationToken: cancellationToken);
+                        }
+                        else
+                        {
+                            Console.WriteLine(result.ErrorTextIfFailed);
+                        }
+                    }
 
                 }
             }

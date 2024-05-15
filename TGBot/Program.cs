@@ -21,8 +21,7 @@ namespace TGBot
         }
 
         //аутентификационные данные из личного кабинета для Gigachat
-        //static string authData = "ZWYyOWM3YTQtNjAxOS00NWRmLTkzOTItNTk2YjhiZjAwNDczOjI2OTM1ZTM3LTZjNWMtNDIxYy1iZDFjLTdkMGY5ZWIzZjJlYw==";
-
+        static string authData = "ZWYyOWM3YTQtNjAxOS00NWRmLTkzOTItNTk2YjhiZjAwNDczOjI2OTM1ZTM3LTZjNWMtNDIxYy1iZDFjLTdkMGY5ZWIzZjJlYw==";
 
         private static bool problem = false;
         async private static Task Update(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -46,13 +45,22 @@ namespace TGBot
                     replyMarkup: replyKeyboardMarkup,
                     cancellationToken: cancellationToken);
                 problem = true;
-                return;
             }
             if (replyKeyboardMarkup.Keyboard.ElementAt(0).ElementAt(1).Text == update.Message.Text)
             {
                 await botClient.SendTextMessageAsync(
                     chatId: message.Chat.Id,
-                    text: "Реквизиты:\n2202 2017 4364 6693\nСбербанк",
+                    parseMode: ParseMode.Html,
+                    text: "Реквизиты:\n" +
+                          "Банк: Сбербанк\n" +
+                          "<a href=\"https://online.sberbank.ru/CSAFront/index.do\">Перейти в Сбербанк Онлайн</a>\n" +
+                          "<tg-emoji emoji-id=\"5368324170671202286\">👇👇👇👇👇</tg-emoji>",
+                    replyMarkup: replyKeyboardMarkup,
+                    cancellationToken: cancellationToken);
+                await botClient.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    parseMode: ParseMode.Html,
+                    text: "<span class=\"tg-spoiler\">2202 2017 4364 6693</span>",
                     replyMarkup: replyKeyboardMarkup,
                     cancellationToken: cancellationToken);
                 return;
@@ -68,7 +76,30 @@ namespace TGBot
                 return;
             }
 
+            if (replyKeyboardMarkup.Keyboard.ElementAt(1).ElementAt(0).Text == update.Message.Text)
+            {
+                await botClient.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text:
+                    "Здесь вы можете спросить совета у ИИ, какой фильм вам больше подойдет на основе самых разных предпочтений. Это могут быть отрывки " +
+                    "фильма, которые вы помните или просто необычные запросы и пожелания",
+                    replyMarkup: replyKeyboardMarkup,
+                    cancellationToken: cancellationToken);
+                Authorization auth = new Authorization(authData, GigaChatAdapter.Auth.RateScope.GIGACHAT_API_PERS);
+                GigaChatAdapter.Auth.AuthorizationResponse authResult = await auth.SendRequest();
+                if (authResult.AuthorizationSuccess)
+                {
+                    await botClient.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text:
+                        "Введите ваш запрос:",
+                        replyMarkup: replyKeyboardMarkup,
+                        cancellationToken: cancellationToken);
+                    Completion completion = new Completion();
+                    //теперь нужно передавать сюда промт. Обратить внимание на проблему с message
 
+                }
+            }
         }
 
 

@@ -7,37 +7,59 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using GigaChatAdapter;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TGBot
 {
     internal class Program
     {
+        // Это клиент для работы с Telegram Bot API, который позволяет отправлять сообщения, управлять ботом, подписываться на обновления и многое другое.
+        private static ITelegramBotClient _botClient;
+        // Это объект с настройками работы бота. Здесь мы будем указывать, какие типы Update мы будем получать, Timeout бота и так далее.
+        private static ReceiverOptions _receiverOptions;
         static async Task Main(string[] args)
         {
-            var botClient = new TelegramBotClient("6675853481:AAHnkqbJ4zRgUMAzhfnhqtLS_Wik6q596ho");
-            botClient.StartReceiving(Update, Error);
-            
+
+            _botClient = new TelegramBotClient("6675853481:AAHnkqbJ4zRgUMAzhfnhqtLS_Wik6q596ho");
+            _receiverOptions = new ReceiverOptions // Также присваем значение настройкам бота
+            {
+                AllowedUpdates = new[] // Тут указываем типы получаемых Update`ов, о них подробнее расказано тут https://core.telegram.org/bots/api#update
+                {
+                    UpdateType.Message, // Сообщения (текст, фото/видео, голосовые/видео сообщения и т.д.)
+                },
+                // Параметр, отвечающий за обработку сообщений, пришедших за то время, когда ваш бот был оффлайн
+                // True - не обрабатывать, False (стоит по умолчанию) - обрабаывать
+                ThrowPendingUpdates = true,
+            };
+            _botClient.StartReceiving(Update, Error);
+
             Console.ReadLine();
         }
 
         //аутентификационные данные из личного кабинета для Gigachat
-        static string authData = "ZWYyOWM3YTQtNjAxOS00NWRmLTkzOTItNTk2YjhiZjAwNDczOjI2OTM1ZTM3LTZjNWMtNDIxYy1iZDFjLTdkMGY5ZWIzZjJlYw==";
+        static string authenticationData = "ZWYyOWM3YTQtNjAxOS00NWRmLTkzOTItNTk2YjhiZjAwNDczOjI2OTM1ZTM3LTZjNWMtNDIxYy1iZDFjLTdkMGY5ZWIzZjJlYw==";
 
         private static bool problem = false;
+
+        static ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
+        {
+            new KeyboardButton[] { "Cообщить о проблеме", "Задонатить разработчикам" },
+            new KeyboardButton[] { "Спросить совета у ИИ" },
+        })
+        {
+            ResizeKeyboard = true
+        };
+
         async private static Task Update(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
             var message = update.Message;
             Console.WriteLine($"Received a '{message.Text}' message in chat {message.Chat.Id}.");
-            ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
-            {
-                new KeyboardButton[] { "Cообщить о проблеме", "Задонатить разработчикам" },
-                new KeyboardButton[] { "Спросить совета у ИИ" },
-            })
-            {
-                ResizeKeyboard = true
-            };
+            botClient.AnswerCallbackQueryAsync(
+                callbackQueryId: update.CallbackQuery.Id,
+                text: "test"
+                );
 
-            if (replyKeyboardMarkup.Keyboard.ElementAt(0).ElementAt(0).Text == update.Message.Text)
+            if (replyKeyboardMarkup.Keyboard.ElementAt(0).ElementAt(0).Text == message.Text)
             {
                 await botClient.SendTextMessageAsync(
                     chatId: message.Chat.Id,
@@ -46,7 +68,7 @@ namespace TGBot
                     cancellationToken: cancellationToken);
                 problem = true;
             }
-            if (replyKeyboardMarkup.Keyboard.ElementAt(0).ElementAt(1).Text == update.Message.Text)
+            if (replyKeyboardMarkup.Keyboard.ElementAt(0).ElementAt(1).Text == message.Text)
             {
                 await botClient.SendTextMessageAsync(
                     chatId: message.Chat.Id,
@@ -76,7 +98,7 @@ namespace TGBot
                 return;
             }
 
-            if (replyKeyboardMarkup.Keyboard.ElementAt(1).ElementAt(0).Text == update.Message.Text)
+            if (replyKeyboardMarkup.Keyboard.ElementAt(1).ElementAt(0).Text == message.Text)
             {
                 await botClient.SendTextMessageAsync(
                     chatId: message.Chat.Id,
@@ -85,48 +107,64 @@ namespace TGBot
                     "фильма, которые вы помните или просто необычные запросы и пожелания. Обрабатывается только текст.",
                     replyMarkup: replyKeyboardMarkup,
                     cancellationToken: cancellationToken);
-                Authorization auth = new Authorization(authData, GigaChatAdapter.Auth.RateScope.GIGACHAT_API_PERS);
-                GigaChatAdapter.Auth.AuthorizationResponse authResult = await auth.SendRequest();
-                if (authResult.AuthorizationSuccess)
-                {
-                    await botClient.SendTextMessageAsync(
-                        chatId: message.Chat.Id,
-                        text:
-                        "Введите ваш запрос:",
-                        replyMarkup: replyKeyboardMarkup,
-                        cancellationToken: cancellationToken);
-                    async Task Update(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
-                    {
-                        Completion completion = new Completion();
-                        if (update.Message.Text == null)
-                            return;
-                        var prompt = update.Message.Text;
-                        await auth.UpdateToken();
-                        var result = await completion.SendRequest(auth.LastResponse.GigaChatAuthorizationResponse?.AccessToken, prompt);
-                        if (result.RequestSuccessed)
-                        {
-                            Console.WriteLine();
-                            await botClient.SendTextMessageAsync(
-                                chatId: message.Chat.Id,
-                                text:
-                                result.GigaChatCompletionResponse.Choices.LastOrDefault().Message.Content,
-                                replyMarkup: replyKeyboardMarkup,
-                                cancellationToken: cancellationToken);
-                        }
-                        else
-                        {
-                            Console.WriteLine(result.ErrorTextIfFailed);
-                        }
-                    }
+                //здесь как то должен вызываться SendMessageToAI с новым параметром Update
 
-                }
             }
         }
-
-
-        async private static Task Error(ITelegramBotClient botClient, Exception arg2, CancellationToken arg3)
+        //ф-ция для обработки запросов пользователей гигачатом
+        async private static Task SendMessageToAI(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            Authorization auth = new Authorization(authenticationData, GigaChatAdapter.Auth.RateScope.GIGACHAT_API_PERS);
+            GigaChatAdapter.Auth.AuthorizationResponse authResult = await auth.SendRequest();
+            if (authResult.AuthorizationSuccess)
+            {
+                await botClient.SendTextMessageAsync(
+                    chatId: update.Message.Chat.Id,
+                    text:
+                    "Введите ваш запрос:",
+                    replyMarkup: replyKeyboardMarkup,
+                    cancellationToken: cancellationToken);
+                Completion completion = new Completion();
+                if (update.Message.Text == null)
+                    return;
+                var prompt = update.Message.Text;
+                await auth.UpdateToken();
+                var result = await completion.SendRequest(auth.LastResponse.GigaChatAuthorizationResponse?.AccessToken, prompt);
+                if (result.RequestSuccessed)
+                {
+                    Console.WriteLine();
+                    await botClient.SendTextMessageAsync(
+                        chatId: update.Message.Chat.Id,
+                        text:
+                        result.GigaChatCompletionResponse.Choices.LastOrDefault().Message.Content,
+                        replyMarkup: replyKeyboardMarkup,
+                        cancellationToken: cancellationToken);
+                }
+                else
+                {
+                    //Console.WriteLine(result.ErrorTextIfFailed);
+                    await botClient.SendTextMessageAsync(
+                        chatId: update.Message.Chat.Id,
+                        text:
+                        result.ErrorTextIfFailed,
+                        replyMarkup: replyKeyboardMarkup,
+                        cancellationToken: cancellationToken);
+                }
+            }
+
+            
+        }
+        private static Task Error(ITelegramBotClient botClient, Exception ex, CancellationToken cancellationToken)
+        {
+            var ErrorMessage = ex switch
+            {
+                ApiRequestException apiRequestException
+                    => $"Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}",
+                _ => ex.ToString()
+            };
+
+            Console.WriteLine(ErrorMessage);
+            return Task.CompletedTask;
         }
     }
 }

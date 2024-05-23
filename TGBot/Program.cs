@@ -7,7 +7,9 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using GigaChatAdapter;
+using GigaChatAdapter.Completions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using TGBot.PrivateClass;
 
 namespace TGBot
 {
@@ -20,7 +22,7 @@ namespace TGBot
         static async Task Main(string[] args)
         {
 
-            _botClient = new TelegramBotClient("6675853481:AAHnkqbJ4zRgUMAzhfnhqtLS_Wik6q596ho");
+            _botClient = new TelegramBotClient(PrivateClass.PrivateClass.token);
             _receiverOptions = new ReceiverOptions // Также присваем значение настройкам бота
             {
                 AllowedUpdates = new[] // Тут указываем типы получаемых Update`ов, о них подробнее расказано тут https://core.telegram.org/bots/api#update
@@ -37,10 +39,11 @@ namespace TGBot
         }
 
         //аутентификационные данные из личного кабинета для Gigachat
-        static string authenticationData = "ZWYyOWM3YTQtNjAxOS00NWRmLTkzOTItNTk2YjhiZjAwNDczOjI2OTM1ZTM3LTZjNWMtNDIxYy1iZDFjLTdkMGY5ZWIzZjJlYw==";
+        static string authenticationData = PrivateClass.PrivateClass.authenticationData;
 
         private static bool problem = false;
-
+        private static bool sendMessageToAi = false;
+        private static Completion completion = new Completion();
         static ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
         {
             new KeyboardButton[] { "Cообщить о проблеме", "Задонатить разработчикам" },
@@ -54,10 +57,10 @@ namespace TGBot
         {
             var message = update.Message;
             Console.WriteLine($"Received a '{message.Text}' message in chat {message.Chat.Id}.");
-            botClient.AnswerCallbackQueryAsync(
-                callbackQueryId: update.CallbackQuery.Id,
-                text: "test"
-                );
+            //botClient.AnswerCallbackQueryAsync(
+            //    callbackQueryId: update.CallbackQuery.Id,
+            //    text: "test"
+            //    );
 
             if (replyKeyboardMarkup.Keyboard.ElementAt(0).ElementAt(0).Text == message.Text)
             {
@@ -67,6 +70,7 @@ namespace TGBot
                     replyMarkup: replyKeyboardMarkup,
                     cancellationToken: cancellationToken);
                 problem = true;
+                return;
             }
             if (replyKeyboardMarkup.Keyboard.ElementAt(0).ElementAt(1).Text == message.Text)
             {
@@ -107,8 +111,13 @@ namespace TGBot
                     "фильма, которые вы помните или просто необычные запросы и пожелания. Обрабатывается только текст.",
                     replyMarkup: replyKeyboardMarkup,
                     cancellationToken: cancellationToken);
-                //здесь как то должен вызываться SendMessageToAI с новым параметром Update
+                sendMessageToAi = true;
+                return;
+            }
 
+            if (sendMessageToAi)
+            {
+                SendMessageToAI(botClient, update, cancellationToken);
             }
         }
         //ф-ция для обработки запросов пользователей гигачатом
@@ -118,13 +127,9 @@ namespace TGBot
             GigaChatAdapter.Auth.AuthorizationResponse authResult = await auth.SendRequest();
             if (authResult.AuthorizationSuccess)
             {
-                await botClient.SendTextMessageAsync(
-                    chatId: update.Message.Chat.Id,
-                    text:
-                    "Введите ваш запрос:",
-                    replyMarkup: replyKeyboardMarkup,
-                    cancellationToken: cancellationToken);
-                Completion completion = new Completion();
+                
+                //completion.History = new List<GigaChatMessage>();
+                Console.WriteLine(completion.History);
                 if (update.Message.Text == null)
                     return;
                 var prompt = update.Message.Text;

@@ -130,7 +130,7 @@ namespace FilmZone.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<Film>> UpdateFilm(string name, FilmViewModel model)
+        public async Task<IBaseResponse<Film>> UpdateFilm(string name, Film model)
         {
             var baseResponse = new BaseResponse<Film>();
             try
@@ -144,8 +144,8 @@ namespace FilmZone.Service.Implementations
                 }
 
                 model.Id = film.Id;
-                film = TransformToFilm(ref model);
-                await _filmRepository.Update(film);
+                //film = TransformToFilm(ref model);
+                await _filmRepository.Update(model);
 
                 return baseResponse;
 

@@ -24,10 +24,11 @@ namespace FilmZone.Controllers
         {
             //var response1 = await filmService.GetFilms();
             //int count = response1.Data.Count();
+            //await filmService.DeleteFilm(12);
             //FilmViewModel film1 = new FilmViewModel()
             //{
             //    Name = "Триггер",
-            //    PathToImage = @"https://kupi-vse.ru/wa-data/public/shop/products/23/61/26123/images/30383/30383.750x0.jpg",
+            //    PathToImage = @"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.kino-teatr.ru%2Fkino%2Fmovie%2Fros%2F145171%2Ftitr%2F&psig=AOvVaw2DNrc2jEwsqyz1q4yGGrCa&ust=1716637671406000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCPiOuumbpoYDFQAAAAAdAAAAABAE",
             //    Description =
             //        "Психолог Артём Стрелецкий — сторонник шоковой терапии в лечении больных. Он считает, что единственный способ для человека решить свои " +
             //        "проблемы — это понять себя и перестать себе врать. Если большинство психологов нянчатся с клиентами, по полгода выслушивают жалобы на жизнь" +
@@ -48,13 +49,14 @@ namespace FilmZone.Controllers
             //film1.Links.Add(@"https://pro.hdprolord.run/325-film-djavol-nosit-prada.html");
             //film1.Price.Add("Бесплатно");
             //film1.Advertisement.Add("C рекламой");
-            //var resp1 = await filmService.UpdateUser(12, film1);
+            //var resp1 = await filmService.UpdateFilm("Триггер", film1);
             int i = 1;
             int countFilm = 0, countSerial = 0;
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
-            while (i < 16)
+            while (countSerial + countFilm < 16)
             {
                 var response = await filmService.GetFilmById(i);
+                i++;
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
                     if (response.Data.FilmOrSerial == FilmOrSerial.Film && countFilm < 8)
@@ -67,10 +69,8 @@ namespace FilmZone.Controllers
                         countSerial++;
                         ListOfFilm.Add(response.Data);
                     }
-                    i++;
                 }
-                else if(response.StatusCode == Domain.Enum.StatusCode.InternalServerError 
-                        || response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
+                if(response.StatusCode == Domain.Enum.StatusCode.InternalServerError || i > 60)
                 {
                     break;
                 }
@@ -92,7 +92,7 @@ namespace FilmZone.Controllers
                     ListOfFilm.Add(response.Data);
                     countF++;
                 }
-                if (response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
+                if (i == 61)
                 {
                     ViewData["Message"] = "Конец";
                     break;
@@ -116,7 +116,7 @@ namespace FilmZone.Controllers
                     ListOfFilm.Add(response.Data);
                     countF++;
                 }
-                if (response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
+                if (i == 61)
                 {
                     ViewData["Message"] = "Конец";
                     break;

@@ -20,7 +20,7 @@
     @for (int i = 0; i < Model.Links.Count; i++)
     {
         <li>
-            <a href="@Model.Links[i]">@Model.Links[i]</a>
+            <a href="@Model.Links[i]">@Model.Links[i].Split("/")[2]</a>
             <br/>@Model.Price[i]
             <br/>@Model.Advertisement[i]
         </li>

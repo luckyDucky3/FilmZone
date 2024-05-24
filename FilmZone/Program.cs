@@ -3,6 +3,7 @@ using FilmZone.DAL.Interfaces;
 using FilmZone.DAL.Repositories;
 using FilmZone.Domain.Enum;
 using FilmZone.Domain.Models;
+using FilmZone.Domain.ViewModels;
 using FilmZone.Service.Implementations;
 using FilmZone.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -239,8 +240,53 @@ using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
     //film2.Links.Add(@"https://www.ivi.ru/watch/51623");
     //film2.Price.Add("Бесплатно");
     //film2.Advertisement.Add("Без рекламы");
+
+
+    //Film film1 = new Film()
+    //{
+    //    Name = "Крестный отец",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1599028/c11652e8-653b-47c1-8e72-1552399a775b/220x330",
+    //    Description =
+    //        "Криминальная сага, повествующая о нью-йоркской сицилийской мафиозной семье Корлеоне. Фильм охватывает период 1945-1955 годов. Глава семьи, Дон Вито Корлеоне, выдаёт замуж свою дочь. В это время со Второй мировой войны возвращается его любимый сын Майкл. Майкл, герой войны, гордость семьи, не выражает желания заняться жестоким семейным бизнесом. Дон Корлеоне ведёт дела по старым правилам, но наступают иные времена, и появляются люди, желающие изменить сложившиеся порядки. На Дона Корлеоне совершается покушение.",
+    //    ReleaseFilmDate = 1972,
+    //    Type = TypeFilm.Criminal,
+    //    Director = "Фрэнсис Форд Коппола",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/ar1SHxgeZUc?si=A79z5KZMg9cbeLbO"
+    //};
+    //film1.Links.Add(@"https://rutube.ru/video/39568c110b232ad19985fb3a339f486d/");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("Без рекламы");
+    //film1.Links.Add(@"https://godfather-film.ru/");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("С рекламой");
+    //film1.Links.Add(@"https://www.culture.ru/live/movies/352/a-zori-zdes-tikhie");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("Без рекламы");
+    //Film film2 = new Film()
+    //{
+    //    Name = "1+1",
+    //    PathToImage = @"https://upload.wikimedia.org/wikipedia/ru/b/b9/Intouchables.jpg",
+    //    Description =
+    //        "Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, – молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений.",
+    //    ReleaseFilmDate = 2011,
+    //    Type = TypeFilm.Drama,
+    //    Director = "Оливье Накаш",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/tTwFeGArcrs?si=3aZ1Puut2IAKOCID"
+    //};
+    //film2.Links.Add(@"https://www.kinopoisk.ru/film/535341/");
+    //film2.Price.Add("Платно");
+    //film2.Advertisement.Add("Без рекламы");
+    //film2.Links.Add(@"https://okko.tv/movie/intouchables");
+    //film2.Price.Add("Платно");
+    //film2.Advertisement.Add("Без рекламы");
+    //film2.Links.Add(@"https://rutube.ru/video/50d09cd2daa46a98172b8b7bb6846271/");
+    //film2.Price.Add("Бесплатно");
+    //film2.Advertisement.Add("С рекламой");
     //db.Film.AddRange(film1, film2);
     //db.SaveChanges();
+    
 }
 
 

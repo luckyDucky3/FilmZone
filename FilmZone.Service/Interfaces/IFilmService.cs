@@ -16,6 +16,6 @@ namespace FilmZone.Service.Interfaces
 
         Task<IBaseResponse<Film>> GetFilmByName(string name);
 
-        Task<IBaseResponse<Film>> UpdateFilm(string name, FilmViewModel model);
+        Task<IBaseResponse<Film>> UpdateFilm(string name, Film model);
     }
 }

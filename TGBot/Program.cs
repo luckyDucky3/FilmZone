@@ -43,7 +43,6 @@ namespace TGBot
 
         private static bool problem = false;
         private static bool sendMessageToAi = false;
-        private static Completion completion = new Completion();
         static ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
         {
             new KeyboardButton[] { "Cообщить о проблеме", "Задонатить разработчикам" },
@@ -127,9 +126,10 @@ namespace TGBot
             GigaChatAdapter.Auth.AuthorizationResponse authResult = await auth.SendRequest();
             if (authResult.AuthorizationSuccess)
             {
-                
+                Completion completion = new Completion();
                 //completion.History = new List<GigaChatMessage>();
-                Console.WriteLine(completion.History);
+                for (int i = 0; i < completion.History.Count; i++)
+                    Console.WriteLine(completion.History.ElementAt(i).Content);
                 if (update.Message.Text == null)
                     return;
                 var prompt = update.Message.Text;

@@ -894,46 +894,447 @@ using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
     //film8.Advertisement.Add("С рекламой");
 
 
-    Film film1 = new Film()
-    {
-        Name = "Аббатство Даунтон",
-        PathToImage = @"https://upload.wikimedia.org/wikipedia/ru/8/8c/DowntonAbbey2019Poster.jpg",
-        Description =
-        "1912 год. Англия. Наследник титула графа Грэнтэма, живущего с семьей в своем родовом имении Даунтон, погибает на «Титанике». Семья ожидает, что теперь, когда наследников мужского пола не осталось, владения и капитал семьи после смерти графа перейдут к его старшей дочери. Но граф, отдавший всю свою жизнь своему поместью, отказывается отстаивать права юной Мэри, считая, что все, включая немалый капитал его жены, должно отойти к наследнику его графского титула, безвестному дальнему родственнику...",
-        ReleaseFilmDate = 2010,
-        Type = TypeFilm.Drama,
-        Director = "Брайан Персивал, Дэвид Эванс, Филип Джон",
-        FilmOrSerial = FilmOrSerial.Serial,
-        Preview = @"https://www.youtube.com/embed/zpuOHrgUUbA?si=xELjBkmxBXGFeE69"
-    };
-    film1.Links.Add(@"https://www.youtube.com/playlist?list=PL73orRnLash5Xnunc27R6jOna_5Wj-aZM");
-    film1.Price.Add("Бесплатно");
-    film1.Advertisement.Add("Без рекламы");
-    film1.Links.Add(@"https://downton-baibakotv.net/");
-    film1.Price.Add("Бесплатно");
-    film1.Advertisement.Add("C рекламой");
-    Film film2 = new Film()
-    {
-        Name = "Анатомия страсти",
-        PathToImage = @"https://upload.wikimedia.org/wikipedia/ru/thumb/2/2c/Grey%27s_Anatomy_s3.jpg/274px-Grey%27s_Anatomy_s3.jpg",
-        Description =
-            "В центре событий — молодая женщина-хирург Мередит Грей, дочь известного врача Эллис Грей. Она, как и её коллеги — такие же начинающие врачи, как она — работает в городской больнице Сиэтла. Хирурги оперируют и влюбляются, заводят истории болезни и служебные романы, хранят свои врачебные тайны, борются с осложнениями у пациентов и в собственной личной жизни. И зачастую отношения с противоположным полом волнуют их не меньше, чем вопрос приобретения ими профессионального опыта.",
-        ReleaseFilmDate = 2015,
-        Type = TypeFilm.Drama,
-        Director = "Роб Корн, Кевин МакКидд, Дебби Аллен",
-        FilmOrSerial = FilmOrSerial.Serial,
-        Preview = @"https://www.youtube.com/embed/6NGKYeq4nZc?si=dDth6h96rdDfJvpt"
-    };
-    film2.Links.Add(@"https://serial-time.net/62-8-anatomiya-strasti-1-sezon-s14.html");
-    film2.Price.Add("Беслатно");
-    film2.Advertisement.Add("Без рекламы");
-    film2.Links.Add(@"https://greyanatomy.ru/seasons/season-1/episode-1");
-    film2.Price.Add("Беслатно");
-    film2.Advertisement.Add("Без рекламы");
+    //Film film1 = new Film()
+    //{
+    //    Name = "Один дома",
+    //    PathToImage = @"https://klike.net/uploads/posts/2020-04/1586848216_4.jpg",
+    //    Description =
+    //    "Американское семейство отправляется из Чикаго в Европу, но в спешке сборов бестолковые родители забывают дома... одного из своих детей. Юное создание, однако, не теряется и демонстрирует чудеса изобретательности. И когда в дом залезают грабители, им приходится не раз пожалеть о встрече с милым крошкой. ",
+    //    ReleaseFilmDate = 1990,
+    //    Type = TypeFilm.Comedy,
+    //    Director = "Крис Коламбус",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/bBU_64CTNsw?si=ex8YAvKaWHFcNJ8s"
+    //};
+    //film1.Links.Add(@"https://my.mail.ru/mail/nata.ermolenko.1968/video/_myvideo/218.html");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("Без рекламы");
+    //film1.Links.Add(@"https://hd.odindomalordfilm.ru/");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("Без рекламы");
+    //Film film2 = new Film()
+    //{
+    //    Name = "Холоп 2",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/4483445/42253d2f-65fc-4f0b-b95d-a8fa9b169502/1920x",
+    //    Description =
+    //        "Гриша, бывший мажор, побывавший холопом и ставший человеком, после путешествия в «прошлое» чутко реагирует на любую несправедливость. И, конечно, не может пройти мимо беспредела, который творит наглая и избалованная Катя. Ничего удивительного, что вскоре мажорка обнаруживает себя в другом времени.",
+    //    ReleaseFilmDate = 2023,
+    //    Type = TypeFilm.Comedy,
+    //    Director = "Клим Шипенко",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/jmq-JT7Az1w?si=UP0ImWHw4UzCK9KJ"
+    //};
+    //film2.Links.Add(@"https://www.kinopoisk.ru/film/5047468/");
+    //film2.Price.Add("Платно");
+    //film2.Advertisement.Add("Без рекламы");
+    //film2.Links.Add(@"https://ru-film-v4.lordfilm.limo/222-test-x-m7.html");
+    //film2.Price.Add("Беслатно");
+    //film2.Advertisement.Add("С рекламой");
+    //Film film3 = new Film()
+    //{
+    //    Name = "Холоп",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1777765/ea280ff7-1989-44e4-97a8-e2598aa951a4/600x900",
+    //    Description =
+    //    "27-летний московский мажор Григорий ошалел от безнаказанности. Богатый папа стабильно его отмазывает, да так, что уже обновил автопарк и оборудование отделению полиции, где служит начальником его друг. После очередной выходки терпение отца иссякает, и он обращается к психологу, практикующему шоковые методы воздействия на пациентов. \r\nВскоре сынуля попадает в аварию и приходит в себя на деревенской конюшне. На дворе — Россия 1860 года, а сам он — бесправный конюх Гришка, которому за любую провинность и ослушание всегда готовы всыпать плетей, а то и вздёрнуть на глазах у всего честного народа.",
+    //    ReleaseFilmDate = 2019,
+    //    Type = TypeFilm.Comedy,
+    //    Director = "Клим Шипенко",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/C8m6K_Er3BI?si=lJ-5NPGud_-he5PT"
+    //};
+    //film3.Links.Add(@"https://hd.kinopoisk.ru/film/4cc6fae94f652033b3d127ecbe373205");
+    //film3.Price.Add("Платно");
+    //film3.Advertisement.Add("Без рекламы");
+    //film3.Links.Add(@"https://premier.one/show/holop");
+    //film3.Price.Add("Платно");
+    //film3.Advertisement.Add("Без рекламы");
+    //Film film4 = new Film()
+    //{
+    //    Name = "Бриллиантовая рука",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/10893610/32ef92db-5cbb-426d-acf9-2327b695edf8/600x900",
+    //    Description =
+    //        "В южном городке орудует шайка валютчиков, возглавляемая Шефом и его помощником Графом (в быту — Геной Козодоевым). Скромный советский служащий и примерный семьянин Семен Семенович Горбунков отправляется в зарубежный круиз на теплоходе, где также плывет Граф, который должен забрать бриллианты в одном из восточных городов и провезти их в загипсованной руке. Но из-за недоразумения вместо жулика на условленном месте падает ничего не подозревающий Семен Семенович, и драгоценный гипс накладывают ему.",
+    //    ReleaseFilmDate = 1968,
+    //    Type = TypeFilm.Comedy,
+    //    Director = "Леонид Гайдай",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/aDvuA9xGVbE?si=NQFLkCQjj1QV_QP7"
+    //};
+    //film4.Links.Add(@"https://www.kinopoisk.ru/film/46225/");
+    //film4.Price.Add("Платно");
+    //film4.Advertisement.Add("Без рекламы");
+    //film4.Links.Add(@"https://my.mail.ru/v/ussr_hd/video/films/1768.html");
+    //film4.Price.Add("Бесплатно");
+    //film4.Advertisement.Add("Без рекламы");
 
-    
-    db.Film.AddRange(film1, film2);
-    db.SaveChanges();
+
+    //Film film5 = new Film()
+    //{
+    //    Name = "Круэлла",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/9bb0f260-1c5f-4698-91cc-de481bfd0f55/600x900",
+    //    Description =
+    //    "Великобритания, 1960-е годы. Эстелла была необычным ребёнком, и особенно трудно ей было мириться со всякого рода несправедливостью. Вылетев из очередной школы, она с мамой отправляется в Лондон. По дороге они заезжают в особняк известной модельерши по имени Баронесса, где в результате ужасного несчастного случая мама погибает. Добравшись до Лондона, Эстелла знакомится с двумя мальчишками — уличными мошенниками Джаспером и Хорасом.",
+    //    ReleaseFilmDate = 2021,
+    //    Type = TypeFilm.Comedy,
+    //    Director = "Крэйг Гиллеспи",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/9F2-eR2dfMY?si=2RTrwUknUX9W3jfu"
+    //};
+    //film5.Links.Add(@"https://wax.www-lord.stream/317-film-krujella.html");
+    //film5.Price.Add("Бесплатно");
+    //film5.Advertisement.Add("C рекламой");
+    //film5.Links.Add(@"https://my.mail.ru/mail/alive-bars/video/_myvideo/412.html");
+    //film5.Price.Add("Бесплатно");
+    //film5.Advertisement.Add("Без рекламы");
+    //Film film6 = new Film()
+    //{
+    //    Name = "Лулу и Бриггс",
+    //    PathToImage = @"https://kinoafisha.ua/upload/2021/12/films/9751/23hj4w7kdog.jpeg",
+    //    Description =
+    //        "Профессиональный военный Джексон Бриггс всеми силами пытается вернуться в строй, но из-за травмы головы получает постоянные отказы. Когда умирает один из его сослуживцев, Бриггсу дают задание: с военной базы в штате Вашингтон доставить на похороны в аризонский Ногалес боевую подругу почившего — нервную бельгийскую овчарку Лулу с целым спектром посттравматических расстройств. Поскольку собака боится летать, сделать это придётся на машине по Тихоокеанскому побережью, и эта поездка будет не самым простым заданием Бриггса.",
+    //    ReleaseFilmDate = 2021,
+    //    Type = TypeFilm.Drama,
+    //    Director = "Рид Кэролин, Ченнинг Татум",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/W2uQ1wJOPRk?si=-A6aZ7vgI6hyNaxd"
+    //};
+    //film6.Links.Add(@"https://d.lordfilm15.site/65-lulu-i-briggs.html");
+    //film6.Price.Add("Бесплатно");
+    //film6.Advertisement.Add("C рекламой");
+    //film6.Links.Add(@"https://www.kinopoisk.ru/film/1355139/");
+    //film6.Price.Add("Платно");
+    //film6.Advertisement.Add("Без рекламы");
+    //Film film7 = new Film()
+    //{
+    //    Name = "Паразиты",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/aae3a928-6465-4bed-9af4-16929a44fd79/600x900",
+    //    Description =
+    //    "Обычное корейское семейство Кимов жизнь не балует. Приходится жить в сыром грязном полуподвале, воровать интернет у соседей и перебиваться случайными подработками. Однажды друг сына семейства, уезжая на стажировку за границу, предлагает тому заменить его и поработать репетитором у старшеклассницы в богатой семье Пак. Подделав диплом о высшем образовании, парень отправляется в шикарный дизайнерский особняк и производит на хозяйку дома хорошее впечатление. Тут же ему в голову приходит необычный план по трудоустройству сестры.",
+    //    ReleaseFilmDate = 2019,
+    //    Type = TypeFilm.Drama,
+    //    Director = "Пон Джун-хо",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/GGnM74uxjlo?si=XpeqjTg1W_I0O6CG"
+    //};
+    //film7.Links.Add(@"https://my.mail.ru/mail/kremlev.vladimir/video/453/91183.html");
+    //film7.Price.Add("Бесплатно");
+    //film7.Advertisement.Add("Без рекламы");
+    //film7.Links.Add(@"https://www.kinopoisk.ru/film/1043758/");
+    //film7.Price.Add("Платно");
+    //film7.Advertisement.Add("Без рекламы");
+    //Film film8 = new Film()
+    //{
+    //    Name = "Поезд в Пусан",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1898899/12feddd0-1f10-4608-b6c7-2d0bad2bdceb/600x900",
+    //    Description =
+    //        "У маленькой Су-ан день рождения. Девочка живет с отцом в Сеуле и очень хочет отправиться к маме в Пусан. По дороге случается непредвиденное, и на страну обрушивается загадочный вирус. Пассажирам поезда в Пусан — единственного города, отразившего атаки вируса — придется бороться за выживание. 442 километра в пути. Добро пожаловать на борт и помните — в этой гонке недостаточно выжить, чтобы остаться человеком",
+    //    ReleaseFilmDate = 2016,
+    //    Type = TypeFilm.Horrors,
+    //    Director = "Ён Сан-хо",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/58r-Rq_TuEI?si=qhx7pFpt4ImI93Cw"
+    //};
+    //film8.Links.Add(@"https://my.mail.ru/mail/raskovalov64/video/_myvideo/15950.html");
+    //film8.Price.Add("Бесплатно");
+    //film8.Advertisement.Add("Без рекламы");
+    //film8.Links.Add(@"https://www.kinopoisk.ru/film/977288/");
+    //film8.Price.Add("Платно");
+    //film8.Advertisement.Add("Без рекламы");
+
+    //Film film1 = new Film()
+    //{
+    //    Name = "Служанка",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1898899/757f5bd9-b85c-4220-9b8d-5548a3436937/600x900",
+    //    Description =
+    //    "1930-е годы, Корея под властью Японии. Мошенник по прозвищу Граф предлагает бедной девушке Сук-хи поучаствовать в деле, обещая солидный заработок. Он рассчитывает очаровать богатую японку Хидэко, сбежать с ней в Японию, жениться, затем объявить её сумасшедшей, упечь в дурдом и завладеть богатством. А Сук-хи должна ему помочь, нанявшись в услужение к Хидэко. Что она и сделала. Но внезапно идеальный план Графа оказывается под угрозой.",
+    //    ReleaseFilmDate = 2016,
+    //    Type = TypeFilm.Thriller,
+    //    Director = "Пак Чхан-ук",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/-nF9DLj8YcQ?si=J2edVtkQpwf3W0lQ"
+    //};
+    //film1.Links.Add(@"https://my.mail.ru/mail/nursik_bekkozha/video/_myvideo/11.html");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("Без рекламы");
+    //film1.Links.Add(@"https://b.lordfilms0.org/425-sluzhanka-film-2016-06");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("С рекламой");
+    //Film film2 = new Film()
+    //{
+    //    Name = "Олдбой",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/f91ef1b3-aeff-4835-8117-8a23781f2533/600x900 ",
+    //    Description =
+    //        "1988 год. Обыкновенный и ничем непримечательный бизнесмен О Дэ-cу в день трёхлетия дочери по пути домой напивается, начинает хулиганить и закономерно попадает в полицейский участок. Из участка его под своё поручительство забирает друг детства. Пока тот звонит жене незадачливого пьяницы, О Дэ-су пропадает. Неизвестные похищают его и помещают в комнату без окон на 15 лет.",
+    //    ReleaseFilmDate = 2003,
+    //    Type = TypeFilm.Thriller,
+    //    Director = "Пак Чхан-ук",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/vtaNksc6roc?si=f7_--UxGva5uvsGF"
+    //};
+    //film2.Links.Add(@"https://my.mail.ru/mail/grandcoosh/video/26/1632.html");
+    //film2.Price.Add("Беслатно");
+    //film2.Advertisement.Add("Без рекламы");
+    //film2.Links.Add(@"https://hd1.33lordfilm-0.xyz/33944-oldboi.html");
+    //film2.Price.Add("Беслатно");
+    //film2.Advertisement.Add("С рекламой");
+    //Film film3 = new Film()
+    //{
+    //    Name = "Волк с Уолл-стрит",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/5c758ac0-7a5c-4f00-a94f-1be680a312fb/600x900",
+    //    Description =
+    //    "1987 год. Джордан Белфорт становится брокером в успешном инвестиционном банке. Вскоре банк закрывается после внезапного обвала индекса Доу-Джонса. По совету жены Терезы Джордан устраивается в небольшое заведение, занимающееся мелкими акциями. Его настойчивый стиль общения с клиентами и врождённая харизма быстро даёт свои плоды. Он знакомится с соседом по дому Донни, торговцем, который сразу находит общий язык с Джорданом и решает открыть с ним собственную фирму. В качестве сотрудников они нанимают нескольких друзей Белфорта, его отца Макса и называют компанию «Стрэттон Оукмонт». В свободное от работы время Джордан прожигает жизнь: лавирует от одной вечеринки к другой, вступает в сексуальные отношения с проститутками, употребляет множество наркотических препаратов, в том числе кокаин и кваалюд. Однажды наступает момент, когда быстрым обогащением Белфорта начинает интересоваться агент ФБР...",
+    //    ReleaseFilmDate = 2013,
+    //    Type = TypeFilm.Drama,
+    //    Director = "Мартин Скорсезе",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/CHivqmutR0I?si=H5ZIvm5RvUqH1LLe"
+    //};
+    //film3.Links.Add(@"https://www.kinopoisk.ru/film/462682/");
+    //film3.Price.Add("Платно");
+    //film3.Advertisement.Add("Без рекламы");
+    //Film film4 = new Film()
+    //{
+    //    Name = "Достать ножи",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1777765/bb8afbd6-c9cd-4631-99e9-3fecf241dbaf/600x900",
+    //    Description =
+    //        "На следующее утро после празднования 85-летия известного автора криминальных романов Харлана Тромби виновника торжества находят мёртвым. Налицо — явное самоубийство, но полиция по протоколу опрашивает всех присутствующих в особняке членов семьи, хотя, в этом деле больше заинтересован частный детектив Бенуа Блан. Тем же утром он получил конверт с наличными от неизвестного и заказ на расследование смерти Харлана. Не нужно быть опытным следователем, чтобы понять, что все приукрашивают свои отношения с почившим главой семейства, но Блану достаётся настоящий подарок — медсестра покойного, которая физически не выносит ложь.",
+    //    ReleaseFilmDate = 2019,
+    //    Type = TypeFilm.Detective,
+    //    Director = "Райан Джонсон",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/8VMvCavnFNw?si=B3o0aGUwAa6u7Wx3"
+    //};
+    //film4.Links.Add(@"https://my.mail.ru/mail/vladimir.1336/video/211/22145.html");
+    //film4.Price.Add("Платно");
+    //film4.Advertisement.Add("Без рекламы");
+    //film4.Links.Add(@"https://www.kinopoisk.ru/film/1188529/");
+    //film4.Price.Add("Бесплатно");
+    //film4.Advertisement.Add("Без рекламы");
+
+
+    //Film film5 = new Film()
+    //{
+    //    Name = "Зеленая книга",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1599028/4b27e219-a8a5-4d85-9874-57d6016e0837/600x900",
+    //    Description =
+    //    "1960-е годы. После закрытия нью-йоркского ночного клуба на ремонт вышибала Тони по прозвищу Болтун ищет подработку на пару месяцев. Как раз в это время Дон Ширли — утонченный светский лев, богатый и талантливый чернокожий музыкант, исполняющий классическую музыку — собирается в турне по южным штатам, где ещё сильны расистские убеждения и царит сегрегация. Он нанимает Тони в качестве водителя, телохранителя и человека, способного решать текущие проблемы. У этих двоих так мало общего, и эта поездка навсегда изменит жизнь обоих.",
+    //    ReleaseFilmDate = 2011,
+    //    Type = TypeFilm.Biography,
+    //    Director = "Питер Фаррелли",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/e6b9urtUJt0?si=YJbU1fLuxHjIdomT"
+    //};
+    //film5.Links.Add(@"https://my.mail.ru/mail/avan.mad/video/_myvideo/66.html");
+    //film5.Price.Add("Бесплатно");
+    //film5.Advertisement.Add("Без рекламы");
+    //film5.Links.Add(@"https://www.kinopoisk.ru/film/1108577/");
+    //film5.Price.Add("Бесплатно");
+    //film5.Advertisement.Add("Без рекламы");
+    //Film film6 = new Film()
+    //{
+    //    Name = "Бойцовский клуб",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1898899/8ef070c9-2570-4540-9b83-d7ce759c0781/600x900",
+    //    Description =
+    //        "Сотрудник страховой компании страдает хронической бессонницей и отчаянно пытается вырваться из мучительно скучной жизни. Однажды в очередной командировке он встречает некоего Тайлера Дёрдена — харизматического торговца мылом с извращенной философией. Тайлер уверен, что самосовершенствование — удел слабых, а единственное, ради чего стоит жить, — саморазрушение. \r\nПроходит немного времени, и вот уже новые друзья лупят друг друга почем зря на стоянке перед баром, и очищающий мордобой доставляет им высшее блаженство. Приобщая других мужчин к простым радостям физической жестокости, они основывают тайный Бойцовский клуб, который начинает пользоваться невероятной популярностью.",
+    //    ReleaseFilmDate = 1999,
+    //    Type = TypeFilm.Thriller,
+    //    Director = "Дэвид Финчер",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/C7-7qQ61QHU?si=eiIEFHCSTLTL65uq"
+    //};
+    //film6.Links.Add(@"https://my.mail.ru/mail/vm_gluschenko/video/110735/237319.html");
+    //film6.Price.Add("Бесплатно");
+    //film6.Advertisement.Add("Без рекламы");
+    //film6.Links.Add(@"https://www.kinopoisk.ru/film/361/");
+    //film6.Price.Add("Платно");
+    //film6.Advertisement.Add("Без рекламы");
+    //Film film7 = new Film()
+    //{
+    //    Name = "Зверополис",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/4716873/893bba73-3105-4944-8d18-a38f929f2759/600x900",
+    //    Description =
+    //    "Добро пожаловать в Зверополис – современный город, населенный самыми разными животными, от огромных слонов до крошечных мышек. Зверополис разделен на районы, полностью повторяющие естественную среду обитания разных жителей – здесь есть и элитный район Площадь Сахары и неприветливый Тундратаун. В этом городе появляется новый офицер полиции, жизнерадостная зайчиха Джуди Хоппс, которая с первых дней работы понимает, как сложно быть маленькой и пушистой среди больших и сильных полицейских. Джуди хватается за первую же возможность проявить себя, несмотря на то, что ее партнером будет болтливый хитрый лис Ник Уайлд. Вдвоем им предстоит раскрыть сложное дело, от которого будет зависеть судьба всех обитателей Зверополиса.",
+    //    ReleaseFilmDate = 2016,
+    //    Type = TypeFilm.Cartoon,
+    //    Director = "Байрон Ховард, Рич Мур, Джаред Буш",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/N6zm52tRF0c?si=WsXBDfCCi7IdbqDs"
+    //};
+    //film7.Links.Add(@"https://wax.www-lord.stream/308-multfilm-zveropolis.html ");
+    //film7.Price.Add("Бесплатно");
+    //film7.Advertisement.Add("С рекламой");
+    //film7.Links.Add(@"https://vk.com/video-188008198_456239133");
+    //film7.Price.Add("Бесплатно");
+    //film7.Advertisement.Add("Без рекламы");
+    //Film film8 = new Film()
+    //{
+    //    Name = "Остров проклятых",
+    //    PathToImage = @"https://b1.filmpro.ru/c/102900.jpg",
+    //    Description =
+    //        "Два американских судебных пристава отправляются на один из островов в штате Массачусетс, чтобы расследовать исчезновение пациентки клиники для умалишенных преступников. При проведении расследования им придется столкнуться с паутиной лжи, обрушившимся ураганом и смертельным бунтом обитателей клиники.",
+    //    ReleaseFilmDate = 2009,
+    //    Type = TypeFilm.Thriller,
+    //    Director = "Мартин Скорсезе",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/_l7R9Rz5URw?si=fy096UnsB6qGeqYi"
+    //};
+    //film8.Links.Add(@"https://my.mail.ru/mail/vm_gluschenko/video/56039/243400.html");
+    //film8.Price.Add("Бесплатно");
+    //film8.Advertisement.Add("Без рекламы");
+    //film8.Links.Add(@"https://www.kinopoisk.ru/film/397667/");
+    //film8.Price.Add("Платно");
+    //film8.Advertisement.Add("Без рекламы");
+
+
+
+    //Film film1 = new Film()
+    //{
+    //    Name = "Начало",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1629390/8ab9a119-dd74-44f0-baec-0629797483d7/600x900",
+    //    Description =
+    //    "Кобб – талантливый вор, лучший из лучших в опасном искусстве извлечения: он крадет ценные секреты из глубин подсознания во время сна, когда человеческий разум наиболее уязвим. Редкие способности Кобба сделали его ценным игроком в привычном к предательству мире промышленного шпионажа, но они же превратили его в извечного беглеца и лишили всего, что он когда-либо любил.",
+    //    ReleaseFilmDate = 2010,
+    //    Type = TypeFilm.Fantasy,
+    //    Director = "Кристофер Нолан",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/85Zz1CCXyDI?si=eHJHC_sqiClycuSV"
+    //};
+    //film1.Links.Add(@"https://nachalo-lordfilm.ru/");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("С рекламой");
+    //film1.Links.Add(@"https://my.mail.ru/list/svarog.1975/video/670/69216.html ");
+    //film1.Price.Add("Бесплатно");
+    //film1.Advertisement.Add("Без рекламы");
+    //Film film2 = new Film()
+    //{
+    //    Name = "Титаник",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/96d93e3a-fdbf-4b6f-b02d-2fc9c2648a18/600x900",
+    //    Description =
+    //        "В первом и последнем плавании шикарного «Титаника» встречаются двое. Пассажир нижней палубы Джек выиграл билет в карты, а богатая наследница Роза отправляется в Америку, чтобы выйти замуж по расчёту. Чувства молодых людей только успевают расцвести, и даже не классовые различия создадут испытания влюблённым, а айсберг, вставший на пути считавшегося непотопляемым лайнера.",
+    //    ReleaseFilmDate = 1997,
+    //    Type = TypeFilm.Melodrama,
+    //    Director = "Джэймс Кэмерон",
+    //    FilmOrSerial = FilmOrSerial.Film,
+    //    Preview = @"https://www.youtube.com/embed/Qwx0AsI6Zq0?si=ke5sMGLpYo1QMHdm"
+    //};
+    //film2.Links.Add(@"https://my.mail.ru/bk/wowa5997/video/_myvideo/332.html");
+    //film2.Price.Add("Беслатно");
+    //film2.Advertisement.Add("Без рекламы");
+    //film2.Links.Add(@"https://wax.www-lord.stream/318-film-titanik.html");
+    //film2.Price.Add("Беслатно");
+    //film2.Advertisement.Add("С рекламой");
+    //Film film3 = new Film()
+    //{
+    //    Name = "Игра в кальмара",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/1073b002-96de-49ae-a432-1da460f6890c/600x900",
+    //    Description =
+    //    "Сон Ги-хун уже немолод, разведён, по уши погряз в долгах и сидит на шее у старенькой матери. Даже выигранные на скачках деньги в его руках долго не задерживаются, и однажды он встречает в метро загадочного незнакомца, который сначала предлагает сыграть в детскую игру, а затем вручает Ги-хуну немалую сумму и визитку. Но радость мужчины сменятся отчаянием, когда он узнаёт, что бывшая жена с новым мужем собираются увезти его дочь в Америку. Он звонит по номеру с визитки и становится последним участником тайных игр на выживание с призом в 40 миллионов долларов. Среди товарищей по несчастью оказываются его друг детства — прогоревший финансист, бандит, смертельно больной старик, северокорейская перебежчица, иммигрант из Пакистана и многие другие отчаянно нуждающиеся в деньгах.",
+    //    ReleaseFilmDate = 2021,
+    //    Type = TypeFilm.Thriller,
+    //    Director = "Хван Дон-хёк",
+    //    FilmOrSerial = FilmOrSerial.Serial,
+    //    Preview = @"https://www.youtube.com/embed/ef0IPK9lljw?si=TnrxVXTsRmr9mZcw"
+    //};
+    //film3.Links.Add(@"https://my.mail.ru/mail/oks.petra/video/Igra_v_kalmara/1081.html");
+    //film3.Price.Add("Беслатно");
+    //film3.Advertisement.Add("Без рекламы");
+    //film3.Links.Add(@"https://20lordserial.xyz/429-igra-v-kalmara-sv-29.html");
+    //film3.Price.Add("Беслатно");
+    //film3.Advertisement.Add("С рекламой");
+    //Film film4 = new Film()
+    //{
+    //    Name = "Истинная красота",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/22f75234-c22e-43df-8e03-11a7eff64a4e/600x900",
+    //    Description =
+    //        "Старшеклассница Лим Джу-гён с комплексом по поводу своей внешности привыкла краситься и достигла в этом деле определённого мастерства. Она начинает встречаться с двумя самыми видными парнями.",
+    //    ReleaseFilmDate = 2020,
+    //    Type = TypeFilm.Melodrama,
+    //    Director = "Ким Сан-хёп",
+    //    FilmOrSerial = FilmOrSerial.Serial,
+    //    Preview = @"https://www.youtube.com/embed/BhP1eYQ5Pxk?si=3qRZ1HOLgMVBhPAP"
+    //};
+    //film4.Links.Add(@"https://tv.lordserialu3.online/5253-istinnaja-krasota2f5.html");
+    //film4.Price.Add("Бесплатно");
+    //film4.Advertisement.Add("С рекламой");
+    //film4.Links.Add(@"https://www.kinopoisk.ru/series/1398965/");
+    //film4.Price.Add("Платно");
+    //film4.Advertisement.Add("Без рекламы");
+
+
+    //Film film5 = new Film()
+    //{
+    //    Name = "Счастье",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/4774061/9898b051-a211-47ce-846d-728ca83c1c00/600x900",
+    //    Description =
+    //    "Уже несколько лет человечество живёт в условиях пандемии COVID-19, когда внезапно некоторые начинают испытывать нестерпимую жажду, превращаться в зомбиподобных существ и бросаться на людей. С одним из заболевших сталкивается Юн Сэ-бом — боевая девушка из отдела по борьбе с терроризмом — и, получив от него царапину, отправляется в кризисный центр по борьбе с новой заразой. Обследование не выявляет у неё заражения, и Сэ-бом извлекает выгоду из сложившейся ситуации — заключив фиктивный брак с лучшим другом, принципиальным полицейским Чон И-хёном, получает квартиру в новом доме.",
+    //    ReleaseFilmDate = 2021,
+    //    Type = TypeFilm.Fantasy,
+    //    Director = "Ан Гиль-хо",
+    //    FilmOrSerial = FilmOrSerial.Serial,
+    //    Preview = @"https://www.youtube.com/embed/IwWDhzw5CtQ?si=e8Akwi7VdFBVtn5k"
+    //};
+    //film5.Links.Add(@"https://m.my.mail.ru/my/welcome?back_after_reg=https://m.my.mail.ru/bk/anveela/video/937");
+    //film5.Price.Add("Бесплатно");
+    //film5.Advertisement.Add("Без рекламы");
+    //film5.Links.Add(@"https://www.kinopoisk.ru/series/4402867/");
+    //film5.Price.Add("Платно");
+    //film5.Advertisement.Add("Без рекламы");
+    //Film film6 = new Film()
+    //{
+    //    Name = "Вокруг света за 80 дней",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/cefc0812-8400-4e1e-9a04-3bdd0f74981a/600x900",
+    //    Description =
+    //        "Скучающий джентльмен, спровоцированный друзьями на пари, обещает за 80 дней осуществить кругосветное путешествие. Сообразительный дворецкий и взбалмошная журналистка отправляются с ним за компанию.",
+    //    ReleaseFilmDate = 2021,
+    //    Type = TypeFilm.Comedy,
+    //    Director = "Стив Бэррон, Брайан Келли, Чарльз Бисон",
+    //    FilmOrSerial = FilmOrSerial.Serial,
+    //    Preview = @"https://www.youtube.com/embed/RUpfhB-7cBU?si=GMiDmREgVd2xeVuR"
+    //};
+    //film6.Links.Add(@"https://premier.one/show/vokrug-sveta-za-80-dnej");
+    //film6.Price.Add("Платно");
+    //film6.Advertisement.Add("Без рекламы");
+    //film6.Links.Add(@"https://www.kinopoisk.ru/series/1337642/");
+    //film6.Price.Add("Платно");
+    //film6.Advertisement.Add("Без рекламы");
+    //Film film7 = new Film()
+    //{
+    //    Name = "Дом дракона",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/4939065f-efa2-4192-a3c2-cec534e79e01/600x900",
+    //    Description =
+    //    "Таргариены сражаются друг с другом и растят драконов. Эпическая сага о жестокой войне за Железный трон.",
+    //    ReleaseFilmDate = 2022,
+    //    Type = TypeFilm.Fantasy,
+    //    Director = "Клер Килнер, Гита Васант Пател, Мигель Сапочник",
+    //    FilmOrSerial = FilmOrSerial.Serial,
+    //    Preview = @"https://www.youtube.com/embed/5weHputuO4g?si=uc4Alqasy2fTVmfW"
+    //};
+    //film7.Links.Add(@"https://tv3.lordfilms4.online/715-dom-drakona-47e.html");
+    //film7.Price.Add("Бесплатно");
+    //film7.Advertisement.Add("С рекламой");
+    //film7.Links.Add(@"https://www.kinopoisk.ru/series/1316601/ ");
+    //film7.Price.Add("Платно");
+    //film7.Advertisement.Add("Без рекламы");
+    //Film film8 = new Film()
+    //{
+    //    Name = "Мышь",
+    //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/10809116/70aac55f-cd33-4e69-94c1-efd47405805a/600x900",
+    //    Description =
+    //        "Серийный убийца по прозвищу «Охотник за головами» держал в страхе всю страну. Паника и недовольство силами полиции достигли такого уровня, что правительство всерьёз обсуждало законопроект о генетическом тесте, позволяющем с точностью до 99% определить ген психопатии у эмбриона. Прошло 10 лет, но столь жуткие события не могут исчезнуть без следа и уже тесно переплели судьбы опытного детектива, талантливой женщины-продюсера, рядового полицейского и проблемной старшеклассницы. Но они об этом ещё не догадываются.",
+    //    ReleaseFilmDate = 2021,
+    //    Type = TypeFilm.Thriller,
+    //    Director = "Кан Чхор-у, Чхве Джун-бэ",
+    //    FilmOrSerial = FilmOrSerial.Serial,
+    //    Preview = @"https://www.youtube.com/embed/S6CAz71l-IM?si=1PTWLfYIRST6PdFS"
+    //};
+    //film8.Links.Add(@"https://m.my.mail.ru/my/welcome?back_after_reg=https://m.my.mail.ru/bk/anveela/video/716");
+    //film8.Price.Add("Бесплатно");
+    //film8.Advertisement.Add("Без рекламы");
+    //film8.Links.Add(@"https://www.kinopoisk.ru/series/1387128/");
+    //film8.Price.Add("Платно");
+    //film8.Advertisement.Add("Без рекламы");
+    //db.Film.AddRange(film1, film2, film3, film4, film5, film6, film7, film8);
+    //db.SaveChanges();
 
 }
 

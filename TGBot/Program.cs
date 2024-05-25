@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Mime;
+using System.Threading.Channels;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
@@ -41,6 +42,8 @@ namespace TGBot
         //аутентификационные данные из личного кабинета для Gigachat
         static string authenticationData = PrivateClass.PrivateClass.authenticationData;
 
+        private static Authorization auth = new Authorization(authenticationData, GigaChatAdapter.Auth.RateScope.GIGACHAT_API_PERS);
+        private static Completion completion;
         private static bool problem = false;
         private static bool sendMessageToAi = false;
         static ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
@@ -60,7 +63,25 @@ namespace TGBot
             //    callbackQueryId: update.CallbackQuery.Id,
             //    text: "test"
             //    );
-
+            if (message.Text == "/start")
+            { 
+                completion = new Completion();
+                //GigaChatAdapter.Auth.AuthorizationResponse authResult = await auth.SendRequest();
+                //if (authResult.AuthorizationSuccess)
+                //{
+                //    var prompt = "Ты большой эксерт по фильмам и сериалам. На любой из моих запросов ты должен четко советовать фильм или сериал, который подойдет. Если запрос не содержит в себе просьбы посоветовать фильм или сериал, то ты никак не отвечаешь на запрос. Совсем никак. Ответь \"true\" если понял.";
+                //    await auth.UpdateToken();
+                //    var result = await completion.SendRequest(auth.LastResponse.GigaChatAuthorizationResponse?.AccessToken, prompt);
+                //    if (result.RequestSuccessed)
+                //    {
+                //        Console.WriteLine(result.GigaChatCompletionResponse.Choices.LastOrDefault().Message.Content);
+                //    }
+                //    else
+                //    {
+                //        Console.WriteLine(result.ErrorTextIfFailed);
+                //    }
+                //}
+            }
             if (replyKeyboardMarkup.Keyboard.ElementAt(0).ElementAt(0).Text == message.Text)
             {
                 await botClient.SendTextMessageAsync(
@@ -122,14 +143,15 @@ namespace TGBot
         //ф-ция для обработки запросов пользователей гигачатом
         async private static Task SendMessageToAI(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            Authorization auth = new Authorization(authenticationData, GigaChatAdapter.Auth.RateScope.GIGACHAT_API_PERS);
             GigaChatAdapter.Auth.AuthorizationResponse authResult = await auth.SendRequest();
             if (authResult.AuthorizationSuccess)
             {
-                Completion completion = new Completion();
+
                 //completion.History = new List<GigaChatMessage>();
+                Console.WriteLine($"---------------------------------History of user: {update.Message.Chat.Id}------------------\n");
                 for (int i = 0; i < completion.History.Count; i++)
                     Console.WriteLine(completion.History.ElementAt(i).Content);
+                Console.WriteLine("\n---------------------------------------------History-----------------------------------------");
                 if (update.Message.Text == null)
                     return;
                 var prompt = update.Message.Text;
@@ -137,7 +159,6 @@ namespace TGBot
                 var result = await completion.SendRequest(auth.LastResponse.GigaChatAuthorizationResponse?.AccessToken, prompt);
                 if (result.RequestSuccessed)
                 {
-                    Console.WriteLine();
                     await botClient.SendTextMessageAsync(
                         chatId: update.Message.Chat.Id,
                         text:

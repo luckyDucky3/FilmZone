@@ -142,10 +142,19 @@ namespace FilmZone.Service.Implementations
                     baseResponse.Description = "Film not found";
                     return baseResponse;
                 }
+                film.PathToImage = model.PathToImage;
+                film.Description = model.Description;
+                film.Preview = model.Preview;
+                film.Type = model.Type;
+                film.FilmOrSerial = model.FilmOrSerial;
+                film.Director = model.Director;
 
-                model.Id = film.Id;
+                film.Links = model.Links;
+                film.Advertisement = model.Advertisement;
+                film.Price = model.Price;
+                
                 //film = TransformToFilm(ref model);
-                await _filmRepository.Update(model);
+                await _filmRepository.Update(film);
 
                 return baseResponse;
 

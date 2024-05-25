@@ -25,31 +25,25 @@ namespace FilmZone.Controllers
             //var response1 = await filmService.GetFilms();
             //int count = response1.Data.Count();
             //await filmService.DeleteFilm(12);
-            //FilmViewModel film1 = new FilmViewModel()
+            //Film film8 = new Film()
             //{
-            //    Name = "Триггер",
-            //    PathToImage = @"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.kino-teatr.ru%2Fkino%2Fmovie%2Fros%2F145171%2Ftitr%2F&psig=AOvVaw2DNrc2jEwsqyz1q4yGGrCa&ust=1716637671406000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCPiOuumbpoYDFQAAAAAdAAAAABAE",
+            //    Name = "Остров проклятых",
+            //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/348fd1f4-3f63-4c77-80da-8f0bce99fd83/1920x",
             //    Description =
-            //        "Психолог Артём Стрелецкий — сторонник шоковой терапии в лечении больных. Он считает, что единственный способ для человека решить свои " +
-            //        "проблемы — это понять себя и перестать себе врать. Если большинство психологов нянчатся с клиентами, по полгода выслушивают жалобы на жизнь" +
-            //        ", сочувствуют и получают при этом немалые деньги за цикл сеансов, то Артём постоянно провоцирует клиентов: оскорбляет их, смеется над ними," +
-            //        " намеренно выталкивает из зоны комфорта. Практика Артема процветает, пока один из его пациентов не кончает жизнь самоубийством.",
-            //    ReleaseFilmDate = 2020,
-            //    Type = TypeFilm.Drama,
-            //    Director = "Дмитрий Тюрин, Игорь Твердохлебов",
-            //    FilmOrSerial = FilmOrSerial.Serial,
-            //    Preview = @"https://www.youtube.com/embed/L5955NbSKRM?si=OIEeKmfM6jirrc4X"
+            //        "Два американских судебных пристава отправляются на один из островов в штате Массачусетс, чтобы расследовать исчезновение пациентки клиники для умалишенных преступников. При проведении расследования им придется столкнуться с паутиной лжи, обрушившимся ураганом и смертельным бунтом обитателей клиники.",
+            //    ReleaseFilmDate = 2009,
+            //    Type = TypeFilm.Thriller,
+            //    Director = "Мартин Скорсезе",
+            //    FilmOrSerial = FilmOrSerial.Film,
+            //    Preview = @"https://www.youtube.com/embed/_l7R9Rz5URw?si=fy096UnsB6qGeqYi"
             //};
-            //film1.Links.Add(@"https://hd.kinopoisk.ru/film/4f3c027cbce13606b74124a9d5b140c7");
-            //film1.Price.Add("Платно");
-            //film1.Advertisement.Add("Без рекламы");
-            //film1.Links.Add(@"https://trigger.lordfilm.ph/");
-            //film1.Price.Add("Бесплатно");
-            //film1.Advertisement.Add("C рекламой");
-            //film1.Links.Add(@"https://pro.hdprolord.run/325-film-djavol-nosit-prada.html");
-            //film1.Price.Add("Бесплатно");
-            //film1.Advertisement.Add("C рекламой");
-            //var resp1 = await filmService.UpdateFilm("Триггер", film1);
+            //film8.Links.Add(@"https://my.mail.ru/mail/vm_gluschenko/video/56039/243400.html");
+            //film8.Price.Add("Бесплатно");
+            //film8.Advertisement.Add("Без рекламы");
+            //film8.Links.Add(@"https://www.kinopoisk.ru/film/397667/");
+            //film8.Price.Add("Платно");
+            //film8.Advertisement.Add("Без рекламы");
+            //var resp1 = await filmService.UpdateFilm("Остров проклятых", film8);
             int i = 1;
             int countFilm = 0, countSerial = 0;
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
@@ -92,7 +86,7 @@ namespace FilmZone.Controllers
                     ListOfFilm.Add(response.Data);
                     countF++;
                 }
-                if (i == 61)
+                if (i == 100)
                 {
                     ViewData["Message"] = "Конец";
                     break;
@@ -116,7 +110,7 @@ namespace FilmZone.Controllers
                     ListOfFilm.Add(response.Data);
                     countF++;
                 }
-                if (i == 61)
+                if (i == 100)
                 {
                     ViewData["Message"] = "Конец";
                     break;

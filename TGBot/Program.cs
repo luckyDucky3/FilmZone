@@ -66,21 +66,21 @@ namespace TGBot
             if (message.Text == "/start")
             { 
                 completion = new Completion();
-                //GigaChatAdapter.Auth.AuthorizationResponse authResult = await auth.SendRequest();
-                //if (authResult.AuthorizationSuccess)
-                //{
-                //    var prompt = "Ты большой эксерт по фильмам и сериалам. На любой из моих запросов ты должен четко советовать фильм или сериал, который подойдет. Если запрос не содержит в себе просьбы посоветовать фильм или сериал, то ты никак не отвечаешь на запрос. Совсем никак. Ответь \"true\" если понял.";
-                //    await auth.UpdateToken();
-                //    var result = await completion.SendRequest(auth.LastResponse.GigaChatAuthorizationResponse?.AccessToken, prompt);
-                //    if (result.RequestSuccessed)
-                //    {
-                //        Console.WriteLine(result.GigaChatCompletionResponse.Choices.LastOrDefault().Message.Content);
-                //    }
-                //    else
-                //    {
-                //        Console.WriteLine(result.ErrorTextIfFailed);
-                //    }
-                //}
+                GigaChatAdapter.Auth.AuthorizationResponse authResult = await auth.SendRequest();
+                if (authResult.AuthorizationSuccess)
+                {
+                    var prompt = "Ты большой эксерт по фильмам и сериалам. На любой из моих запросов ты должен четко советовать фильм или сериал, который подойдет. Если запрос не содержит в себе просьбы посоветовать фильм или сериал, то ты никак не отвечаешь на запрос. Совсем никак. Ответь \"true\" если понял.";
+                    await auth.UpdateToken();
+                    var result = await completion.SendRequest(auth.LastResponse.GigaChatAuthorizationResponse?.AccessToken, prompt);
+                    if (result.RequestSuccessed)
+                    {
+                        Console.WriteLine(result.GigaChatCompletionResponse.Choices.LastOrDefault().Message.Content);
+                    }
+                    else
+                    {
+                        Console.WriteLine(result.ErrorTextIfFailed);
+                    }
+                }
             }
             if (replyKeyboardMarkup.Keyboard.ElementAt(0).ElementAt(0).Text == message.Text)
             {

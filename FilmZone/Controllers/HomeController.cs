@@ -10,13 +10,13 @@ namespace FilmZone.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> _logger;
 
         private IFilmService filmService;
         
-        public HomeController(IFilmService filmService)
+        public HomeController(IFilmService filmService, ILogger<HomeController> logger)
         {
-            //_logger = logger;
+            _logger = logger;
             this.filmService = filmService;
         }
         [HttpGet]

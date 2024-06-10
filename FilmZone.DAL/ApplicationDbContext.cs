@@ -18,7 +18,15 @@ namespace FilmZone.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=filmdb;Username=postgres;Password=100506Ki");
+            try
+            {
+                optionsBuilder.UseNpgsql(
+                    "Host=localhost;Port=5432;Database=filmdb;Username=postgres;Password=100506Ki");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка подключения к БД: {ex}");
+            }
         }
         public DbSet<Film> Film { get; set; }
         public DbSet<User> User { get; set; }

@@ -18,7 +18,7 @@ builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddControllersWithViews();
-Console.WriteLine("===========================--===========================");
+Console.WriteLine("===============ВЫВОД=================");
 using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
 {
     try

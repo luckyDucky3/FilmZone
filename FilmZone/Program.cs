@@ -26,6 +26,14 @@ using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
         db.SaveChanges();
         Console.WriteLine("Access to the database has been successfully obtained");
     }
+    catch (DbUpdateConcurrencyException ex)
+    {
+        Console.WriteLine($"DbUpdateConcurrencyException, {ex}");
+    }
+    catch (DbUpdateException ex)
+    {
+        Console.WriteLine($"DbUpdateException, {ex}");
+    }
     catch (Exception ex)
     {
         Console.WriteLine($"Database access failed, {ex}");

@@ -18,9 +18,20 @@ builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddControllersWithViews();
-
+Console.WriteLine("===========================--===========================");
 using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
 {
+    try
+    {
+        db.SaveChanges();
+        Console.WriteLine("Доступ к бд успешно получен");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Доступ к бд провалился, {ex}");
+    }
+    
+    //if()
     //Film viewModel = new Film()
     //{
     //    Name = "Облачный атлас",

@@ -146,7 +146,7 @@ namespace FilmZone.Controllers
             
             string confirmationLink = Url.Action("ConfirmRegistration", "User", new { login = login, token = token });
             builder.HtmlBody = string.Format(@$"<p>Привет, {login}!<br>
-<p>Поздравляем с регистрацией на FilmZone! Просим вас подтвердить Email адрес {mail}, для продолжения регистрации на нашем сайте перейдите по ссылке: {confirmationLink}<br>
+<p>Поздравляем с регистрацией на FilmZone! Просим вас подтвердить Email адрес {mail}, для продолжения регистрации на нашем сайте перейдите по ссылке: film-zone.ru/gi{confirmationLink}<br>
 <p>Вы получили это письмо, поскольку являетесь зарегистрированным пользователем нашего сайта и указали {mail} при регистрации");
             emailMessage.Body = builder.ToMessageBody();
             using (var client = new SmtpClient())

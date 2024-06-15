@@ -18,17 +18,17 @@ builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddControllersWithViews();
-Console.WriteLine("===============ВЫВОД=================");
+Console.WriteLine("===============conclusion=================");
 using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
 {
     try
     {
         db.SaveChanges();
-        Console.WriteLine("Доступ к бд успешно получен");
+        Console.WriteLine("Access to the database has been successfully obtained");
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Доступ к бд провалился, {ex}");
+        Console.WriteLine($"Database access failed, {ex}");
     }
     
     //if()

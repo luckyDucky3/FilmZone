@@ -11,7 +11,7 @@ namespace FilmZone.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        private int testValue = 0;
         private IFilmService filmService;
         
         public HomeController(IFilmService filmService, ILogger<HomeController> logger)
@@ -69,7 +69,7 @@ namespace FilmZone.Controllers
                     break;
                 }
             }
-
+            testValue++;
             return View(ListOfFilm);
         }
         [HttpGet]

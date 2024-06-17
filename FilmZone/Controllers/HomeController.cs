@@ -121,9 +121,21 @@ namespace FilmZone.Controllers
             return View(ListOfFilm);
         }
         [HttpGet]
-        public IActionResult Rating()
+        public async Task<IActionResult> Rating()
         {
-            return View();
+            List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
+            int countF = 1;
+            for (int i = 0; countF < 5; i++)
+            {
+                var response = await filmService.GetFilmById(i);
+                if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data.FilmOrSerial == FilmOrSerial.Serial)
+                {
+                    ListOfFilm.Add(response.Data);
+                    countF++;
+                }
+            }
+            
+            return View(ListOfFilm);
         }
         [HttpGet]
         public IActionResult Kontakts()

@@ -17,19 +17,19 @@ namespace FilmZone.DAL
         {
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    //try
-        //    //{
-        //    //    if(optionsBuilder.UseNpgsql(
-        //    //        "Host=localhost;Port=5432;Database=filmdb;Username=postgres;Password=100506Ki").IsConfigured)
-        //    //        Console.WriteLine("Подключение к бд прошло успешно");
-        //    //}
-        //    //catch (Exception ex)
-        //    //{
-        //    //    Console.WriteLine($"Ошибка подключения к БД: {ex}");
-        //    //}
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            try
+            {
+                if (optionsBuilder.UseNpgsql(
+                    "Host=localhost;Port=5432;Database=filmdb;Username=postgres;Password=100506Ki").IsConfigured)
+                    Console.WriteLine("Подключение к бд прошло успешно");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка подключения к БД: {ex}");
+            }
+        }
         public DbSet<Film> Film { get; set; }
         public DbSet<User> User { get; set; }
         static void Main() 

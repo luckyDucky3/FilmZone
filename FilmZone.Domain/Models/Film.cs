@@ -30,5 +30,6 @@ namespace FilmZone.Domain.Models
         public List<string> Price { get; set; } = new List<string>();
         [Column("advertisement")]
         public List<string> Advertisement { get; set; } = new List<string>();
+
     }
 }

@@ -148,7 +148,7 @@
     }
 
     .Send input[type ="text"] {
-        width: 600px;
+        width: 300px;
     }
 
     .Send textarea {
@@ -157,8 +157,8 @@
     }
 
     .Send input[type="submit"] {
-        background-color: #7268ad;
-        padding: 3%;
+        background-color: #5d5d5d;
+        padding: 2%;
         color: white;
         border-radius: 5px;
     }

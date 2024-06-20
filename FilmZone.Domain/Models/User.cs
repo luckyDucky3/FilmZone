@@ -18,8 +18,10 @@ namespace FilmZone.Domain.Models
         //public string PhoneNumber { get; set; } = string.Empty;
         //public int Age { get; set; }
         [Column("login_name")]
-        public string LoginName { get; set; } = string.Empty;
+        public string Login { get; set; } = string.Empty;
         [Column("token")]
         public string Token { get; set; }= string.Empty;
+        [Column("email_confirmation")]
+        public bool EmailConfirmation { get; set; } = false;
     }
 }

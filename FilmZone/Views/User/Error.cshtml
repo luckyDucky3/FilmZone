@@ -1,3 +1,16 @@
-﻿<div class="Content">
-    <h1>Произошла неизвестная ошибка :( Уже работаем над проблемой!</h1>
+﻿@model FilmZone.Domain.Enum.RegistrationError
+
+<div class="Content">
+    @if (@Model == FilmZone.Domain.Enum.RegistrationError.LoginError)
+    {
+        <h2>Неверный логин</h2>
+    }
+    else if (Model == FilmZone.Domain.Enum.RegistrationError.PasswordError)
+    {
+        <h2>Неверный пароль</h2>
+    }
+    else
+    {
+        <h2>Произошла неизвестная ошибка при обработке входа в ЛК. Уже работаем над проблемой:(</h2>
+    }
 </div>

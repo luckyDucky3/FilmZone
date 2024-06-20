@@ -14,16 +14,35 @@ namespace FilmZone.Controllers
     public class UserController : Controller
     {
         private IUserService userService;
-
+        const string SessionKeyLogin = "_Name";
+        const string SessionKeyDate = "_Date";
         public UserController(IUserService userService)
         {
             this.userService = userService;
         }
 
-        public IActionResult Index(string LoginField, string PasswordField)
+        public async Task<IActionResult> Index(string LoginField, string PasswordField)
         {
-            ViewData["LoginField"] = LoginField;
-            return View();
+            var response = await userService.GetUserByLogin(LoginField);
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                if (response.Data.Password == PasswordField)
+                {
+                    //Session["SuccecfullRegistration"] = true;
+                    HttpContext.Session.SetString(SessionKeyLogin, response.Data.Login);
+                    HttpContext.Session.SetString(SessionKeyDate, DateTime.Now.ToString());
+                    return View("Index", LoginField);
+                }
+                else
+                {
+                    return View("Error", FilmZone.Domain.Enum.RegistrationError.PasswordError);
+                }
+            }
+            else if (response.StatusCode == Domain.Enum.StatusCode.UserNotFound)
+            {
+                return View("Error", FilmZone.Domain.Enum.RegistrationError.LoginError);
+            }
+            return View("Error", null);
         }
 
         [HttpGet]
@@ -80,15 +99,15 @@ namespace FilmZone.Controllers
                     FirstName = FirstName,
                     LastName = LastName,
                     Email = Email,
-                    LoginName = LoginName,
+                    Login = LoginName,
                     Password = Password1,
                     Token = token
                 };
                 var response = await userService.CreateUser(user);
                 if (response.Data)
                 {
-                    SendMessageAboutRegistrationToEmail(LoginName, Email, token);
-                    Timer timer = new Timer(RemoveTokenCallback, user, TimeSpan.FromMinutes(40),
+                    SendMessageAboutRegistrationToEmail(user.Id, LoginName, Email, token);
+                    Timer timer = new Timer(DeleteOrConfirmUser, user, TimeSpan.FromMinutes(40),
                         Timeout.InfiniteTimeSpan);
                 }
                 return View("SendMessageToEmail");
@@ -114,29 +133,32 @@ namespace FilmZone.Controllers
         //}
 
         [HttpGet]
-        public async Task<IActionResult> ConfirmRegistration(string login, string token)
+        public async Task<IActionResult> ConfirmRegistration(int id, string token)
         {
-            var response = await userService.GetUserByLogin(login);
+            var response = await userService.GetUserById(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 var user = response.Data;
-                if (user.Token == token)
+                user.EmailConfirmation = true;
+                var confirm = await userService.UpdateUserById(user);
+                if (confirm.StatusCode == Domain.Enum.StatusCode.OK)
+                {
                     return View(true);
+                }
                 else
-                    return View(false);
+                {
+                    return View("Error");
+                }
             }
             else
             {
-                return View("Error");
+                return View(false);
             }
 
         }
 
 
-
-
-
-        private void SendMessageAboutRegistrationToEmail(string login, string mail, string token)
+        private void SendMessageAboutRegistrationToEmail(int id, string login, string mail, string token)
         {
             using var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("FilmZone (Подтверждение регистрации)", "makslebed04@mail.ru"));
@@ -144,9 +166,9 @@ namespace FilmZone.Controllers
             emailMessage.Subject = "Завершите регистрацию";
             var builder = new BodyBuilder();
             
-            string confirmationLink = Url.Action("ConfirmRegistration", "User", new { login = login, token = token });
+            string confirmationLink = Url.Action("ConfirmRegistration", "User", new { id = id, token = token });
             builder.HtmlBody = string.Format(@$"<p>Привет, {login}!<br>
-<p>Поздравляем с регистрацией на FilmZone! Просим вас подтвердить Email адрес {mail}, для продолжения регистрации на нашем сайте перейдите по ссылке: film-zone.ru/{confirmationLink}<br>
+<p>Поздравляем с регистрацией на FilmZone! Просим вас подтвердить Email адрес {mail}, для продолжения регистрации на нашем сайте перейдите по ссылке: <a href =""https://film-zone.ru{confirmationLink}"">Кликни вот сюды</a><br>
 <p>Вы получили это письмо, поскольку являетесь зарегистрированным пользователем нашего сайта и указали {mail} при регистрации");
             emailMessage.Body = builder.ToMessageBody();
             using (var client = new SmtpClient())
@@ -186,19 +208,25 @@ namespace FilmZone.Controllers
             }
         }
 
-        private void RemoveTokenCallback(object state)
+        private async void DeleteOrConfirmUser(object state)
         {
             var user = (User)state;
-            userService.UpdateUser(user.LoginName, new User()
+            var response = await userService.GetUserById(user.Id);
+            if (response != null)
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                LoginName = user.LoginName,
-                Password = user.Password,
-                Token = null
-            });
+                if (response.Data.EmailConfirmation == true)
+                {
+                    await Console.Out.WriteLineAsync($"Пользователь {user.Login} | Успешная регистрация");
+                }
+                else
+                {
+                    await userService.DeleteUser(user.Id);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Ошибка регистрации пользователя");
+            }
         }
     }
 }

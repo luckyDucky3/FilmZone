@@ -51,7 +51,7 @@ namespace FilmZone.DAL.Repositories
 
         public async Task<User> GetByLogin(string name)
         {
-            return await _db.User.FirstOrDefaultAsync(x => x.LoginName == name);
+            return await _db.User.FirstOrDefaultAsync(x => x.Login == name);
         }
     }
 }

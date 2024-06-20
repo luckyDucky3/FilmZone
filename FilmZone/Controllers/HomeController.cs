@@ -22,28 +22,6 @@ namespace FilmZone.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            //var response1 = await filmService.GetFilms();
-            //int count = response1.Data.Count();
-            //await filmService.DeleteFilm(12);
-            //Film film8 = new Film()
-            //{
-            //    Name = "Остров проклятых",
-            //    PathToImage = @"https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/348fd1f4-3f63-4c77-80da-8f0bce99fd83/1920x",
-            //    Description =
-            //        "Два американских судебных пристава отправляются на один из островов в штате Массачусетс, чтобы расследовать исчезновение пациентки клиники для умалишенных преступников. При проведении расследования им придется столкнуться с паутиной лжи, обрушившимся ураганом и смертельным бунтом обитателей клиники.",
-            //    ReleaseFilmDate = 2009,
-            //    Type = TypeFilm.Thriller,
-            //    Director = "Мартин Скорсезе",
-            //    FilmOrSerial = FilmOrSerial.Film,
-            //    Preview = @"https://www.youtube.com/embed/_l7R9Rz5URw?si=fy096UnsB6qGeqYi"
-            //};
-            //film8.Links.Add(@"https://my.mail.ru/mail/vm_gluschenko/video/56039/243400.html");
-            //film8.Price.Add("Бесплатно");
-            //film8.Advertisement.Add("Без рекламы");
-            //film8.Links.Add(@"https://www.kinopoisk.ru/film/397667/");
-            //film8.Price.Add("Платно");
-            //film8.Advertisement.Add("Без рекламы");
-            //var resp1 = await filmService.UpdateFilm("Остров проклятых", film8);
             int i = 1;
             int countFilm = 0, countSerial = 0;
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();

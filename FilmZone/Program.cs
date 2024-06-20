@@ -18,6 +18,10 @@ builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddSession();
+
 Console.WriteLine("===============conclusion=================");
 using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
 {
@@ -1364,6 +1368,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -1378,4 +1383,5 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "Search",
     pattern: "Home/Search/{searchField}");
+
 app.Run();

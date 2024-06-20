@@ -20,7 +20,7 @@ namespace FilmZone.Controllers
         {
             this.userService = userService;
         }
-
+        [HttpPost]
         public async Task<IActionResult> Index(string LoginField, string PasswordField)
         {
             var response = await userService.GetUserByLogin(LoginField);
@@ -43,6 +43,13 @@ namespace FilmZone.Controllers
                 return View("Error", FilmZone.Domain.Enum.RegistrationError.LoginError);
             }
             return View("Error", null);
+        }
+
+        [HttpGet]
+        public IActionResult ExitFromAccount()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

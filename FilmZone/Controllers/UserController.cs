@@ -8,17 +8,21 @@ using FilmZone.Domain.Models;
 using FilmZone.Domain.Response;
 using FilmZone.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using FilmZone.DAL;
+using FilmZone.Service.Implementations;
 
 namespace FilmZone.Controllers
 {
     public class UserController : Controller
     {
         private IUserService userService;
+        private TimerHostedService timerHostedService;
         const string SessionKeyLogin = "_Name";
         const string SessionKeyDate = "_Date";
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, TimerHostedService timerHostedService)
         {
             this.userService = userService;
+            this.timerHostedService = timerHostedService;
         }
         [HttpPost]
         public async Task<IActionResult> Index(string LoginField, string PasswordField)
@@ -114,8 +118,7 @@ namespace FilmZone.Controllers
                 if (response.Data)
                 {
                     SendMessageAboutRegistrationToEmail(user.Id, LoginName, Email, token);
-                    Timer timer = new Timer(DeleteOrConfirmUser, user, TimeSpan.FromMinutes(40),
-                        Timeout.InfiniteTimeSpan);
+                    timerHostedService.StartAsync(user);
                 }
                 return View("SendMessageToEmail");
             }
@@ -212,27 +215,6 @@ namespace FilmZone.Controllers
                     client.Disconnect(true);
 
                 }
-            }
-        }
-
-        private async void DeleteOrConfirmUser(object state)
-        {
-            var user = (User)state;
-            var response = await userService.GetUserById(user.Id);
-            if (response != null)
-            {
-                if (response.Data.EmailConfirmation == true)
-                {
-                    await Console.Out.WriteLineAsync($"Пользователь {user.Login} | Успешная регистрация");
-                }
-                else
-                {
-                    await userService.DeleteUser(user.Id);
-                }
-            }
-            else
-            {
-                Console.WriteLine("Ошибка регистрации пользователя");
             }
         }
     }

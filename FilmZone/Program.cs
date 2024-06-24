@@ -19,29 +19,31 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
-
 builder.Services.AddSession();
+builder.Services.AddSingleton<TimerHostedService>();
+builder.Services.AddHostedService(provider => provider.GetRequiredService<TimerHostedService>());
 
-Console.WriteLine("===============conclusion=================");
-using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
-{
-    try
-    {
-        db.SaveChanges();
-        Console.WriteLine("Access to the database has been successfully obtained");
-    }
-    catch (DbUpdateConcurrencyException ex)
-    {
-        Console.WriteLine($"DbUpdateConcurrencyException, {ex}");
-    }
-    catch (DbUpdateException ex)
-    {
-        Console.WriteLine($"DbUpdateException, {ex}");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Database access failed, {ex}");
-    }
+
+//Console.WriteLine("===============conclusion=================");
+//using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
+//{
+//    try
+//    {
+//        db.SaveChanges();
+//        Console.WriteLine("Access to the database has been successfully obtained");
+//    }
+//    catch (DbUpdateConcurrencyException ex)
+//    {
+//        Console.WriteLine($"DbUpdateConcurrencyException, {ex}");
+//    }
+//    catch (DbUpdateException ex)
+//    {
+//        Console.WriteLine($"DbUpdateException, {ex}");
+//    }
+//    catch (Exception ex)
+//    {
+//        Console.WriteLine($"Database access failed, {ex}");
+//    }
     
     //if()
     //Film viewModel = new Film()
@@ -1359,7 +1361,7 @@ using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
     //db.Film.AddRange(film1, film2, film3, film4, film5, film6, film7, film8);
     //db.SaveChanges();
 
-}
+//}
 
 
 var app = builder.Build();

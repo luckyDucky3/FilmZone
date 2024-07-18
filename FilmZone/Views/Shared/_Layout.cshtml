@@ -5,21 +5,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/Fonts/Fonts.css">
     <link rel="stylesheet" href="/css/Style.css">
     <link rel="stylesheet" href="/css/StyleUser.css">
     <link rel="stylesheet" href="/css/Layout.css">
     <link rel="stylesheet" href="/css/Mobile.css">
     <link rel="icon" type="image/x-icon" href="/FilmIcon.ico">
+    <script src="https://kit.fontawesome.com/1aa93cc05d.js" crossorigin="anonymous"></script>
     <title>FilmZone</title>
 </head>
 <body>
     <div class="Main">
         <div class="Header">
             <div class="Logo">
-                <div class="LogoText">
-                    <h1><a href="/Home/Index"><img src="~/img/FilmZone.png" width="140" /></a></h1>
-                </div>
-
+                <a href="/Home/Index"><img src="~/img/FilmZone.png" width="140" /></a>
             </div>
             <div class="MenuBar">
                 <ul class="Menu">
@@ -32,15 +31,19 @@
                     {
                         <li>
                             <div class="dropdown">
-                                <button class="dropbtn">
-                                    <img class="icon" src="~/img/icon.png">
-                                </button>
+                                <img class="icon" src="~/img/icon.png">
                                 <div class="dropdown-content">
-                                    <a href="#">Профиль</a>
-                                    <a href="#">Настройки</a>
+                                    <a href="/User/Profile">Профиль</a>
+                                    <a href="/User/Options">Настройки</a>
                                     <a href="/User/ExitFromAccount">Выйти</a>
                                 </div>
                             </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="selected Enter">
+                            <a href="/User/LoginPage">Войти</a>
                         </li>
                     }
                 </ul>
@@ -51,11 +54,12 @@
                 <div class="SideBar">
                     <h2>Поиск</h2>
                     <form method="get" action="/Home/SearchByName" id="SearchByName">
-                        <input type="search" name="SearchField" placeholder="Ваш запрос" />
+                        <span class="fa-solid fa-magnifying-glass"></span>
+                        <input type="search" name="SearchField"/>
                         <input type="submit" class="btn" value="Найти" />
                     </form>
                 </div>
-                @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() is null)
+                @* @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() is null)
                 {
                     <div class="SideBar">
                         <h2>Вход</h2>
@@ -68,12 +72,13 @@
                             </div>
                         </form>
                     </div>
-                }
+                } *@
                 <div class="SideBar">
                     <h2>Новости</h2>
                     <span class="Message">
-                        <strong>29.02.2024</strong>
-                        <p>Мы запустили нашего тг помощника!! Он поможет вам выбрать фильмы на основе любых запросов и пожеланий:)</p>
+                        <p><strong>29.02.2024</strong></p>
+                        <hr>
+                        <p>Мы запустили нашего тг помощника!! Он поможет вам выбрать фильмы на основе любых запросов и пожеланий) <img src="https://smailiki.ucoz.net/_ph/68/2/488864449.gif" width="23" /></p>
                     </span>
                     <a href="https://t.me/FilmZoneOfficial_bot">Перейти</a>
                 </div>

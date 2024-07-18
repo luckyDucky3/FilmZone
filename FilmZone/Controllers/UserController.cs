@@ -24,6 +24,13 @@ namespace FilmZone.Controllers
             this.userService = userService;
             this.timerHostedService = timerHostedService;
         }
+
+        [HttpGet]
+        public IActionResult LoginPage()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Index(string LoginField, string PasswordField)
         {
@@ -47,6 +54,20 @@ namespace FilmZone.Controllers
                 return View("Error", FilmZone.Domain.Enum.RegistrationError.LoginError);
             }
             return View("Error", null);
+        }
+
+        [HttpGet]
+        public IActionResult Profile()
+        {
+
+        return View(); 
+        }
+
+        [HttpGet]
+        public IActionResult Options()
+        {
+
+            return View();
         }
 
         [HttpGet]
@@ -118,7 +139,7 @@ namespace FilmZone.Controllers
                 if (response.Data)
                 {
                     SendMessageAboutRegistrationToEmail(user.Id, LoginName, Email, token);
-                    timerHostedService.StartAsync(user);
+                    await timerHostedService.StartAsync(user);
                 }
                 return View("SendMessageToEmail");
             }

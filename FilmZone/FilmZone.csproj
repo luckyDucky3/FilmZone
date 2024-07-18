@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\User\LoginPage.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FilmZone.DAL\FilmZone.DAL.csproj" />
     <ProjectReference Include="..\FilmZone.Domain\FilmZone.Domain.csproj" />
     <ProjectReference Include="..\FilmZone.Service\FilmZone.Service.csproj" />
@@ -16,6 +20,8 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\User\ConfirmRegistration.cshtml" />
     <_ContentIncludedByDefault Remove="Views\User\ForgotPassword.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\User\LoginPage.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\User\Options.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +38,19 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\User\ConfirmRegistration.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\User\LoginPage.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Shared\LoginPage.cshtml" />
+    <None Include="Views\User\Options.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\User\Options.cshtml" />
   </ItemGroup>
 
 </Project>

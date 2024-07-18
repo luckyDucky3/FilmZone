@@ -26,11 +26,8 @@
 .icon {
     border-radius: 50%;
     width: 30px;
-}
-
-/* Кнопка выпадающего списка */
-.dropbtn {
-    border-radius: 50%;
+    height: 30px;
+    cursor: pointer;
 }
 
 /* Контейнер <div> - необходим для размещения выпадающего содержимого */

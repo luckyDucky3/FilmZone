@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -135,13 +137,14 @@ ul.Menu {
         ul.Menu li a:hover {
             color: #ffeac2; /*Наведение на ссылку*/
         }
-        
+
 .btn {
     padding: 8px;
     background-color: #5d5d5d;
     cursor: pointer;
     border-radius: 5px;
     color: #fff;
+    font-family: 'Yandex Sans Text';
 }
 
 .Button {
@@ -158,4 +161,166 @@ ul.Menu {
     .Button a {
         color: white;
         text-decoration: none;
+    }
+
+.pop_up {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    box-sizing: border-box;
+    background-color: transparent;
+    transform: translateY(-44.5%) scale(0);
+    transition: .4s ease-in-out;
+}
+
+    .pop_up.active {
+        transform: translateY(0%) scale(100%);
+        background-color: #dde1e7f7;
+    }
+
+.pop_up_container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.pop_up_body {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    margin: auto;
+    position: relative;
+}
+
+    .pop_up_body html, body {
+        height: 100%;
+    }
+
+    .pop_up_body .content {
+        width: 270px;
+        background: #dde1e7;
+        border-radius: 10px;
+        padding: 40px 30px;
+        box-shadow: -3px -3px 7px #ffffff73, 2px 2px 5px rgba(94, 104, 121, 0.288);
+    }
+
+        .pop_up_body .content .text {
+            font-size: 33px;
+            font-weight: 600;
+            margin-bottom: 35px;
+            color: #595959;
+        }
+
+        .pop_up_body .content .field {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            position: relative;
+            align-items: flex-start;
+        }
+
+    .pop_up_body .content .field input {
+        height: 100%;
+        width: 100%;
+        padding-left: 45px;
+        padding-bottom: 0;
+        padding-top: 0;
+        padding-right: 0;
+        font-size: 18px;
+        outline: none;
+        border: none;
+        color: #595959;
+        background: #dde1e7;
+        border-radius: 25px;
+        box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #ffffff73;
+    }
+
+        .pop_up_body .field input:focus {
+            box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #ffffff73;
+        }
+
+    .pop_up_body .field:nth-child(2) {
+        margin-top: 20px;
+    }
+
+    .pop_up_body .field span {
+        position: absolute;
+        width: 50px;
+        line-height: 50px;
+        color: #595959;
+        pointer-events: none;
+    }
+
+    .pop_up_body .field label {
+        position: absolute;
+        top: 50%;
+        left: 45px;
+        pointer-events: none;
+        color: #666666;
+        transform: translateY(-50%);
+    }
+
+    .pop_up_body .field input:valid ~ label {
+        opacity: 0;
+    }
+
+    .pop_up_body .forgot-pass {
+        text-align: left;
+        margin: 10px 0 10px 5px;
+    }
+
+        .pop_up_body .forgot-pass a {
+            font-size: 16px;
+            color: #c09040;
+            text-decoration: none;
+        }
+
+            .pop_up_body .forgot-pass a:hover {
+                text-decoration: underline;
+            }
+
+.pop_up_body button {
+    margin: 15px 0;
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    background: #dde1e7;
+    border: none;
+    outline: none;
+    color: #595959;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px #babecc, -5px -5px 10px #ffffff73;
+}
+
+    .pop_up_body button:focus {
+        color: #c09040;
+        box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #ffffff73;
+    }
+
+    .pop_up_body .signup {
+        font-size: 16px;
+        color: #595959;
+        margin: 10px 0;
+    }
+
+        .pop_up_body .signup a {
+            color: #c09040;
+            text-decoration: none;
+        }
+
+            .pop_up_body .signup a:hover {
+                text-decoration: underline;
+            }
+
+    .pop_up_body .pop_up_close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        cursor: pointer;
     }

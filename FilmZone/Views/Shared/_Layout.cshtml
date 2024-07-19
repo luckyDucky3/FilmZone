@@ -43,7 +43,7 @@
                     else
                     {
                         <li class="selected Enter">
-                            <a href="/User/LoginPage">Войти</a>
+                            <a href="/User/LoginPage" id="open_pop_up">Войти</a>
                         </li>
                     }
                 </ul>
@@ -108,5 +108,39 @@
             <p>w-db.com 2024</p>
         </div>
     </div>
+
+    <div class="pop_up"id="pop_up">
+        <div class="pop_up_container" id="pop_up_container">
+            <div class="pop_up_body" id="pop_up_body">
+                <div class="content"id="content">
+                    <div class="text">Вход</div>
+                    <form method="post" action="/User/Index">
+                        <div class="field">
+                            <span class="fas fa-user"></span>
+                            <input type="text" name="LoginField" required>
+                            <label>Почта</label>
+                        </div>
+                        <div class="field">
+                            <span class="fas fa-lock"></span>
+                            <input type="password" name="PasswordField" required>
+                            <label>Пароль</label>
+                        </div>
+                        <div class="forgot-pass"><a href="/User/ForgotPassword">Забыли пароль?</a></div>
+                        <button>Войти</button>
+                        <div class="signup">
+                            Впервые на сайте?
+                            <a href="/User/RegistrationPage">Регистрация</a>
+                        </div>
+                    </form>
+                    <div class="pop_up_close" id="pop_up_close">&#10006</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="~/js/pop-up.js"></script>
 </body>
 </html>

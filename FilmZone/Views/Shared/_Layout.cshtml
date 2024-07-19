@@ -52,11 +52,10 @@
         <div class="SiteContent">
             <div class="SideBarContainer">
                 <div class="SideBar">
-                    <h2>Поиск</h2>
                     <form method="get" action="/Home/SearchByName" id="SearchByName">
-                        <span class="fa-solid fa-magnifying-glass"></span>
                         <input type="search" name="SearchField"/>
-                        <input type="submit" class="btn" value="Найти" />
+                        <span class="fa-solid fa-magnifying-glass magnifying-glass"></span>
+                        <input type="submit" id="find"/>
                     </form>
                 </div>
                 @* @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() is null)

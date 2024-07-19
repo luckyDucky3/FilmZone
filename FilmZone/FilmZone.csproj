@@ -45,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Shared\LoginPage.cshtml" />
     <None Include="Views\User\Options.cshtml" />
   </ItemGroup>
 

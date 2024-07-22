@@ -120,7 +120,6 @@ namespace FilmZone.Controllers
         {
             return View();
         }
-        //[HttpPost]
         [HttpGet]
         public async Task<IActionResult> SearchByName(string searchField)
         {
@@ -161,6 +160,26 @@ namespace FilmZone.Controllers
                 }
             }
             return RedirectToAction("Error");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchByType(TypeFilm type)
+        {
+            int id = 1;
+            List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
+            var response = await filmService.GetFilmById(id);
+            id++;
+            while (id < 100)
+            {
+                if(response.StatusCode == Domain.Enum.StatusCode.OK && response.Data.Type == type)
+                {
+                    ListOfFilm.Add(response.Data);
+                }
+                response = await filmService.GetFilmById(id);
+                id++;
+            }
+            ViewData["Type"] = type;
+            return View(ListOfFilm);
         }
 
         public IActionResult Error()

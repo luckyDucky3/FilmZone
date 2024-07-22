@@ -15,6 +15,30 @@
     <title>FilmZone</title>
 </head>
 <body>
+    @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() == true && HttpContextAccessor.HttpContext?.Session.Get("_BackgroundColor")?.ToString() == "dark")
+    {
+        <style>
+            .Main{
+                background-color: darkgrey;
+            }
+
+            .SiteContent {
+                background-color: darkgrey;
+            }
+        </style>
+    }
+    else
+    {
+        <style>
+            .Main {
+                background-color: #f9f9f9;
+            }
+
+            .SiteContent {
+                background-color: #f9f9f9;
+            }
+        </style>
+    }
     <div class="Main">
         <div class="Header">
             <div class="Logo">
@@ -49,6 +73,7 @@
                 </ul>
             </div>
         </div>
+        
         <div class="SiteContent">
             <div class="SideBarContainer">
                 <div class="SideBar">
@@ -81,8 +106,34 @@
                     </span>
                     <a href="https://t.me/FilmZoneOfficial_bot">Перейти</a>
                 </div>
+
+                <div class="SideBar">
+                    <h2>Сортировать по жанрам:</h2>
+                    <ul>
+                        <li><a href="/Home/SearchByType?type=Anime">Аниме</a></li>
+                        <li><a href="/Home/SearchByType?type=Biography">Биография</a></li>
+                        <li><a href="/Home/SearchByType?type=ActionMovie">Боевик</a></li>
+                        <li><a href="/Home/SearchByType?type=Western">Вестерн</a></li>
+                        <li><a href="/Home/SearchByType?type=Military">Военный</a></li>
+                        <li><a href="/Home/SearchByType?type=Detective">Детектив</a></li>
+                        <li><a href="/Home/SearchByType?type=Documentary">Документальный</a></li>
+                        <li><a href="/Home/SearchByType?type=Drama">Драма</a></li>
+                        <li><a href="/Home/SearchByType?type=History">История</a></li>
+                        <li><a href="/Home/SearchByType?type=Comedy">Комедия</a></li>
+                        <li><a href="/Home/SearchByType?type=Criminal">Криминал</a></li>
+                        <li><a href="/Home/SearchByType?type=ShortFilm">Короткометражка</a></li>
+                        <li><a href="/Home/SearchByType?type=Melodrama">Мелодрама</a></li>
+                        <li><a href="/Home/SearchByType?type=Cartoon">Мультфильм</a></li>
+                        <li><a href="/Home/SearchByType?type=Musical">Мюзикл</a></li>
+                        <li><a href="/Home/SearchByType?type=Adventures">Приключения</a></li>
+                        <li><a href="/Home/SearchByType?type=Thriller">Триллер</a></li>
+                        <li><a href="/Home/SearchByType?type=Horrors">Ужасы</a></li>
+                        <li><a href="/Home/SearchByType?type=Fantasy">Фантастика</a></li>
+                    </ul>
+                </div>
+
                 @* <div class="SideBar">
-                    <h2>Рейтинг фильмов</h2>
+                    <h2>Рейтинг фильмов:</h2>
                     <ul>
                         <li><a href="/Home/Search?SearchField=Интерстеллар">Интерстеллар</a><span class="RatingSideBar">8.1</span></li>
                         <li><a href="#">Человек-паук: Нет пути домой</a><span class="RatingSideBar">7.9</span></li>
@@ -95,6 +146,7 @@
             </div>
                 @RenderBody()
         </div>
+        
         <div class="Footer">
             <p>
                 <a href="/Home/Index">Главная</a> |

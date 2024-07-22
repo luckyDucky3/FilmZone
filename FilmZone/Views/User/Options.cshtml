@@ -1,16 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<div class="Content">
+﻿<div class="Content">
     <h2>Настройки</h2>
     <p>Выбор темы:</p>
     <div>
-        <input type="radio" value="light" checked name="ColorOFTheme"/> Светлая
+        <input type="radio" value="light" checked name="color"/> Светлая
     </div>
     <div>
-        <input type="radio" value="dark" name="ColorOFTheme" /> Темная
+        <input type="radio" value="dark" name="color" /> Темная
     </div>
-    <button class="Button" type="submit">Применить</button>
+    <button class="Button" type="submit" action="User/ChangeBackgroundColor">Применить</button>
 </div>

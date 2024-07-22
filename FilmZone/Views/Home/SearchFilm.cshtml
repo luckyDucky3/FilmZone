@@ -1,4 +1,7 @@
 ﻿@model FilmZone.Domain.ViewModels.FilmViewModel
+@{
+    var type = Model.Type.GetDisplayName();
+}
 @if(Model != null)
 {
 <div class="Content ContentFilm">
@@ -9,7 +12,7 @@
     <span class="Label">Рейтинг: </span><span class="Value"></span>
     <span class="Label">Год: </span><span class="Value">@Model.ReleaseFilmDate</span>
     <span class="Label">Режиссер: </span><span class="Value">@Model.Director</span>
-    <span class="Id">Id: </span><span class="Value">@Model.Id</span>
+    <span class="Label">Жанр: </span><span class="Value">@type</span>
 </div>
 <hr>
 <h2>Описание фильма</h2>

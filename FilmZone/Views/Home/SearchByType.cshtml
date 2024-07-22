@@ -1,10 +1,10 @@
-﻿@using FilmZone.Domain.Enum
-@model List<FilmZone.Domain.ViewModels.FilmViewModel>
+﻿@model List<FilmZone.Domain.ViewModels.FilmViewModel>
 @{
-    int count = Model.Count + 4;
+    
     string filmDesc;
 }
 <div class="Content">
+    <h2>@ViewData["Type"]</h2>
     @foreach (var film in Model)
     {
         <div class="InfoFilm">
@@ -20,17 +20,9 @@
                 }
             }
             @filmDesc
-            @* <div class="Button"><a href="/Home/SearchById/@film.Id">Смотреть</a></div> *@
             <form method="get" action="/Home/SearchById/@film.Id">
                 <button type="submit" class="Button">Смотреть</button>
             </form>
         </div>
-    }
-    @if (ViewData["Message"] != "Конец")
-    {
-        <form method="get" action="/Home/Films?countFMax=@count">
-            <input type="hidden" name="countFMax" value="@count" />
-            <button type="submit" class="ButtonWatchMore">Смотреть еще</button>
-        </form>
     }
 </div>

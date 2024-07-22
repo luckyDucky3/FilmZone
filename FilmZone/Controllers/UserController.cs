@@ -56,6 +56,12 @@ namespace FilmZone.Controllers
             return View("Error", null);
         }
 
+        public RedirectToPageResult ChangeBackgroundColor(string color) 
+        {
+            HttpContext.Session.SetString("_BackgroundColor", color);
+            return RedirectToPage("Options");
+        }
+
         [HttpGet]
         public IActionResult Profile()
         {

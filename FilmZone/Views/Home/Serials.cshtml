@@ -25,6 +25,9 @@
     }
     @if (ViewData["Message"] != "Конец")
     {
-        <div class="ButtonWatchMore"><a href="/Home/Serials?countSMax=@count">Смотреть еще</a></div>
+        <form method="get" action="/Home/Serials?countSMax=@count">
+            <input type="hidden" name="countSMax" value="@count" />
+            <button type="submit" class="ButtonWatchMore">Смотреть еще</button>
+        </form>
     }
 </div>

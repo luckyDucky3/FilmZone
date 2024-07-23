@@ -90,7 +90,7 @@ namespace FilmZone.Controllers
         public IActionResult RegistrationPage(List<bool> Errors)
         {
             if (Errors.Count == 0)
-                Errors = new List<bool>(){false, false, false, false, false, false, false};
+                Errors = new List<bool>(){false, false, false, false, false, false, false, false, false};
             return View(Errors);
         }
 
@@ -103,7 +103,11 @@ namespace FilmZone.Controllers
                 errorEmail = false,
                 errorPassword1 = false,
                 errorPassword1Length = false,
-                errorPasswords = false;
+                errorPasswords = false,
+                errorSearchLogin = false,
+                errorSearchMail = false;
+            errorSearchLogin = await loginSearchInDB(LoginName);
+            errorSearchMail = await mailSearchInDB(Email);
             if (LastName.Length > 20 || LastName.Length < 2)
                 errorLengthLastName = true;
             if (FirstName.Length > 15 || FirstName.Length < 2)
@@ -121,9 +125,10 @@ namespace FilmZone.Controllers
             }
             if (Password1.Length < 8)
                 errorPassword1Length = true;
-            if (errorLengthLastName || errorLengthFirstName || errorLengthNickName || errorEmail || errorPassword1 || errorPassword1Length ||errorPasswords)
+
+            if (errorLengthLastName || errorLengthFirstName || errorLengthNickName || errorEmail || errorPassword1 || errorPassword1Length ||errorPasswords || errorSearchLogin || errorSearchMail)
             {
-                List<bool> listErrors = new List<bool>() { errorLengthLastName, errorLengthFirstName, errorLengthNickName, errorEmail, errorPassword1, errorPassword1Length ,errorPasswords };
+                List<bool> listErrors = new List<bool>() { errorLengthLastName, errorLengthFirstName, errorLengthNickName, errorEmail, errorPassword1, errorPassword1Length ,errorPasswords, errorSearchLogin, errorSearchMail };
                 return RedirectToAction("RegistrationPage", new { Errors = listErrors}); 
                 
             }
@@ -151,6 +156,26 @@ namespace FilmZone.Controllers
                     await timerHostedService.StartAsync(user);
                 }
                 return View("SendMessageToEmail");
+            }
+            async Task<bool> loginSearchInDB(string login)
+            {
+                bool search = false;
+                var response = await userService.GetUserByLogin(login);
+                if(response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    search = true;
+                }
+                return search;
+            }
+            async Task<bool> mailSearchInDB(string mail)
+            {
+                bool search = false;
+                var response = await userService.GetUserByMail(mail);
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    search = true;
+                }
+                return search;
             }
         }
         [HttpGet]

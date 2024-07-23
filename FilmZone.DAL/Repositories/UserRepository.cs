@@ -53,5 +53,10 @@ namespace FilmZone.DAL.Repositories
         {
             return await _db.User.FirstOrDefaultAsync(x => x.Login == name);
         }
+
+        public async Task<User> GetByMail(string mail)
+        {
+            return await _db.User.FirstOrDefaultAsync(x => x.Email == mail);
+        }
     }
 }

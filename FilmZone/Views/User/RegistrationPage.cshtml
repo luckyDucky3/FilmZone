@@ -21,12 +21,22 @@
             <br />
             <span class="ErrorForm">Логин должен быть от 3 до 20 символов</span>
         }
+        @if (Model[7])
+        {
+            <br />
+            <span class="ErrorForm">Такой логин уже существует</span>
+        }
         <span class="RegLabel"><br/>Логин(для входа в лк):</span>
         <br/><input type="text" name="LoginName"/>
         @if (Model[3])
         {
             <br />
             <span class="ErrorForm">Почта должна содержать символ '@@'</span>
+        }
+        @if (Model[8])
+        {
+            <br />
+            <span class="ErrorForm">Аккаунт с этой почтой уже был создан</span>
         }
         <span class="RegLabel"><br/>Почта:</span>
         <br/><input type="text" name="Email"/>

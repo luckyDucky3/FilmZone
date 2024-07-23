@@ -20,6 +20,7 @@ namespace FilmZone.Service.Interfaces
         Task<IBaseResponse<bool>> DeleteUser(int id);
 
         Task<IBaseResponse<User>> GetUserByLogin(string name);
+        Task<IBaseResponse<User>> GetUserByMail(string mail);
 
         Task<IBaseResponse<User>> UpdateUserById(User _user);
     }

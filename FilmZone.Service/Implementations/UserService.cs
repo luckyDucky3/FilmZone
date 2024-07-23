@@ -76,6 +76,33 @@ namespace FilmZone.Service.Implementations
             }
         }
 
+        public async Task<IBaseResponse<User>> GetUserByMail(string mail)
+        {
+            var baseResponse = new BaseResponse<User>();
+            try
+            {
+                var user = await _userRepository.GetByMail(mail);
+                if (user == null)
+                {
+                    baseResponse.Description = "User not found";
+                    baseResponse.StatusCode = StatusCode.UserNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.StatusCode = StatusCode.OK;
+                baseResponse.Data = user;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<User>()
+                {
+                    Description = $"[GetUserById] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
         public async Task<IBaseResponse<bool>> CreateUser(User user)
         {
             var baseResponse = new BaseResponse<bool>();

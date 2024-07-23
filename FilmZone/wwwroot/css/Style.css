@@ -98,6 +98,17 @@
     
 }
 
+h2#type {
+    text-align: center;
+}
+
+h2#filmsOrSerials {
+    color: #7c756c;
+    font-size: larger;
+    text-decoration: underline;
+}
+
+
 .InfoFilm {
     background-color: #f3f3f3;
     border-radius: 7px;

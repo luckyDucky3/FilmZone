@@ -1,28 +1,70 @@
 ﻿@model List<FilmZone.Domain.ViewModels.FilmViewModel>
 @{
-    
+
     string filmDesc;
+    bool empty = true;
 }
 <div class="Content">
-    <h2>@ViewData["Type"]</h2>
+    <h2 id="type">@ViewData["Type"]</h2>
+    <h2 id="filmsOrSerials">Фильмы:</h2>
     @foreach (var film in Model)
     {
-        <div class="InfoFilm">
-            <img src="@Url.Content(film.PathToImage)" />
-            @{
-                if (film.Description.Length > 350)
-                {
-                    filmDesc = film.Description[..350] + "...";
+        if (film.FilmOrSerial == FilmZone.Domain.Enum.FilmOrSerial.Film)
+        {
+            empty = false;
+            <div class="InfoFilm">
+                <img src="@Url.Content(film.PathToImage)" />
+                @{
+                    if (film.Description.Length > 350)
+                    {
+                        filmDesc = film.Description[..350] + "...";
+                    }
+                    else
+                    {
+                        filmDesc = film.Description;
+                    }
                 }
-                else
-                {
-                    filmDesc = film.Description;
+                @filmDesc
+                <form method="get" action="/Home/SearchById/@film.Id">
+                    <button type="submit" class="Button">Смотреть</button>
+                </form>
+            </div>
+        }
+    }
+    @if (empty)
+    {
+        <p>Здесь пока пусто...</p>
+    }
+    @{
+        empty = true;
+    }
+    <h2 id="filmsOrSerials">Сериалы:</h2>
+    @foreach (var film in Model)
+    {
+        if(film.FilmOrSerial == FilmZone.Domain.Enum.FilmOrSerial.Serial)
+        {
+            empty = false;
+            <div class="InfoFilm">
+                <img src="@Url.Content(film.PathToImage)" />
+                @{
+                    if (film.Description.Length > 350)
+                    {
+                        filmDesc = film.Description[..350] + "...";
+                    }
+                    else
+                    {
+                        filmDesc = film.Description;
+                    }
                 }
-            }
-            @filmDesc
-            <form method="get" action="/Home/SearchById/@film.Id">
-                <button type="submit" class="Button">Смотреть</button>
-            </form>
-        </div>
+                @filmDesc
+                <form method="get" action="/Home/SearchById/@film.Id">
+                    <button type="submit" class="Button">Смотреть</button>
+                </form>
+            </div>
+        }
+    }
+    @if (empty)
+    {
+        <p>Здесь пока пусто...</p>
     }
 </div>

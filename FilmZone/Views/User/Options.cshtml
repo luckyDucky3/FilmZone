@@ -1,11 +1,24 @@
 ﻿<div class="Content">
     <h2>Настройки</h2>
-    <p>Выбор темы:</p>
-    <div>
-        <input type="radio" value="light" checked name="color"/> Светлая
-    </div>
-    <div>
-        <input type="radio" value="dark" name="color" /> Темная
-    </div>
-    <button class="Button" type="submit" action="User/ChangeBackgroundColor">Применить</button>
+    <p id="changeTheme">Выбор темы:</pш>
+    <form id="colorForm" method="post" action="/User/ChangeBackgroundColor">
+        <div class="form_toggle">
+                <div class="radio radio1">
+                <input id="btn1" type="radio" value="light" name="color">
+                    <label for="btn1"><i class="fa-regular fa-sun" style=" color: #999;"></i></label>
+            </div>
+                <div class="radio radio2">
+                <input id="btn2" type="radio" value="dark" name="color">
+                    <label for="btn2"><i class="fa-regular fa-moon" style=" color: #999;"></i></label>
+            </div>
+        </div>
+    </form>
+    <script>
+        document.querySelectorAll('input[name="color"]').forEach(radio => {
+            radio.addEventListener('change', function () {
+                document.getElementById('colorForm').submit();
+            });
+        });
+    </script>
+
 </div>

@@ -63,3 +63,70 @@
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+span#UserInfo{
+    color: green;
+}
+
+.UserInfo {
+    color: #494848;
+    font-size: 20px;
+    text-align: center;
+    font-family: cursive;
+}
+
+hr#profile {
+    border: solid 1px #dedcd8;
+    margin-left: 200px;
+    margin-right: 200px;
+    width: auto;
+}
+
+p#changeTheme {
+    font-family: cursive;
+    font-size: 20px;
+}
+
+.form_toggle {
+    display: inline-block;
+    overflow: hidden;
+}
+
+.radio {
+    float: left;
+    display: inline-block;
+}
+
+.radio input[type=radio] {
+    display: none;
+}
+
+    .radio label {
+        display: inline-block;
+        padding: 0px 15px;
+        line-height: 34px;
+        border: 1px solid #999;
+        border-right: none;
+        cursor: pointer;
+        user-select: none;
+    }
+
+.form_toggle .radio1 label {
+    border-radius: 6px 0 0 6px;
+}
+
+.form_toggle .radio2 label {
+    border-radius: 0 6px 6px 0;
+    border-right: 1px solid #999;
+}
+
+.form_toggle .radio1 input[type=radio]:hover + label {
+    background: #f6e7ce;
+}
+
+.form_toggle .radio2 input[type=radio]:hover + label {
+    background: #3c3a33;
+}
+    .form_toggle .radio2 input[type=radio]:hover + label .fa-moon {
+        color: #fff;
+    }

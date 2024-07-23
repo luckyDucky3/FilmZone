@@ -56,23 +56,26 @@ namespace FilmZone.Controllers
             return View("Error", null);
         }
 
-        public RedirectToPageResult ChangeBackgroundColor(string color) 
+        public IActionResult ChangeBackgroundColor(string color) 
         {
             HttpContext.Session.SetString("_BackgroundColor", color);
-            return RedirectToPage("Options");
+            return View("Options");
         }
 
         [HttpGet]
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-
-        return View(); 
+            var response = await userService.GetUserByLogin(HttpContext.Session.GetString(SessionKeyLogin));
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(response.Data);
+            }
+            return View(null); 
         }
 
         [HttpGet]
         public IActionResult Options()
         {
-
             return View();
         }
 

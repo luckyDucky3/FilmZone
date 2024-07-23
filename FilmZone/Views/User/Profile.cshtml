@@ -1,4 +1,29 @@
-﻿<div class="Content">
-   <h2>Ваш профиль:</h2>
-   
-</div>
+﻿@using FilmZone.Domain.Models
+@model User
+@if (Model != null)
+{
+    <div class="Content">
+        <h2>Ваш профиль:</h2>
+        <div class="UserInfo">Логин: <span id="UserInfo">@Model.Login</span></div>
+        <hr id="profile" />
+        <div class="UserInfo">Имя: <span id="UserInfo">@Model.FirstName</span></div>
+        <hr id="profile" />
+        <div class="UserInfo">Фамилия: <span id="UserInfo">@Model.LastName</span></div>
+        <hr id="profile" />
+        <div class="UserInfo">Почта: <span id="UserInfo">@Model.Email</span></div>
+        <div class="UserInfo">
+            Подтверждена:
+        @if (Model.EmailConfirmation)
+        {
+            <span id="UserInfo">да</span>
+        }
+        else{
+            <span id="UserInfo">нет</span>
+        }
+        </div>
+    </div>
+}
+else
+{
+    <p>Ошибка в получении данных:(</p>
+}

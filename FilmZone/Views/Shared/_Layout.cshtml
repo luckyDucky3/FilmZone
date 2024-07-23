@@ -15,7 +15,7 @@
     <title>FilmZone</title>
 </head>
 <body>
-    @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() == true && HttpContextAccessor.HttpContext?.Session.Get("_BackgroundColor")?.ToString() == "dark")
+    @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() == true && HttpContextAccessor.HttpContext?.Session.GetString("_BackgroundColor") == "dark")
     {
         <style>
             .Main{
@@ -24,6 +24,9 @@
 
             .SiteContent {
                 background-color: darkgrey;
+            }
+            h1, h2, a {
+                color: #ffeac2;
             }
         </style>
     }

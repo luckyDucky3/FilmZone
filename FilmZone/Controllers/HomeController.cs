@@ -13,11 +13,13 @@ namespace FilmZone.Controllers
         private readonly ILogger<HomeController> _logger;
         private int testValue = 0;
         private IFilmService filmService;
+        private IFeedbackService feedbackService;
         
-        public HomeController(IFilmService filmService, ILogger<HomeController> logger)
+        public HomeController(IFilmService filmService, ILogger<HomeController> logger, IFeedbackService feedbackService)
         {
             _logger = logger;
             this.filmService = filmService;
+            this.feedbackService = feedbackService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -118,7 +120,7 @@ namespace FilmZone.Controllers
         [HttpGet]
         public IActionResult Kontakts()
         {
-            return View();
+            return View(false);
         }
         [HttpGet]
         public async Task<IActionResult> SearchByName(string searchField)
@@ -180,6 +182,16 @@ namespace FilmZone.Controllers
             }
             ViewData["Type"] = type;
             return View(ListOfFilm);
+        }
+
+        public async Task<IActionResult> SendFeedback(string Name, string Email, string Text)
+        {
+            Feedback fb = new Feedback();
+            fb.Name = Name;
+            fb.Email = Email;
+            fb.Text = Text;
+            var response = await feedbackService.CreateFeedback(fb);
+            return View("Kontakts", response.Data);
         }
 
         public IActionResult Error()

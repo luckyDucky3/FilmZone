@@ -1,4 +1,5 @@
-﻿<div class="Content">
+﻿@model bool
+<div class="Content">
     <h2>Контакты</h2>
     <p id="dev">Разработчик и владелец сайта:</p> 
     <style>
@@ -9,21 +10,28 @@
     </style>
     <p>Тел: +7-938-535-52-18</p>
     <p>Почта: Maxlebed04@mail.ru</p>
-    <p id="feedback">Оставьте свой отзыв или любые пожелания о нашей площадке. Прочитаем и отреагируем в ближайшее время!</p>
-    <style>
-        p#feedback {
+    @if (!Model)
+    {
+        <p id="feedback">Оставьте свой отзыв или любые пожелания о нашей площадке. Прочитаем и отреагируем в ближайшее время!</p>
+        <style>
+            p#feedback {
             color: #b48b2d;
             line-height: 1.5em;
             font-size: medium;
-        }
-    </style>
-    <div class="Send">
+            }
+        </style>
+        <div class="Send">
 
-        <form method="post" action="" id="Review"></form>
-        <input type="text" name="ReviewName" placeholder="Ваше имя">
-        <input type="text" name="ReviewMail" placeholder="Ваш e-Mail">
-        <textarea name="ReviewText"></textarea>
-        <input type="submit" placeholder="Отправить">
-
-    </div>
+            <form method="post" action="/Home/SendFeedback" id="Review">
+            <input type="text" name="Name" placeholder="Ваше имя" required>
+            <input type="text" name="Email" placeholder="Ваш e-Mail" required>
+            <textarea name="Text" required></textarea>
+            <input class="btn" type="submit" placeholder="Отправить">
+            </form>
+        </div>
+    }
+    else
+    {
+        <p class="UserInfo">Спасибо за обратную связь!</p>
+    }
 </div>

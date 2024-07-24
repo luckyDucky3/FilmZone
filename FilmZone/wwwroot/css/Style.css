@@ -28,10 +28,9 @@
     }
 
     .SideBar hr {
-        margin-left: 0px;
-        margin-right: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
         width: auto;
-        border-color: #d5d5d5;
     }
 
 .SideBar h2 {

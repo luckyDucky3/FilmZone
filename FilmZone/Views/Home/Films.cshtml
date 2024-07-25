@@ -1,36 +1,42 @@
-﻿@using FilmZone.Domain.Enum
-@model List<FilmZone.Domain.ViewModels.FilmViewModel>
-@{
-    int count = Model.Count + 4;
-    string filmDesc;
-}
-<div class="Content">
-    @foreach (var film in Model)
-    {
-        <div class="InfoFilm">
-            <img src="@Url.Content(film.PathToImage)" />
-            @{
-                if (film.Description.Length > 350)
-                {
-                    filmDesc = film.Description[..350] + "...";
-                }
-                else
-                {
-                    filmDesc = film.Description;
-                }
-            }
-            @filmDesc
-            @* <div class="Button"><a href="/Home/SearchById/@film.Id">Смотреть</a></div> *@
-            <form method="get" action="/Home/SearchById/@film.Id">
-                <button type="submit" class="Button">Смотреть</button>
-            </form>
-        </div>
-    }
-    @if (ViewData["Message"] != "Конец")
-    {
-        <form method="get" action="/Home/Films?countFMax=@count">
-            <input type="hidden" name="countFMax" value="@count" />
-            <button type="submit" class="ButtonWatchMore">Смотреть еще</button>
-        </form>
-    }
+﻿<div class="Content">
+   
 </div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var currentId = 1;
+
+            function loadFilms() {
+                $.ajax({
+                    url: '@Url.Action("AjaxSearchFilms", "Home")',
+                    type: 'GET',
+                    data: { currentId: currentId },
+                    success: function (result) {
+                        $("#newCurrentId").remove();
+                        $("#ButtonWatchMore").remove();
+                        $(".Content").append(result);
+                        var newCurrentId = $(".Content").find("#newCurrentId").val();
+                        if (newCurrentId) {
+                            currentId = newCurrentId;
+                        }
+                        console.log(currentId);
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+
+            // Загружаем фильмы при загрузке страницы
+            loadFilms();
+
+            // Загружаем фильмы при нажатии на кнопку
+            $(document).on('submit', '#loadMoreForm', function (event) {
+                event.preventDefault(); // Предотвращаем стандартное поведение формы
+                loadFilms();
+            });
+        });
+    </script>
+}

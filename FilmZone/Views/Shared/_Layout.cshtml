@@ -50,7 +50,7 @@
             <div class="MenuBar">
                 <ul class="Menu">
                     <li class="selected"><a href="/Home/Index">Главная</a></li>
-                    <li class="selected"><a href="/Home/Films?countFMax=4">Фильмы</a></li>
+                    <li class="selected"><a href="/Home/Films">Фильмы</a></li>
                     <li class="selected"><a href="/Home/Serials?countSMax=4">Сериалы</a></li>
                     <li class="selected"><a href="/Home/Rating">Рейтинг фильмов</a></li>
                     <li class="selected"><a href="/Home/Kontakts">Контакты</a></li>
@@ -191,10 +191,7 @@
             </div>
         </div>
     </div>
-
-
-
-
+    @await RenderSectionAsync("Scripts", false);
     <script src="~/js/pop-up.js"></script>
 </body>
 </html>

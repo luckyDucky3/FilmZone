@@ -5,6 +5,8 @@ using FilmZone.Service.Interfaces;
 using FilmZone.Domain.Models;
 using FilmZone.Domain.Response;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 
 namespace FilmZone.Controllers
 {
@@ -53,29 +55,53 @@ namespace FilmZone.Controllers
             return View(ListOfFilm);
         }
         [HttpGet]
-        public async Task<IActionResult> Films(int countFMax)
+        public async Task<IActionResult> Films()
         {
-            int i = 1;
+            //int countF = 0, currentId = 1;
+            //List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
+            //while (countF < 4)
+            //{
+            //    var response = await filmService.GetFilmById(currentId);
+            //    if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data.FilmOrSerial == FilmOrSerial.Film)
+            //    {
+            //        ListOfFilm.Add(response.Data);
+            //        countF++;
+            //    }
+            //    if (currentId == 100)
+            //    {
+            //        ViewData["Message"] = "Конец";
+            //        break;
+            //    }
+            //    currentId++;
+            //}
+            //ViewBag.id = currentId;
+            return View();
+        }
+
+        public async Task<IActionResult> AjaxSearchFilms(int currentId)
+        {
             int countF = 0;
+            ViewBag.End = false;
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
-            while(countF < countFMax)
+            while (countF < 4)
             {
-                var response = await filmService.GetFilmById(i);
+                var response = await filmService.GetFilmById(currentId);
                 if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data.FilmOrSerial == FilmOrSerial.Film)
                 {
                     ListOfFilm.Add(response.Data);
                     countF++;
                 }
-                if (i == 100)
+                if (currentId == 100)
                 {
-                    ViewData["Message"] = "Конец";
+                    ViewBag.End = true;
                     break;
                 }
-                i++;
+                currentId++;
             }
-
-            return View(ListOfFilm);
+            ViewBag.id = currentId;
+            return PartialView(ListOfFilm);
         }
+
         [HttpGet]
         public async Task<IActionResult> Serials(int countSMax)
         {
@@ -92,7 +118,7 @@ namespace FilmZone.Controllers
                 }
                 if (i == 100)
                 {
-                    ViewData["Message"] = "Конец";
+                    ViewBag.End = true;
                     break;
                 }
                 i++;

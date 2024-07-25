@@ -211,7 +211,7 @@ h2#filmsOrSerials {
         height: 200px;
     }
 
-.ButtonWatchMore {
+#ButtonWatchMore {
     margin-bottom: 5%;
     text-align: center;
     background-color: #5d5d5d;

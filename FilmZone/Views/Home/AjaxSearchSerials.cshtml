@@ -1,0 +1,36 @@
+﻿@using FilmZone.Domain.Enum
+@model List<FilmZone.Domain.ViewModels.FilmViewModel>
+@{
+    string filmDesc;
+    int currentId = ViewBag.id;
+}
+@foreach (var film in Model)
+{
+    <div class="InfoFilm">
+        <img src="@Url.Content(film.PathToImage)" />
+        @{
+            if (film.Description.Length > 350)
+            {
+                filmDesc = film.Description[..350] + "...";
+            }
+            else
+            {
+                filmDesc = film.Description;
+            }
+        }
+        @filmDesc
+        <form method="get" action="/Home/SearchById/@film.Id">
+            <button type="submit" class="Button">Смотреть</button>
+        </form>
+
+    </div>
+}
+
+@if (!ViewBag.End)
+{
+    <form id="loadMoreForm" method="get">
+        <input type="hidden" name="currentId" value='@currentId' />
+        <button type="submit" id="ButtonWatchMore">Смотреть еще</button>
+    </form>
+}
+<input type="hidden" id="newCurrentId" value="@currentId" />

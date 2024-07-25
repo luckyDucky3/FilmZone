@@ -55,16 +55,39 @@
     }
 
         /* Изменение цвета выпадающих ссылок при наведении курсора */
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
+/*        .dropdown-content a:hover {
+            
+        }*/
 
 /* Показать выпадающее меню при наведении курсора */
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-span#UserInfo{
+.fa-user, .fa-gears, .fa-arrow-right-from-bracket {
+    float: left;
+    margin-top: 5px;
+    margin-left: 9px;
+    z-index: -1;
+}
+
+.string {
+    border-radius: 5px;
+}
+
+.dropdown-content .string:hover a {
+    color: #bb8c34 !important;
+}
+
+.dropdown-content .string:hover i {
+    color: #bb8c34;
+}
+
+.dropdown .dropdown-content .string:hover {
+    background-color: #ddd;
+}
+
+span#UserInfo {
     color: green;
 }
 

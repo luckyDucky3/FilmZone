@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/Fonts/Fonts.css">
     <link rel="stylesheet" href="/css/Style.css">
-    <link rel="stylesheet" href="/css/StyleUser.css">
     <link rel="stylesheet" href="/css/Layout.css">
     <link rel="stylesheet" href="/css/Mobile.css">
     <link rel="icon" type="image/x-icon" href="/FilmIcon.ico">
@@ -56,13 +55,14 @@
                     <li class="selected"><a href="/Home/Kontakts">Контакты</a></li>
                     @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() == true)
                     {
+                        <link rel="stylesheet" href="/css/StyleUser.css">
                         <li>
                             <div class="dropdown">
                                 <img class="icon" src="~/img/icon.png">
                                 <div class="dropdown-content">
-                                    <a href="/User/Profile">Профиль</a>
-                                    <a href="/User/Options">Настройки</a>
-                                    <a href="/User/ExitFromAccount">Выйти</a>
+                                    <div class="string"><i class="fa-regular fa-user"></i><a href="/User/Profile">Профиль</a></div>
+                                    <div class="string"><i class="fa-solid fa-gears"></i><a href="/User/Options">Настройки</a></div>
+                                    <div class="string"><i class="fa-solid fa-arrow-right-from-bracket"></i><a href="/User/ExitFromAccount">Выйти</a></div>
                                 </div>
                             </div>
                         </li>
@@ -86,20 +86,6 @@
                         <input type="submit" id="find"/>
                     </form>
                 </div>
-                @* @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() is null)
-                {
-                    <div class="SideBar">
-                        <h2>Вход</h2>
-                        <form method="post" action="/User/Index" id="Login">
-                            <input type="text" name="LoginField" placeholder="Логин" />
-                            <input type="password" name="PasswordField" placeholder="Пароль" />
-                            <input type="submit" class="btn" value="Войти" />
-                            <div class="PassRegText">
-                                <span><a href="/User/ForgotPassword">Забыли пароль?</a></span> | <span><a href="/User/RegistrationPage">Регистрация</a></span>
-                            </div>
-                        </form>
-                    </div>
-                } *@
                 <div class="SideBar">
                     <h2>Новости</h2>
                     <span class="Message">

@@ -17,10 +17,10 @@
     @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() == true && HttpContextAccessor.HttpContext?.Session.GetString("_BackgroundColor") == "dark")
     {
         <style>
-            .Main::before{
-                background-color: darkgrey;
-                
+            .mainColor {
+                background-color: #3c3a3399;
             }
+
 
             .SiteContent {
                 background-color: darkgrey;
@@ -33,9 +33,8 @@
     else
     {
         <style>
-            .Main::before {
-                background-color: #f9f9f9;
-                
+            .mainColor {
+                background-color: #a6a6a669;
             }
 
             .SiteContent {
@@ -44,111 +43,113 @@
         </style>
     }
     <div class="Main">
-        <div class="Header">
-            <div class="Logo">
-                <a href="/Home/Index"><img src="~/img/FilmZone.png" width="140" /></a>
-            </div>
-            <div class="MenuBar">
-                <ul class="Menu">
-                    <li class="selected"><a href="/Home/Index">Главная</a></li>
-                    <li class="selected"><a href="/Home/Films">Фильмы</a></li>
-                    <li class="selected"><a href="/Home/Serials?countSMax=4">Сериалы</a></li>
-                    <li class="selected"><a href="/Home/Rating">Рейтинг фильмов</a></li>
-                    <li class="selected"><a href="/Home/Kontakts">Контакты</a></li>
-                    @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() == true)
-                    {
-                        <link rel="stylesheet" href="/css/StyleUser.css">
-                        <li class="selected">
-                            <div class="dropdown">
-                                <img class="icon" src="~/img/icon.png"><div class="_Name">@HttpContextAccessor.HttpContext.Session.GetString("_Name")</div>
-                                <div class="dropdown-content">
-                                    <div class="string"><i class="fa-regular fa-heart"></i><a href="/User/Favourites">Избранное</a></div>
-                                    <div class="string"><i class="fa-regular fa-user"></i><a href="/User/Profile">Профиль</a></div>
-                                    <div class="string"><i class="fa-solid fa-gears"></i><a href="/User/Options">Настройки</a></div>
-                                    <div class="string"><i class="fa-solid fa-arrow-right-from-bracket"></i><a href="/User/ExitFromAccount">Выйти</a></div>
+        <div class="mainColor">
+            <div class="Header">
+                <div class="Logo">
+                    <a href="/Home/Index"><img src="~/img/FilmZone.png" width="140" /></a>
+                </div>
+                <div class="MenuBar">
+                    <ul class="Menu">
+                        <li class="selected"><a href="/Home/Index">Главная</a></li>
+                        <li class="selected"><a href="/Home/Films">Фильмы</a></li>
+                        <li class="selected"><a href="/Home/Serials?countSMax=4">Сериалы</a></li>
+                        <li class="selected"><a href="/Home/Rating">Рейтинг фильмов</a></li>
+                        <li class="selected"><a href="/Home/Kontakts">Контакты</a></li>
+                        @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() == true)
+                        {
+                            <link rel="stylesheet" href="/css/StyleUser.css">
+                            <li class="selected">
+                                <div class="dropdown">
+                                    <img class="icon" src="~/img/icon.png"><div class="_Name">@HttpContextAccessor.HttpContext.Session.GetString("_Name")</div>
+                                    <div class="dropdown-content">
+                                        <div class="string"><i class="fa-regular fa-heart"></i><a href="/User/Favourites">Избранное</a></div>
+                                        <div class="string"><i class="fa-regular fa-user"></i><a href="/User/Profile">Профиль</a></div>
+                                        <div class="string"><i class="fa-solid fa-gears"></i><a href="/User/Options">Настройки</a></div>
+                                        <div class="string"><i class="fa-solid fa-arrow-right-from-bracket"></i><a href="/User/ExitFromAccount">Выйти</a></div>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="selected Enter">
-                            <a href="/User/LoginPage" id="open_pop_up">Войти</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-        
-        <div class="SiteContent">
-            <div class="SideBarContainer">
-                <div class="SideBar">
-                    <form method="get" action="/Home/SearchByName" id="SearchByName">
-                        <input type="search" name="SearchField"/>
-                        <span class="fa-solid fa-magnifying-glass magnifying-glass"></span>
-                        <input type="submit" id="find"/>
-                    </form>
-                </div>
-                <div class="SideBar">
-                    <h2>Новости</h2>
-                    <span class="Message">
-                        <p><strong>29.02.2024</strong></p>
-                        <hr>
-                        <p>Мы запустили нашего тг помощника!! Он поможет вам выбрать фильмы на основе любых запросов и пожеланий) <img src="https://smailiki.ucoz.net/_ph/68/2/488864449.gif" width="23" /></p>
-                    </span>
-                    <a href="https://t.me/FilmZoneOfficial_bot">Перейти</a>
-                </div>
-
-                <div class="SideBar">
-                    <h2>Сортировать по жанрам:</h2>
-                    <ul>
-                        <li><a href="/Home/SearchByType?type=Anime">Аниме</a></li>
-                        <li><a href="/Home/SearchByType?type=Biography">Биография</a></li>
-                        <li><a href="/Home/SearchByType?type=ActionMovie">Боевик</a></li>
-                        <li><a href="/Home/SearchByType?type=Western">Вестерн</a></li>
-                        <li><a href="/Home/SearchByType?type=Military">Военный</a></li>
-                        <li><a href="/Home/SearchByType?type=Detective">Детектив</a></li>
-                        <li><a href="/Home/SearchByType?type=Documentary">Документальный</a></li>
-                        <li><a href="/Home/SearchByType?type=Drama">Драма</a></li>
-                        <li><a href="/Home/SearchByType?type=History">История</a></li>
-                        <li><a href="/Home/SearchByType?type=Comedy">Комедия</a></li>
-                        <li><a href="/Home/SearchByType?type=Criminal">Криминал</a></li>
-                        <li><a href="/Home/SearchByType?type=ShortFilm">Короткометражка</a></li>
-                        <li><a href="/Home/SearchByType?type=Melodrama">Мелодрама</a></li>
-                        <li><a href="/Home/SearchByType?type=Cartoon">Мультфильм</a></li>
-                        <li><a href="/Home/SearchByType?type=Musical">Мюзикл</a></li>
-                        <li><a href="/Home/SearchByType?type=Adventures">Приключения</a></li>
-                        <li><a href="/Home/SearchByType?type=Thriller">Триллер</a></li>
-                        <li><a href="/Home/SearchByType?type=Horrors">Ужасы</a></li>
-                        <li><a href="/Home/SearchByType?type=Fantasy">Фантастика</a></li>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="selected Enter">
+                                <a href="#" id="open_pop_up">Войти</a>
+                            </li>
+                        }
                     </ul>
                 </div>
+            </div>
+        
+            <div class="SiteContent">
+                <div class="SideBarContainer">
+                    <div class="SideBar">
+                        <form method="get" action="/Home/SearchByName" id="SearchByName">
+                            <input type="search" name="SearchField"/>
+                            <span class="fa-solid fa-magnifying-glass magnifying-glass"></span>
+                            <input type="submit" id="find"/>
+                        </form>
+                    </div>
+                    <div class="SideBar">
+                        <h2>Новости</h2>
+                        <span class="Message">
+                            <p><strong>29.02.2024</strong></p>
+                            <hr>
+                            <p>Мы запустили нашего тг помощника!! Он поможет вам выбрать фильмы на основе любых запросов и пожеланий) <img src="https://smailiki.ucoz.net/_ph/68/2/488864449.gif" width="23" /></p>
+                        </span>
+                        <a href="https://t.me/FilmZoneOfficial_bot">Перейти</a>
+                    </div>
 
-                @* <div class="SideBar">
-                    <h2>Рейтинг фильмов:</h2>
-                    <ul>
-                        <li><a href="/Home/Search?SearchField=Интерстеллар">Интерстеллар</a><span class="RatingSideBar">8.1</span></li>
-                        <li><a href="#">Человек-паук: Нет пути домой</a><span class="RatingSideBar">7.9</span></li>
-                        <li><a href="#">Погрязшие во тьме</a><span class="RatingSideBar">7.5</span></li>
-                        <li><a href="#">Человек-муравей</a><span class="RatingSideBar">7.3</span></li> 
+                    <div class="SideBar">
+                        <h2>Сортировать по жанрам:</h2>
+                        <ul>
+                            <li><a href="/Home/SearchByType?type=Anime">Аниме</a></li>
+                            <li><a href="/Home/SearchByType?type=Biography">Биография</a></li>
+                            <li><a href="/Home/SearchByType?type=ActionMovie">Боевик</a></li>
+                            <li><a href="/Home/SearchByType?type=Western">Вестерн</a></li>
+                            <li><a href="/Home/SearchByType?type=Military">Военный</a></li>
+                            <li><a href="/Home/SearchByType?type=Detective">Детектив</a></li>
+                            <li><a href="/Home/SearchByType?type=Documentary">Документальный</a></li>
+                            <li><a href="/Home/SearchByType?type=Drama">Драма</a></li>
+                            <li><a href="/Home/SearchByType?type=History">История</a></li>
+                            <li><a href="/Home/SearchByType?type=Comedy">Комедия</a></li>
+                            <li><a href="/Home/SearchByType?type=Criminal">Криминал</a></li>
+                            <li><a href="/Home/SearchByType?type=ShortFilm">Короткометражка</a></li>
+                            <li><a href="/Home/SearchByType?type=Melodrama">Мелодрама</a></li>
+                            <li><a href="/Home/SearchByType?type=Cartoon">Мультфильм</a></li>
+                            <li><a href="/Home/SearchByType?type=Musical">Мюзикл</a></li>
+                            <li><a href="/Home/SearchByType?type=Adventures">Приключения</a></li>
+                            <li><a href="/Home/SearchByType?type=Thriller">Триллер</a></li>
+                            <li><a href="/Home/SearchByType?type=Horrors">Ужасы</a></li>
+                            <li><a href="/Home/SearchByType?type=Fantasy">Фантастика</a></li>
+                        </ul>
+                    </div>
+
+                    @* <div class="SideBar">
+                        <h2>Рейтинг фильмов:</h2>
+                        <ul>
+                            <li><a href="/Home/Search?SearchField=Интерстеллар">Интерстеллар</a><span class="RatingSideBar">8.1</span></li>
+                            <li><a href="#">Человек-паук: Нет пути домой</a><span class="RatingSideBar">7.9</span></li>
+                            <li><a href="#">Погрязшие во тьме</a><span class="RatingSideBar">7.5</span></li>
+                            <li><a href="#">Человек-муравей</a><span class="RatingSideBar">7.3</span></li> 
                         
-                    </ul>
-                </div> *@
-                @RenderSection("Rating", false)
+                        </ul>
+                    </div> *@
+                    @RenderSection("Rating", false)
+                </div>
+                    @RenderBody()
             </div>
-                @RenderBody()
-        </div>
         
-        <div class="Footer">
-            <p>
-                <a href="/Home/Index">Главная</a> |
-                <a href="/Home/Films?countFMax=4">Фильмы</a> |
-                <a href="/Home/Serials?countSMax=4">Сериалы</a> |
-                <a href="/Home/Rating">Рейтинг фильмов</a> |
-                <a href="/Home/Kontakts">Контакты</a> |
-                <a href="https://t.me/FilmZoneOfficial_bot">Наш TG</a>
-            </p>
-            <p>w-db.com 2024</p>
+            <div class="Footer">
+                <p>
+                    <a href="/Home/Index">Главная</a> |
+                    <a href="/Home/Films?countFMax=4">Фильмы</a> |
+                    <a href="/Home/Serials?countSMax=4">Сериалы</a> |
+                    <a href="/Home/Rating">Рейтинг фильмов</a> |
+                    <a href="/Home/Kontakts">Контакты</a> |
+                    <a href="https://t.me/FilmZoneOfficial_bot">Наш TG</a>
+                </p>
+                <p>w-db.com 2024</p>
+            </div>
         </div>
     </div>
 

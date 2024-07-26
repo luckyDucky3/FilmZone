@@ -108,7 +108,8 @@ span#UserInfo {
     color: #494848;
     font-size: 20px;
     text-align: center;
-    font-family: cursive;
+    /*font-family: cursive;*/
+    font-family: 'Yandex Sans Text';
 }
 
 hr#profile {
@@ -141,7 +142,7 @@ p#changeTheme {
         display: inline-block;
         padding: 0px 15px;
         line-height: 34px;
-        border: 1px solid #999;
+        border: 2px solid #817965;
         border-right: none;
         cursor: pointer;
         user-select: none;
@@ -153,7 +154,7 @@ p#changeTheme {
 
 .form_toggle .radio2 label {
     border-radius: 0 6px 6px 0;
-    border-right: 1px solid #999;
+    border-right: 2px solid #817965;
 }
 
 .form_toggle .radio1 input[type=radio]:hover + label {

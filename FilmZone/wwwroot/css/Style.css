@@ -129,19 +129,21 @@ h2#filmsOrSerials {
     }
 
 .InfoAboutFilm {
-    margin-top: 3%;
-    margin-bottom: 2%
+    margin-top: 1%;
+    margin-bottom: 2%;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
 }
 
     .InfoAboutFilm .Label {
-        font-size: 1.2em;
     }
 
     .InfoAboutFilm .Value {
-        font-size: 1em;
         color: #49945a;
         margin-right: 3%;
     }
+
+
 
 .DescriptionFilm {
     margin-top: 1%;
@@ -211,6 +213,21 @@ h2#filmsOrSerials {
         margin-right: 3%;
         height: 200px;
     }
+
+.Content .OptionFilm{
+    width: auto;
+}
+
+    .Content .OptionFilm .fa-heart {
+        font-size: 24px;
+        margin-left: 4%;
+        cursor: pointer;
+    }
+
+        .Content .OptionFilm .fa-heart.focus {
+            font: var(--fa-font-solid);
+            font-size: 24px;
+        }
 
 #ButtonWatchMore {
     margin-bottom: 5%;

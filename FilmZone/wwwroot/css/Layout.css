@@ -16,7 +16,7 @@ p {
     line-height: 1.2em;
     font-family: 'Yandex Sans Text';
     font-weight: 300;
-    font-size: 15px;
+    font-size: 17px;
 }
 
 hr {
@@ -112,8 +112,6 @@ ul {
     background-attachment: fixed;
     position: relative;
 }
-
-
 
 .Main, .Logo, .SiteContent, .MenuBar, .Footer {
     margin-left: auto;

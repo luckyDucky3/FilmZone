@@ -3,7 +3,6 @@
 </div>
 
 @section Scripts {
-    @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -29,10 +28,7 @@
                     }
                 });
             }
-
-            // Загружаем фильмы при загрузке страницы
-            loadFilms();
-
+            loadFilms();            // Загружаем фильмы при загрузке страницы
             // Загружаем фильмы при нажатии на кнопку
             $(document).on('submit', '#loadMoreForm', function (event) {
                 event.preventDefault(); // Предотвращаем стандартное поведение формы

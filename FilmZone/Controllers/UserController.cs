@@ -25,12 +25,6 @@ namespace FilmZone.Controllers
             this.timerHostedService = timerHostedService;
         }
 
-        [HttpGet]
-        public IActionResult LoginPage()
-        {
-            return View();
-        }
-
         [HttpPost]
         public async Task<IActionResult> Index(string LoginField, string PasswordField)
         {
@@ -78,6 +72,14 @@ namespace FilmZone.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Favourites()
+        {
+
+            return View();
+        }
+
 
         [HttpGet]
         public IActionResult ExitFromAccount()

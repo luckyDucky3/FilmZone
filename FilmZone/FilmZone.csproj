@@ -52,4 +52,8 @@
     <UpToDateCheckInput Remove="Views\User\Options.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
 </Project>

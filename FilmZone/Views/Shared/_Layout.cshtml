@@ -17,8 +17,9 @@
     @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() == true && HttpContextAccessor.HttpContext?.Session.GetString("_BackgroundColor") == "dark")
     {
         <style>
-            .Main{
+            .Main::before{
                 background-color: darkgrey;
+                
             }
 
             .SiteContent {
@@ -32,8 +33,9 @@
     else
     {
         <style>
-            .Main {
+            .Main::before {
                 background-color: #f9f9f9;
+                
             }
 
             .SiteContent {
@@ -56,9 +58,9 @@
                     @if (HttpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() == true)
                     {
                         <link rel="stylesheet" href="/css/StyleUser.css">
-                        <li>
+                        <li class="selected">
                             <div class="dropdown">
-                                <img class="icon" src="~/img/icon.png">
+                                <img class="icon" src="~/img/icon.png"><div class="_Name">@HttpContextAccessor.HttpContext.Session.GetString("_Name")</div>
                                 <div class="dropdown-content">
                                     <div class="string"><i class="fa-regular fa-heart"></i><a href="/User/Favourites">Избранное</a></div>
                                     <div class="string"><i class="fa-regular fa-user"></i><a href="/User/Profile">Профиль</a></div>

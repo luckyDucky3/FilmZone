@@ -5,6 +5,7 @@ using FilmZone.Domain.Enum;
 using FilmZone.Domain.Response;
 using FilmZone.Domain.ViewModels;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Xml.Linq;
 
 namespace FilmZone.Service.Implementations
 {
@@ -47,12 +48,11 @@ namespace FilmZone.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<bool>> CreateFilm(FilmViewModel filmViewModel)
+        public async Task<IBaseResponse<bool>> CreateFilm(Film film)
         {
             var baseResponse = new BaseResponse<bool>();
             try
             {
-                Film film = TransformToFilm(ref filmViewModel);
                 await _filmRepository.Create(film);
                 baseResponse.StatusCode = StatusCode.OK;
                 baseResponse.Data = true;
@@ -196,6 +196,40 @@ namespace FilmZone.Service.Implementations
                 };
             }
         }
+
+        public async Task<IBaseResponse<List<Film>>> GetFilmByType(TypeFilm type)
+        {
+            var baseResponse = new BaseResponse<List<Film>>();
+            try
+            {
+                var film = await _filmRepository.GetByType(type);
+                if (film == null)
+                {
+                    baseResponse.Description = "Film not found";
+                    baseResponse.StatusCode = StatusCode.FilmNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = film;
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<Film>>()
+                {
+                    Description = $"[GetFilmByType] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        //private BaseResponse<Film> ResponseSetting(BaseResponse<Film> response)
+        //{
+
+        //    return response; 
+        //}
+
 
         private FilmViewModel TransformToFilmViewModel(ref readonly Film film)
         {

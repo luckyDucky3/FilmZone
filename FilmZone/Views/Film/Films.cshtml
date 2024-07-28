@@ -1,5 +1,5 @@
 ﻿<div class="Content">
-
+   
 </div>
 
 @section Scripts {
@@ -10,7 +10,7 @@
 
             function loadFilms() {
                 $.ajax({
-                    url: '@Url.Action("AjaxSearchSerials", "Home")',
+                    url: '@Url.Action("AjaxSearchFilms", "Film")',
                     type: 'GET',
                     data: { currentId: currentId },
                     success: function (result) {
@@ -28,10 +28,7 @@
                     }
                 });
             }
-
-            // Загружаем фильмы при загрузке страницы
-            loadFilms();
-
+            loadFilms();            // Загружаем фильмы при загрузке страницы
             // Загружаем фильмы при нажатии на кнопку
             $(document).on('submit', '#loadMoreForm', function (event) {
                 event.preventDefault(); // Предотвращаем стандартное поведение формы

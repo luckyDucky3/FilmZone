@@ -1,11 +1,11 @@
-﻿@model List<FilmZone.Domain.ViewModels.FilmViewModel>
+﻿@model List<FilmZone.Domain.Models.Film>
 @{
 
     string filmDesc;
     bool empty = true;
 }
 <div class="Content">
-    <h2 id="type">@ViewData["Type"]</h2>
+    <h2 id="type">@ViewBag.Type</h2>
     <h2 id="filmsOrSerials">Фильмы:</h2>
     @foreach (var film in Model)
     {
@@ -25,7 +25,7 @@
                     }
                 }
                 @filmDesc
-                <form method="get" action="/Home/SearchById/@film.Id">
+                <form method="get" action="/Film/SearchById/@film.Id">
                     <button type="submit" class="Button">Смотреть</button>
                 </form>
             </div>
@@ -57,7 +57,7 @@
                     }
                 }
                 @filmDesc
-                <form method="get" action="/Home/SearchById/@film.Id">
+                <form method="get" action="/Film/SearchById/@film.Id">
                     <button type="submit" class="Button">Смотреть</button>
                 </form>
             </div>

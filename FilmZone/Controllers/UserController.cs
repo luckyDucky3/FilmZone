@@ -13,17 +13,16 @@ using FilmZone.Service.Implementations;
 
 namespace FilmZone.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
-        private IUserService userService;
-        private TimerHostedService timerHostedService;
         const string SessionKeyLogin = "_Name";
         const string SessionKeyDate = "_Date";
-        public UserController(IUserService userService, TimerHostedService timerHostedService)
-        {
-            this.userService = userService;
-            this.timerHostedService = timerHostedService;
-        }
+        public UserController(IHttpContextAccessor httpContextAccessor, IUserService userService, TimerHostedService timerHostedService) : base(httpContextAccessor, userService, timerHostedService) { }
+        //public UserController(IUserService userService, TimerHostedService timerHostedService)
+        //{
+        //    this.userService = userService;
+        //    this.timerHostedService = timerHostedService;
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Index(string LoginField, string PasswordField)
@@ -85,7 +84,7 @@ namespace FilmZone.Controllers
         public IActionResult ExitFromAccount()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Film");
         }
 
         [HttpGet]

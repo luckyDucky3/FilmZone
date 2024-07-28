@@ -1,17 +1,30 @@
-﻿CSS Mobile
+﻿/*CSS Mobile*/
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px)  
 {
-    .Header {
-    background-color: #257965;
-    min-width: 100%;
-    height: 20%;
-    text-align: center;
+    p{
+        font-size: 25px;
     }
-        
+
+    .Header {
+        background-color: #414141;
+        min-width: 100%;
+        height: 20%;
+        position: relative;
+    }
+
 
     .Logo {
-    width: 100%;
-    padding-left: 0%;
+        width: 20%;
+        float: left;
+        position: absolute;
+    }
+
+    .mainColor {
+        background-color: #f9f9f9;
+    }
+
+    .Main{
+        background-image: none;
     }
 
     .SiteContent {
@@ -19,13 +32,14 @@
     }
 
     .Content {
-    width: 100%;
-    text-align: center;
+        width: 100%;
+        text-align: center;
     }
 
     .MenuBar {
-    width: 100%;
-    height: 100%;
+        width: 100%;
+        height: 210px;
+        text-align: center;
     }
 
     .SiteContent {
@@ -42,7 +56,8 @@
     }
 
     ul.Menu {
-    float: none;
+        float: none;
+        padding-top: 1%;
     }
 
     ul.Menu li {
@@ -51,80 +66,98 @@
         float: none;
     }
 
-    .Logo h1 {
-    font: normal 235% 'century gothic', areal, sans-serif;
-    }
-
-    .Logo h2 {
-    font: normal 110% 'century gothic', areal, sans-serif;
-    color: white;
-    }
+        ul.Menu li a{
+            font-size: 130%;
+        }
 
     .Content h1, h2 {
-    font: normal 120% 'century gothic', areal;
+        font: normal 180% 'century gothic', areal;
     }
 
     .FilmsBlock img {
-    width: 43%;
+        width: 43%;
+        height: 600px;
     }
 
     .SerialsBlock img {
-    width: 43%;
+        width: 43%;
+        height: 600px;
     }
 
     .PostsContent p {
-    line-height: 1.5em;
-    padding: 3%;
-    font-size: 115%;
-    text-align: left;
+        line-height: 1.5em;
+        padding: 3%;
+        font-size: 115%;
+        text-align: left;
     }
 
     .ReadRef {
-    text-align: center;
+        text-align: center;
     }
+
+    .InfoFilm {
+        font-size: 23px;
+        text-align: left;
+    }
+
+
+    .Content p#dev {
+        font-size: 30px;
+    }
+
+    .Content p#feedback {
+        font-size: 17px;
+    }
+
 
     Films html
 
     .InfoFilm {
-    float: none;
-    height: 100%;
+        float: none;
+        height: 100%;
     }
 
     .InfoFilm img {
-    width: 90%;
-    margin-bottom: 5%;
+        /*width: 90%;
+        margin-bottom: 5%;*/
+        /*width: 25%;*/
+        height: 100%;
     }
 
     .Button {
-    float: none;
+        float: none;
+    }
+
+    #ButtonWatchMore{
+        margin-left: 0;
     }
 
     Rating page
     .table {
-    display: block;
+        display: block;
     }
 
     th {
-    font-size: 85%;
+        font-size: 85%;
     }
 
     td {
-    padding: 0;
-    margin: 0;
-    font-size: 95%;
-    text-align: left;
+        padding: 0;
+        margin: 0;
+        font-size: 95%;
+        text-align: left;
     }
 
     Show Page
     iframe {
-    width: 85%;
-    height: 100%;
+        width: 85%;
+        height: 100%;
     }
 
     .DescriptionFilm {
-    width: 90%;
-    text-align: center;
-    margin-left: 3%;
+        width: 90%;
+        text-align: center;
+        margin-left: 3%;
     }
 
     .DescriptionFilm img {
@@ -136,34 +169,51 @@
     }
 
     .Reviews {
-    text-align: left;
-    margin-left: 5%;
+        text-align: left;
+        margin-left: 5%;
     }
 
     .ReviewName {
-    width: 95% !important;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+        width: 95% !important;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
     }
 
     .ReviewText {
-    margin-left: 2%;
-    width: 90%;
+        margin-left: 2%;
+        width: 90%;
+    }
+
+    .Send {
+        width: 850px;
     }
 
     .Send input[type="text"] {
-    width: 40% !important;
-    float: left;
-    margin-left: 5%;
+        width: 37.7% !important;
+        float: left;
+        margin-left: 5%;
+        height: 30px;
+        border-radius: 50px;
+        font-size: 20px;
+        padding-left: 3%;
     }
 
+
     .Send textarea {
-    width: 55% !important;
-    float: left;
-    margin-left: 5%;
+        float: left;
+        margin-left: 5%;
+        width: 725px;
+        height: 160px;
+        padding-left: 3%;
     }
 
     .Send input[name="ReviewMail"] {
     width: 52.5% !important;
     }
+
+        .Send input[type="submit"] {
+            border-radius: 20px;
+            font-size: 20px;
+            margin-left: 41%;
+        }
 }

@@ -1,4 +1,5 @@
-﻿using FilmZone.Domain.Models;
+﻿using FilmZone.Domain.Enum;
+using FilmZone.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace FilmZone.DAL.Interfaces
     public interface IFilmRepository : IBaseRepository<Film>
     {
         Task<Film> GetByName (string name);
+        Task<List<Film>> GetByType(TypeFilm type);
     }
 }

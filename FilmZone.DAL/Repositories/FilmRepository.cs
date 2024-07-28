@@ -4,6 +4,7 @@ using FilmZone.DAL.Interfaces;
 using FilmZone.Domain.Models;
 using FilmZone.DAL;
 using Microsoft.EntityFrameworkCore;
+using FilmZone.Domain.Enum;
 
 namespace FilmZone.DAL.Repositories
 {
@@ -64,6 +65,10 @@ namespace FilmZone.DAL.Repositories
             await _db.SaveChangesAsync();
 
             return entity;
+        }
+        public async Task<List<Film>> GetByType(TypeFilm type)
+        {
+            return await _db.Film.Where(x => x.Type == type).ToListAsync();
         }
     }
 }

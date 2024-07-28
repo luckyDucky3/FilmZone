@@ -10,22 +10,20 @@ using Microsoft.AspNetCore.Mvc.ViewEngines;
 
 namespace FilmZone.Controllers
 {
-    public class HomeController : Controller
+    public class FilmController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
         private int testValue = 0;
-        private IFilmService filmService;
-        private IFeedbackService feedbackService;
         
-        public HomeController(IFilmService filmService, ILogger<HomeController> logger, IFeedbackService feedbackService)
-        {
-            _logger = logger;
-            this.filmService = filmService;
-            this.feedbackService = feedbackService;
-        }
+        public FilmController(IFilmService filmService, ILogger<FilmController> logger, 
+            IFeedbackService feedbackService, IHttpContextAccessor httpcontextAccessor) 
+            : base(logger, filmService, httpcontextAccessor, feedbackService) 
+        { }
+
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            
             int i = 1;
             int countFilm = 0, countSerial = 0;
             List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
@@ -182,19 +180,22 @@ namespace FilmZone.Controllers
         public async Task<IActionResult> SearchByType(TypeFilm type)
         {
             int id = 1;
-            List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
-            var response = await filmService.GetFilmById(id);
-            id++;
-            while (id < 100)
+            List<Film> ListOfFilm = new List<Film>();
+            IBaseResponse<List<Film>> response;
+            response = await filmService.GetFilmByType(type);
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                if(response.StatusCode == Domain.Enum.StatusCode.OK && response.Data.Type == type)
-                {
-                    ListOfFilm.Add(response.Data);
-                }
-                response = await filmService.GetFilmById(id);
-                id++;
+                ListOfFilm.AddRange(response.Data);
             }
-            ViewData["Type"] = type;
+            else if (response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
+            {
+                ListOfFilm = null;
+            }
+            else 
+            {
+                return RedirectToAction("Error");
+            }
+            ViewBag.Type = type;
             return View(ListOfFilm);
         }
 

@@ -1369,7 +1369,7 @@ builder.Services.AddHostedService(provider => provider.GetRequiredService<TimerH
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Film/Error");
     app.UseHsts();
 }
 app.UseSession();
@@ -1383,9 +1383,9 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Film}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "Search",
-    pattern: "Home/Search/{searchField}");
+    pattern: "Film/Search/{searchField}");
 
 app.Run();

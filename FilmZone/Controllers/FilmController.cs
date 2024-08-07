@@ -15,7 +15,7 @@ namespace FilmZone.Controllers
         private int testValue = 0;
         
         public FilmController(IFilmService filmService, ILogger<FilmController> logger, 
-            IFeedbackService feedbackService, IHttpContextAccessor httpcontextAccessor) 
+            ISiteFeedbackService feedbackService, IHttpContextAccessor httpcontextAccessor) 
             : base(logger, filmService, httpcontextAccessor, feedbackService) 
         { }
 
@@ -165,7 +165,7 @@ namespace FilmZone.Controllers
                 if (response.StatusCode == Domain.Enum.StatusCode.FilmNotFound)
                 {
                     ViewData["Message"] = "  сожалению такой фильм или сериал не найден :((";
-                    return RedirectToAction("SearchFilm", null);
+                    return RedirectToAction("SearchFilm", "Film", null);
                 }
                 else
                 {
@@ -199,11 +199,10 @@ namespace FilmZone.Controllers
             return View(ListOfFilm);
         }
 
-        public async Task<IActionResult> SendFeedback(string Name, string Email, string Text)
+        public async Task<IActionResult> SendFeedback(string Text)
         {
-            Feedback fb = new Feedback();
-            fb.Name = Name;
-            fb.Email = Email;
+            SiteFeedback fb = new SiteFeedback();
+            fb.Name = httpcontextAccessor.HttpContext.Session.GetString("_Name");
             fb.Text = Text;
             var response = await feedbackService.CreateFeedback(fb);
             return View("Kontakts", response.Data);

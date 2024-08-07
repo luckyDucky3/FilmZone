@@ -10,6 +10,7 @@ using FilmZone.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using FilmZone.DAL;
 using FilmZone.Service.Implementations;
+using FilmZone.Domain.ViewModels;
 
 namespace FilmZone.Controllers
 {
@@ -17,7 +18,7 @@ namespace FilmZone.Controllers
     {
         const string SessionKeyLogin = "_Name";
         const string SessionKeyDate = "_Date";
-        public UserController(IHttpContextAccessor httpContextAccessor, IUserService userService, TimerHostedService timerHostedService) : base(httpContextAccessor, userService, timerHostedService) { }
+        public UserController(IHttpContextAccessor httpContextAccessor, IUserService userService, TimerHostedService timerHostedService, IFilmFeedbackService filmFeedbackService, IBestFilmService bestFilmService, IFilmService filmService) : base(httpContextAccessor, userService, timerHostedService, filmFeedbackService, bestFilmService, filmService) { }
         //public UserController(IUserService userService, TimerHostedService timerHostedService)
         //{
         //    this.userService = userService;
@@ -49,6 +50,19 @@ namespace FilmZone.Controllers
             return View("Error", null);
         }
 
+        public async Task<IActionResult> FilmFeedback(string ReviewHeading, string ReviewText, int FilmId)
+        {
+            FilmFeedback ff = new FilmFeedback()
+            {
+                Heading = ReviewHeading,
+                Text = ReviewText,
+                Name = httpcontextAccessor.HttpContext.Session.GetString(SessionKeyLogin),
+                FilmId = FilmId
+            };
+            await filmFeedbackService.CreateFeedback(ff);
+            return RedirectToAction("SearchById", "Film", new { Id = FilmId });
+        }
+
         public IActionResult ChangeBackgroundColor(string color) 
         {
             HttpContext.Session.SetString("_BackgroundColor", color);
@@ -73,10 +87,23 @@ namespace FilmZone.Controllers
         }
 
         [HttpGet]
-        public IActionResult Favourites()
+        public async Task<IActionResult> Favourites()
         {
+            List<FilmViewModel> listOfFilms = new List<FilmViewModel>();
+            var resp = await bestFilmService.GetListOfUserFilm(httpcontextAccessor.HttpContext.Session.GetString(SessionKeyLogin));
+            if(resp.StatusCode == Domain.Enum.StatusCode.OK && resp.Data != null)
+            {
+                foreach (var f in resp.Data)
+                {
+                    var response = await filmService.GetFilmByName(f.FilmName);
+                    if(response.StatusCode == Domain.Enum.StatusCode.OK)
+                    {
+                        listOfFilms.Add((TransformToFilmViewModel(response.Data)));
+                    }
+                }
+            }
 
-            return View();
+            return View(listOfFilms);
         }
 
 
@@ -272,6 +299,25 @@ namespace FilmZone.Controllers
 
                 }
             }
+        }
+        private FilmViewModel TransformToFilmViewModel(ref readonly Film film)
+        {
+            FilmViewModel model = new FilmViewModel()
+            {
+                Id = film.Id,
+                Name = film.Name,
+                PathToImage = film.PathToImage,
+                FilmOrSerial = film.FilmOrSerial,
+                Description = film.Description,
+                ReleaseFilmDate = film.ReleaseFilmDate,
+                Type = film.Type,
+                Director = film.Director,
+                Preview = film.Preview,
+                Links = new List<string>(film.Links),
+                Price = new List<string>(film.Price),
+                Advertisement = new List<string>(film.Advertisement)
+            };
+            return model;
         }
     }
 }

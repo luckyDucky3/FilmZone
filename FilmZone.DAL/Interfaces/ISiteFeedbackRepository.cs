@@ -7,7 +7,7 @@ using System.Text;
 
 namespace FilmZone.DAL.Interfaces
 {
-    public interface IFeedbackRepository : IBaseRepository<Feedback>
+    public interface ISiteFeedbackRepository : IBaseRepository<SiteFeedback>
     {
 
     }

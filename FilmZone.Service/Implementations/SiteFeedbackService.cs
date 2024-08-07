@@ -13,16 +13,16 @@ using System.Threading.Tasks;
 
 namespace FilmZone.Service.Implementations
 {
-    public class FeedbackService : IFeedbackService
+    public class SiteFeedbackService : ISiteFeedbackService
     {
-        private readonly IFeedbackRepository _feedbackRepository;
+        private readonly ISiteFeedbackRepository _feedbackRepository;
 
-        public FeedbackService(IFeedbackRepository feedbackRepository)
+        public SiteFeedbackService(ISiteFeedbackRepository feedbackRepository)
         {
             _feedbackRepository = feedbackRepository;
         }
 
-        public async Task<IBaseResponse<bool>> CreateFeedback(Feedback feedback)
+        public async Task<IBaseResponse<bool>> CreateFeedback(SiteFeedback feedback)
         {
             var baseResponse = new BaseResponse<bool>();
             try

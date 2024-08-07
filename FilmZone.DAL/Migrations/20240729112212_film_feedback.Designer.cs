@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FilmZone.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FilmZone.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240729112212_film_feedback")]
+    partial class film_feedback
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,30 +24,6 @@ namespace FilmZone.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("FilmZone.Domain.Models.BestFilm", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("FilmName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("film_name");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("user_name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BestFilm");
-                });
 
             modelBuilder.Entity("FilmZone.Domain.Models.Film", b =>
                 {
@@ -139,10 +118,6 @@ namespace FilmZone.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("text");
-
-                    b.Property<float>("Value")
-                        .HasColumnType("real")
-                        .HasColumnName("value");
 
                     b.HasKey("Id");
 

@@ -17,14 +17,23 @@ builder.Services.AddScoped<IFilmRepository, FilmRepository>();
 builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
-builder.Services.AddScoped<IFeedbackService, FeedbackService>();
+builder.Services.AddScoped<ISiteFeedbackRepository, SiteFeedbackRepository>();
+builder.Services.AddScoped<ISiteFeedbackService, SiteFeedbackService>();
+builder.Services.AddScoped<IFilmFeedbackRepository, FilmFeedbackRepository>();
+builder.Services.AddScoped<IFilmFeedbackService, FilmFeedbackService>();
+builder.Services.AddScoped<IBestFilmsRepository, BestFilmsRepository>();
+builder.Services.AddScoped<IBestFilmService, BestFilmService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
 builder.Services.AddSingleton<TimerHostedService>();
 builder.Services.AddHostedService(provider => provider.GetRequiredService<TimerHostedService>());
 
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+    options.Secure = CookieSecurePolicy.Always;
+});
 
 //Console.WriteLine("===============conclusion=================");
 //using (ApplicationDbContext db = new ApplicationDbContext()) //добавление данных
@@ -53,7 +62,7 @@ builder.Services.AddHostedService(provider => provider.GetRequiredService<TimerH
 //    Name = "Облачный атлас",
 //    Description = "Цепочка перерождений связывает героев из разных эпох. Фантастический блокбастер с Томом Хэнксом и Холли Берри о том, как чья-то сохранившаяся на бумаге исто" +
 //                  "рия, попадает в руки незнакомому человеку и совершенно завладевает его мыслями, продлевая себе жизнь в чужой памяти.",
-//    PathToImage = "~/img/CloudAtlas.png",
+//    PathToImage = "~/img/cloud.jpg",
 //    ReleaseFilmDate = 2012,
 //    Type = TypeFilm.Fantasy,
 //    Director = "Лана Вачовски, Том Тыквер, Лилли Вачовски",

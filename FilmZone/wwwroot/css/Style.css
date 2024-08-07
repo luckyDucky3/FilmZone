@@ -158,6 +158,65 @@ h2#filmsOrSerials {
         border: solid 3px #dad7d5;
     }
 
+.Content .OptionFilm {
+    width: auto;
+    height: 40px;
+}
+
+    .Content .OptionFilm .fa-heart {
+        font-size: 25px;
+        margin-left: 4%;
+        cursor: pointer;
+        float: left;
+        margin-top: 2px;
+        color: #bbac94;
+    }
+
+        .Content .OptionFilm .fa-heart.focus {
+            font: var(--fa-font-solid);
+            font-size: 25px;
+        }
+
+.full-stars {
+    width: max-content;
+    display: inline-block;
+    margin-left: 15px;
+}
+
+    .full-stars .rating-group {
+        display: inline-flex;
+    }
+
+    .full-stars input {
+        position: absolute;
+        left: -9999px;
+    }
+
+    .full-stars label {
+        margin: 0;
+        cursor: pointer;
+    }
+
+        .full-stars label svg {
+            margin: 2px;
+            height: 25px;
+            width: 25px;
+            fill: #f0c280;
+            transition: fill 0.3s;
+        }
+
+    .full-stars input:checked ~ label svg {
+        fill: #ffe7bf;
+    }
+
+    .full-stars .rating-group:hover label svg {
+        fill: #f0c280;
+    }
+
+    .full-stars .rating-group input:hover ~ label svg {
+        fill: #ffe7bf;
+    }
+
 .Reviews {
     margin-bottom: 4%;
     font-size: 0.9em;
@@ -169,7 +228,7 @@ h2#filmsOrSerials {
         padding: 1%;
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
-        width: 600px;
+        width: 100%;
     }
 
     .Reviews .ReviewText {
@@ -178,10 +237,23 @@ h2#filmsOrSerials {
         padding-left: 2%;
     }
 
-.Send {
-    margin-bottom: 4%;
-    width: 625px;
-}
+        .Reviews .ReviewText h3 {
+            font-family: "Yandex Sans Display";
+            font-size: 20px;
+            margin-bottom: 2%;
+        }
+
+
+        .Send {
+            margin-bottom: 4%;
+            width: 625px;
+        }
+
+            .Send p {
+                color: #f00;
+                text-align: center;
+                font-weight: 400;
+            }
 
     .Send input[type ="text"], textarea {
         margin-bottom: 2%;
@@ -195,7 +267,7 @@ h2#filmsOrSerials {
     .Send textarea {
         height: 200px;
         width: 616px;
-        
+        padding: 8px;
     }
 
     .Send input[type="submit"] {
@@ -214,20 +286,7 @@ h2#filmsOrSerials {
         height: 200px;
     }
 
-.Content .OptionFilm{
-    width: auto;
-}
 
-    .Content .OptionFilm .fa-heart {
-        font-size: 24px;
-        margin-left: 4%;
-        cursor: pointer;
-    }
-
-        .Content .OptionFilm .fa-heart.focus {
-            font: var(--fa-font-solid);
-            font-size: 24px;
-        }
 
 #ButtonWatchMore {
     margin-bottom: 5%;
@@ -301,4 +360,5 @@ td {
         font-size: large;
         font-weight: 300;
     }
-    }
+
+

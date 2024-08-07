@@ -8,38 +8,38 @@ using System.Text;
 
 namespace FilmZone.DAL.Repositories
 {
-    public class FeedbackRepository : IFeedbackRepository
+    public class SiteFeedbackRepository : ISiteFeedbackRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public FeedbackRepository(ApplicationDbContext db)
+        public SiteFeedbackRepository(ApplicationDbContext db)
         {
             _db = db;
         }
 
-        public async Task<bool> Create(Feedback entity)
+        public async Task<bool> Create(SiteFeedback entity)
         {
-            await _db.Feedback.AddAsync(entity);
+            await _db.SiteFeedback.AddAsync(entity);
             await _db.SaveChangesAsync();
             return true;
         }
 
-        public Task<bool> Delete(Feedback entity)
+        public Task<bool> Delete(SiteFeedback entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Feedback> GetById(int id)
+        public Task<SiteFeedback> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Feedback>> Select()
+        public Task<List<SiteFeedback>> Select()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Feedback> Update(Feedback entity)
+        public Task<SiteFeedback> Update(SiteFeedback entity)
         {
             throw new NotImplementedException();
         }

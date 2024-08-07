@@ -32,7 +32,9 @@ namespace FilmZone.DAL
         }
         public DbSet<Film> Film { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<Feedback> Feedback { get; set; }
+        public DbSet<SiteFeedback> SiteFeedback { get; set; }
+        public DbSet<FilmFeedback> FilmFeedback { get; set; }
+        public DbSet<BestFilm> BestFilm { get; set; }
         static void Main() 
         {
             ApplicationDbContext context = new ApplicationDbContext();

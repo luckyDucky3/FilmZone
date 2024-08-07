@@ -8,8 +8,8 @@ using System.Text;
 
 namespace FilmZone.Service.Interfaces
 {
-    public interface IFeedbackService
+    public interface ISiteFeedbackService
     {
-        Task<IBaseResponse<bool>> CreateFeedback(Feedback feedback);
+        Task<IBaseResponse<bool>> CreateFeedback(SiteFeedback feedback);
     }
 }

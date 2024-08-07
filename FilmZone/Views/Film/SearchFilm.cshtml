@@ -1,6 +1,27 @@
-﻿@model FilmZone.Domain.ViewModels.FilmViewModel
+﻿@using FilmZone.Domain.Models;
+@using FilmZone.Domain.Response;
+@using System.Text.Json;
+@inject FilmZone.Service.Interfaces.IFilmFeedbackService filmFeedbackService
+@inject FilmZone.Service.Interfaces.IBestFilmService bestFilmService
+@model FilmZone.Domain.ViewModels.FilmViewModel
 @{
-    var type = Model.Type.GetDisplayName();
+    float personalRating = 0;
+    var type = Model?.Type.GetDisplayName();
+    var baseResponse = await filmFeedbackService.GetListOfFeedback(Model.Id);
+    IBaseResponse<FilmFeedback> personalRespose = await filmFeedbackService.GetFeedbackByLoginAndFilmName(ViewBag.UserName, Model.Id);
+    if (personalRespose.Data?.Value != null)
+    {
+        personalRating = personalRespose.Data.Value;
+    }
+    ViewBag.FilmName = Model?.Name;
+    double sum = 0, col = 0, rating = 0;
+    foreach(var i in baseResponse.Data)
+    {
+        sum += i.Value;
+        col++;
+    }
+    if (col > 0)
+        rating = Math.Round(sum / col, 2);
 }
 <div class="Content">
     @if(Model != null)
@@ -9,13 +30,60 @@
             <h1>@Model.Name</h1>
             <iframe width="560" height="315" src=@Model.Preview title="@Model.Name" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
-
         <div class="OptionFilm">
-            <i class="fa-regular fa-heart" id="heart"></i>
+            <div class="fa-regular fa-heart" id="heart"></div>
+            @{
+                var checkBestFilm = await bestFilmService.GetListOfUserFilm(ViewBag.UserName);
+                foreach (var f in checkBestFilm.Data)
+                {
+                    if (f.FilmName == Model.Name)
+                    {
+                                <script>
+                                    document.getElementById('heart').classList.add('focus');
+                                </script>
+                        break;
+                    }
+                }
+            }
+            <div class="full-stars">
+                <div class="rating-group" id="rating">
+                    <!-- по умолчанию 0 -->
+                    <input name="fst" value="0" type="radio" disabled checked />
+
+                    <!-- рейтинг 1 -->
+                    <label for="fst-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" /></svg>
+                    </label>
+                    <input name="fst" id="fst-1" value="1" type="radio" />
+
+                    <!-- рейтинг 2 -->
+                    <label for="fst-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" /></svg>
+                    </label>
+                    <input name="fst" id="fst-2" value="2" type="radio" />
+
+                    <!-- рейтинг 3 -->
+                    <label for="fst-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" /></svg>
+                    </label>
+                    <input name="fst" id="fst-3" value="3" type="radio" />
+
+                    <!-- рейтинг 4 -->
+                    <label for="fst-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" /></svg>
+                    </label>
+                    <input name="fst" id="fst-4" value="4" type="radio" />
+
+                    <!-- рейтинг 5 -->
+                    <label for="fst-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" /></svg>
+                    </label>
+                    <input name="fst" id="fst-5" value="5" type="radio" />
+                </div>
+            </div>
         </div>
-        
         <div class="InfoAboutFilm">
-            <span class="Label">Рейтинг: </span><span class="Value"></span>
+            <span class="Label">Рейтинг: </span><span class="Value">@if(rating > 0){ @rating<span>/5</span>}else{<span>Оцените первым!</span>}</span>
             <span class="Label">Год: </span><span class="Value">@Model.ReleaseFilmDate</span>
             <span class="Label">Режиссер: </span><span class="Value">@Model.Director</span>
             <span class="Label">Жанр: </span><span class="Value">@type</span>
@@ -38,31 +106,156 @@
         </div>
         <hr>
         <h2>Отзывы о фильме</h2>
-        <div class="Reviews">
+        @if(baseResponse.Data.Count != 0)
+        {
+            foreach (var feedback in baseResponse.Data)
+            {
+                @if(feedback.Text != "")
+                {
+                    <div class="Reviews">
+                        <div class="ReviewName">
+                            @feedback.Name
+                        </div>
+                        <div class="ReviewText">
+                            <h3>@feedback.Heading</h3>
+                            <p>@feedback.Text</p>
+                        </div>
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            <p>Оставьте отзыв, будьте первыми!</p>
+        }
+
+@*         <div class="Reviews">
             <div class="ReviewName">
-                Сергей
+                Zeeker777
             </div>
             <div class="ReviewText">
-                <p>Лучший фильм в моей жизни! Только я ниче не понял</p>
-            </div>
-        </div>
-        <div class="Reviews">
-            <div class="ReviewName">
-                Маша
-            </div>
-            <div class="ReviewText">
+                <h3>Очень крутой фильм!</h3>
                 <p>Отличный фильм! 3 часа пролетели незаметно</p>
             </div>
-        </div>
+        </div> *@
         <div class="Send">
-
-        <form method="post" action="" id="Review"></form>
-        <input type="text" name="ReviewName" placeholder="Ваше имя">
-        <textarea name="ReviewText"></textarea>
-        <input type="submit" placeholder="Отправить">
-
+            @if (ViewBag.IsInPrivateArea)
+            {
+                <form method="post" action="/User/FilmFeedback">
+                <input type="text" name="ReviewHeading" placeholder="Заголовок">
+                <textarea name="ReviewText" placeholder="Текст..." required></textarea>
+                <input type="hidden" name="FilmId" value="@Model.Id" />
+                <input type="submit" placeholder="Отправить">
+                </form>
+            }
+            else
+            {
+                <p>Для того чтобы иметь возможность оставлять отзывы на нашем сайте, нужно зарегистрироваться</p>
+            }
         </div>
-        <script src="/js/favourite.js"></script>
+        <script>
+            const heart = document.getElementById('heart');
+            heart.addEventListener('click', function (e) {
+                e.preventDefault();
+                heart.classList.toggle('focus');
+                if (heart.classList.contains('focus')) {
+                    fetch('/api/api/addFilm', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name: @Html.Raw(JsonSerializer.Serialize(Model.Name)) }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success)
+                                console.log('C# метод addFilm успешно вызван');
+                            else
+                                console.log('Произошла ошибка при вызове C# addFilm метода');
+                        })
+                        .catch(error => {
+                            console.error('Ошибка:', error);
+                        });
+                }
+                else {
+                    fetch('/api/api/removeFilm', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name: @Html.Raw(JsonSerializer.Serialize(Model.Name)) }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success)
+                                console.log('C# метод removeFilm успешно вызван');
+                            else
+                                console.log('Произошла ошибка при вызове C# removeFilm метода');
+                        })
+                        .catch(error => {
+                            console.error('Ошибка:', error);
+                        });
+                }
+            });
+        </script>
+        <script>
+            const userRating = @personalRating;
+            if (userRating > 0) {
+                const ratingInput = document.querySelector(`#rating input[value="${userRating}"]`);
+                if (ratingInput) {
+                    ratingInput.checked = true;
+                    updateStarColors(userRating);
+                }
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                const ratingInputs = document.querySelectorAll('input[name="fst"]');
+                ratingInputs.forEach(input => {
+                    input.addEventListener('change', function () {
+                        if (this.checked) {
+                            const rating = this.value;
+                            sendRating(rating);
+                        }
+                    });
+                });
+            });
+
+            function updateStarColors(rating) {
+                const ratingGroup = document.querySelector('.full-stars .rating-group');
+                if (!ratingGroup) return;
+
+                const labels = ratingGroup.querySelectorAll('label svg');
+                labels.forEach((svg, index) => {
+                    if (index < rating) {
+                        svg.style.fill = '#f0c280';
+                    } else {
+                        svg.style.fill = '#ffe7bf';
+                    }
+                });
+            }
+
+            function sendRating(rating) {
+                fetch('/api/api/rating', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ rating: parseInt(rating), id: @Html.Raw(JsonSerializer.Serialize(Model.Id)) })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(rating);
+                        console.log('Success:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        </script>
     }
     else
     {

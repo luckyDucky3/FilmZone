@@ -1,5 +1,27 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<FilmZone.Domain.ViewModels.FilmViewModel>
 @{
+    string filmDesc;
 }
+<div class="Content">
+    @foreach (var film in Model)
+    {
+        <div class="InfoFilm">
+            <img src="@Url.Content(film.PathToImage)" />
+            @{
+                if (film.Description.Length > 350)
+                {
+                    filmDesc = film.Description[..350] + "...";
+                }
+                else
+                {
+                    filmDesc = film.Description;
+                }
+            }
+            @filmDesc
+            <form method="get" action="/Film/SearchById/@film.Id">
+                <button type="submit" class="Button">Смотреть</button>
+            </form>
+
+        </div>
+    }
+</div>

@@ -71,14 +71,14 @@ namespace FilmZone.Service.Implementations
             {
                 return new BaseResponse<FilmFeedback>()
                 {
-                    Description = $"[GetListOfFeedback] : {ex.Message}",
+                    Description = $"[GetFeedbackByLoginAndFilmName] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
             return baseResponse;
         }
 
-        public async Task<IBaseResponse<bool>> UpdateFeedbackRating(string login, int filmId, int rating)
+        public async Task<IBaseResponse<bool>> UpdateFeedbackWithoutRating(string login, int filmId, int rating)
         {
             var baseResponse = new BaseResponse<bool>();
             try
@@ -90,7 +90,46 @@ namespace FilmZone.Service.Implementations
             {
                 return new BaseResponse<bool>()
                 {
-                    Description = $"[GetListOfFeedback] : {ex.Message}",
+                    Description = $"[UpdateFeedbackRating] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                    Data = false
+                };
+            }
+            return baseResponse;
+        }
+        public async Task<IBaseResponse<List<float>>> GetListOfValues(int filmId)
+        {
+            var baseResponse = new BaseResponse<List<float>>();
+            try
+            {
+                baseResponse.Data = await _feedbackRepository.GetListOfValues(filmId);
+                baseResponse.StatusCode = StatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<float>>()
+                {
+                    Description = $"[GetListOfValues] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                    Data = null
+                };
+            }
+            return baseResponse;
+        }
+
+        public async Task<IBaseResponse<bool>> UpdateEmptyFeedbackWithRating(string login, int filmId, FilmFeedback feedback)
+        {
+            var baseResponse = new BaseResponse<bool>();
+            try
+            {
+                baseResponse.Data = await _feedbackRepository.UpdateEmptyFeedbackWithRating(login, filmId, feedback);
+                baseResponse.StatusCode = StatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Description = $"[UpdateEmptyFeedbackWithRating] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError,
                     Data = false
                 };

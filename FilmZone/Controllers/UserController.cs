@@ -52,14 +52,23 @@ namespace FilmZone.Controllers
 
         public async Task<IActionResult> FilmFeedback(string ReviewHeading, string ReviewText, int FilmId)
         {
+            string? login = httpcontextAccessor.HttpContext?.Session.GetString(SessionKeyLogin);
+            var response = await filmFeedbackService.GetFeedbackByLoginAndFilmName(login, FilmId);
             FilmFeedback ff = new FilmFeedback()
             {
                 Heading = ReviewHeading,
                 Text = ReviewText,
-                Name = httpcontextAccessor.HttpContext.Session.GetString(SessionKeyLogin),
+                Name = login,
                 FilmId = FilmId
             };
-            await filmFeedbackService.CreateFeedback(ff);
+            if (response.Data == null)
+            {
+                await filmFeedbackService.CreateFeedback(ff);
+            }
+            else
+            {
+                await filmFeedbackService.UpdateEmptyFeedbackWithRating(login, FilmId, ff);
+            }
             return RedirectToAction("SearchById", "Film", new { Id = FilmId });
         }
 

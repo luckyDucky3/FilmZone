@@ -115,19 +115,12 @@ namespace FilmZone.Controllers
         [HttpGet]
         public async Task<IActionResult> Rating()
         {
-            List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
-            int countF = 1;
-            for (int i = 0; countF < 5; i++)
+            var response = await filmService.GetFilmsInOrderByRating(10);
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                var response = await filmService.GetFilmById(i);
-                if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data.FilmOrSerial == FilmOrSerial.Serial)
-                {
-                    ListOfFilm.Add(response.Data);
-                    countF++;
-                }
+                return View(response.Data);
             }
-            
-            return View(ListOfFilm);
+            return View("Error");
         }
         [HttpGet]
         public IActionResult Kontakts()
@@ -229,7 +222,8 @@ namespace FilmZone.Controllers
                 Preview = _film.Preview,
                 Links = new List<string>(_film.Links),
                 Price = new List<string>(_film.Price),
-                Advertisement = new List<string>(_film.Advertisement)
+                Advertisement = new List<string>(_film.Advertisement),
+                Rating = _film.Rating
             };
             
             return film;

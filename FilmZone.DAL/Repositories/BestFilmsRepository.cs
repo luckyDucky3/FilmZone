@@ -53,7 +53,7 @@ namespace FilmZone.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<BestFilm> Update(BestFilm entity)
+        public Task<bool> Update(BestFilm entity)
         {
             throw new NotImplementedException();
         }

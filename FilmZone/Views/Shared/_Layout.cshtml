@@ -182,6 +182,22 @@
             </div>
         </div>
     </div>
+    @if (!HttpContextAccessor.HttpContext.Request.Cookies.TryGetValue("IKnowAboutCookie", out string? cookieValue))
+    {
+        <div class="cookie" id="cookie">
+            <div class="cookie_text">Привет! Мы используем cookie<img class="cookie_image" src="~/img/cookie.png" />для нормальной работы нашего сайта. Продолжая оставаться здесь, вы соглашаетесь с использованием всех файлов cookie.</div>
+            <button class="cookie_apply" id="cookie_apply" type="button">ОК</button>
+        </div>
+        <script>
+            document.getElementById('cookie_apply').addEventListener('click', function (e) {
+                e.preventDefault();
+                document.getElementById('cookie').classList.add('cookieClose');
+                fetch('/api/api/acceptCookie', {
+                    method: 'POST'
+                });
+            });
+        </script>
+    }
     @await RenderSectionAsync("Scripts", false)
     <script src="~/js/pop-up.js"></script>
 </body>

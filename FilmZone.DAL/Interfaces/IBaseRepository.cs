@@ -13,6 +13,6 @@ namespace FilmZone.DAL.Interfaces
 
         Task<bool> Delete(T entity);
 
-        Task<T> Update(T entity);
+        Task<bool> Update(T entity);
     }
 }

@@ -31,11 +31,12 @@ namespace FilmZone.Controllers
             this.httpcontextAccessor = httpcontextAccessor;
             this.feedbackService = feedbackService;
         }
-        public BaseController(IHttpContextAccessor httpcontextAccessor, IFilmFeedbackService filmFeedbackService, IBestFilmService bestFilmService)
+        public BaseController(IHttpContextAccessor httpcontextAccessor, IFilmFeedbackService filmFeedbackService, IBestFilmService bestFilmService, IFilmService filmService)
         {
             this.httpcontextAccessor = httpcontextAccessor;
             this.filmFeedbackService = filmFeedbackService;
             this.bestFilmService = bestFilmService;
+            this.filmService = filmService;
         }
 
         public bool IsUserInPrivateArea()

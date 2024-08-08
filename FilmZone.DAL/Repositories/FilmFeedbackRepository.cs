@@ -44,7 +44,7 @@ namespace FilmZone.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<FilmFeedback> Update(FilmFeedback entity)
+        public Task<bool> Update(FilmFeedback entity)
         {
             throw new NotImplementedException();
         }
@@ -61,6 +61,23 @@ namespace FilmZone.DAL.Repositories
             }
             filmFeedback.Value = rating;
             _db.FilmFeedback.Update(filmFeedback);
+            await _db.SaveChangesAsync();
+            return true;
+        }
+        public async Task<List<float>> GetListOfValues(int filmId)
+        {
+            return await _db.FilmFeedback.Where(x => x.FilmId == filmId).Select(x => x.Value).ToListAsync();
+        }
+
+        public async Task<bool> UpdateEmptyFeedbackWithRating(string login, int filmId, FilmFeedback feedback)
+        {
+            var filmFeedback = await GetFeedbackByLoginAndFilmName(login, filmId);
+            if (filmFeedback == null)
+            {
+                return false;
+            }
+            feedback.Value = filmFeedback.Value;
+            _db.FilmFeedback.Update(feedback);
             await _db.SaveChangesAsync();
             return true;
         }

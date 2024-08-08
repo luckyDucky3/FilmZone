@@ -42,11 +42,11 @@ namespace FilmZone.DAL.Repositories
             return true;
         }
 
-        public async Task<User> Update(User entity)
+        public async Task<bool> Update(User entity)
         {
             _db.User.Update(entity);
             await _db.SaveChangesAsync();
-            return entity;
+            return true;
         }
 
         public async Task<User> GetByLogin(string name)

@@ -130,9 +130,9 @@ namespace FilmZone.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<Film>> UpdateFilm(string name, Film model)
+        public async Task<IBaseResponse<bool>> UpdateFilm(string name, Film model)
         {
-            var baseResponse = new BaseResponse<Film>();
+            var baseResponse = new BaseResponse<bool>();
             try
             {
                 var film = await _filmRepository.GetByName(name);
@@ -140,6 +140,7 @@ namespace FilmZone.Service.Implementations
                 {
                     baseResponse.StatusCode = StatusCode.FilmNotFound;
                     baseResponse.Description = "Film not found";
+                    baseResponse.Data = false;
                     return baseResponse;
                 }
                 film.PathToImage = model.PathToImage;
@@ -154,17 +155,18 @@ namespace FilmZone.Service.Implementations
                 film.Price = model.Price;
                 
                 //film = TransformToFilm(ref model);
-                await _filmRepository.Update(film);
-
+                baseResponse.Data = await _filmRepository.Update(film);
+                baseResponse.StatusCode = StatusCode.OK;
                 return baseResponse;
 
             }
             catch (Exception ex)
             {
-                return new BaseResponse<Film>()
+                return new BaseResponse<bool>()
                 {
                     Description = $"[EditFilm] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    StatusCode = StatusCode.InternalServerError,
+                    Data = false
                 };
             }
         }
@@ -223,14 +225,6 @@ namespace FilmZone.Service.Implementations
                 };
             }
         }
-
-        //private BaseResponse<Film> ResponseSetting(BaseResponse<Film> response)
-        //{
-
-        //    return response; 
-        //}
-
-
         private FilmViewModel TransformToFilmViewModel(ref readonly Film film)
         {
             FilmViewModel model = new FilmViewModel()
@@ -246,7 +240,8 @@ namespace FilmZone.Service.Implementations
                 Preview = film.Preview,
                 Links = new List<string>(film.Links),
                 Price = new List<string>(film.Price),
-                Advertisement = new List<string>(film.Advertisement)
+                Advertisement = new List<string>(film.Advertisement),
+                Rating = film.Rating
             };
             return model;
         }
@@ -265,9 +260,67 @@ namespace FilmZone.Service.Implementations
                 Preview = film.Preview,
                 Links = new List<string>(film.Links),
                 Price = new List<string>(film.Price),
-                Advertisement = new List<string>(film.Advertisement)
+                Advertisement = new List<string>(film.Advertisement),
+                Rating = film.Rating
             };
             return model;
+        }
+
+        public async Task<IBaseResponse<bool>> UpdateFilmRating(int filmId, double rating)
+        {
+            var baseResponse = new BaseResponse<bool>();
+            try
+            {
+                var film = await _filmRepository.GetById(filmId);
+                if (film == null)
+                {
+                    baseResponse.StatusCode = StatusCode.FilmNotFound;
+                    baseResponse.Description = "Film not found";
+                    baseResponse.Data = false;
+                    return baseResponse;
+                }
+                film.Rating = rating;
+                baseResponse.Data = await _filmRepository.Update(film);
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Description = $"[EditFilm] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                    Data = false
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<List<Film>>> GetFilmsInOrderByRating(int countFilms)
+        {
+            var baseResponse = new BaseResponse<List<Film>>();
+            try
+            {
+                var film = await _filmRepository.GetFilmByRating(countFilms);
+                if (film == null)
+                {
+                    baseResponse.Description = "Film not found";
+                    baseResponse.StatusCode = StatusCode.FilmNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = film;
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<Film>>()
+                {
+                    Description = $"[GetFilmsInOrderByRating] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }
     }
 }

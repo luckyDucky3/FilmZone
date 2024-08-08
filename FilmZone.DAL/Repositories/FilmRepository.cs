@@ -38,7 +38,7 @@ namespace FilmZone.DAL.Repositories
             return await _db.Film.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Film> GetByName(string name)
+        public async Task<Film?> GetByName(string name)
         {
             var lowerCaseName = name.ToLower();
             if (name.Length > 2)
@@ -59,16 +59,21 @@ namespace FilmZone.DAL.Repositories
             return await _db.Film.ToListAsync();
         }
 
-        public async Task<Film>Update(Film entity)
+        public async Task<bool> Update(Film entity)
         {
             _db.Film.Update(entity);
             await _db.SaveChangesAsync();
 
-            return entity;
+            return true;
         }
         public async Task<List<Film>> GetByType(TypeFilm type)
         {
             return await _db.Film.Where(x => x.Type == type).ToListAsync();
+        }
+
+        public async Task<List<Film>> GetFilmByRating(int countFilm)
+        {
+            return await _db.Film.OrderByDescending(x => x.Rating).Take(countFilm).ToListAsync();
         }
     }
 }

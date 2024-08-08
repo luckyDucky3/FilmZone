@@ -17,7 +17,9 @@ namespace FilmZone.Service.Interfaces
 
         Task<IBaseResponse<Film>> GetFilmByName(string name);
 
-        Task<IBaseResponse<Film>> UpdateFilm(string name, Film model);
+        Task<IBaseResponse<bool>> UpdateFilm(string name, Film model);
         Task<IBaseResponse<List<Film>>> GetFilmByType(TypeFilm type);
+        Task<IBaseResponse<bool>> UpdateFilmRating(int filmId, double rating);
+        Task<IBaseResponse<List<Film>>> GetFilmsInOrderByRating(int countFilms);
     }
 }

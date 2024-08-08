@@ -39,7 +39,7 @@ namespace FilmZone.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<SiteFeedback> Update(SiteFeedback entity)
+        public Task<bool> Update(SiteFeedback entity)
         {
             throw new NotImplementedException();
         }

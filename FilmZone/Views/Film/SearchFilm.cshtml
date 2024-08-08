@@ -14,14 +14,6 @@
         personalRating = personalRespose.Data.Value;
     }
     ViewBag.FilmName = Model?.Name;
-    double sum = 0, col = 0, rating = 0;
-    foreach(var i in baseResponse.Data)
-    {
-        sum += i.Value;
-        col++;
-    }
-    if (col > 0)
-        rating = Math.Round(sum / col, 2);
 }
 <div class="Content">
     @if(Model != null)
@@ -83,7 +75,7 @@
             </div>
         </div>
         <div class="InfoAboutFilm">
-            <span class="Label">Рейтинг: </span><span class="Value">@if(rating > 0){ @rating<span>/5</span>}else{<span>Оцените первым!</span>}</span>
+            <span class="Label">Рейтинг: </span><span class="Value">@if(Model.Rating > 0){ @Model.Rating<span>/5</span>}else{<span>Оцените первым!</span>}</span>
             <span class="Label">Год: </span><span class="Value">@Model.ReleaseFilmDate</span>
             <span class="Label">Режиссер: </span><span class="Value">@Model.Director</span>
             <span class="Label">Жанр: </span><span class="Value">@type</span>
@@ -119,6 +111,14 @@
                         <div class="ReviewText">
                             <h3>@feedback.Heading</h3>
                             <p>@feedback.Text</p>
+                            @if(feedback.Value > 0)
+                            {
+                                <div>@feedback.Value/5</div>
+                            }
+                            else
+                            {
+                                <div>Нет оценки</div>
+                            }
                         </div>
                     </div>
                 }
@@ -128,16 +128,6 @@
         {
             <p>Оставьте отзыв, будьте первыми!</p>
         }
-
-@*         <div class="Reviews">
-            <div class="ReviewName">
-                Zeeker777
-            </div>
-            <div class="ReviewText">
-                <h3>Очень крутой фильм!</h3>
-                <p>Отличный фильм! 3 часа пролетели незаметно</p>
-            </div>
-        </div> *@
         <div class="Send">
             @if (ViewBag.IsInPrivateArea)
             {

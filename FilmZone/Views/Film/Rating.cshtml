@@ -1,36 +1,20 @@
-﻿
-@model List<FilmZone.Domain.ViewModels.FilmViewModel>
+﻿@model List<FilmZone.Domain.Models.Film>
 <div class="Content">
     <table>
         <tr>
             <th></th>
-            <th class="Center">Фильмы</th>
+            <th class="Center">Фильмы и сериалы</th>
             <th class="Center">Год</th>
             <th class="Center">Рейтинг</th>
         </tr>
-        <tr>
-            <td class="Center"> <img src="@Url.Content(Model.ElementAt(0).PathToImage)"></td>
-            <td>1. <a href="/Film/SearchById/@Model.ElementAt(0).Id">@Model.ElementAt(0).Name</a></td>
-            <td class="Center">@Model.ElementAt(0).ReleaseFilmDate</td>
-            <td class="Center Rating">8.1</td>
-        </tr>
-        <tr>
-            <td class="Center"> <img src="@Url.Content(Model.ElementAt(1).PathToImage)"></td>
-            <td>2. <a href="/Film/SearchById/@Model.ElementAt(1).Id">@Model.ElementAt(1).Name</a></td>
-            <td class="Center">@Model.ElementAt(1).ReleaseFilmDate</td>
-            <td class="Center Rating">7.9</td>
-        </tr>
-        <tr>
-            <td class="Center"> <img src="@Url.Content(Model.ElementAt(2).PathToImage)"></td>
-            <td>3. <a href="/Film/SearchById/@Model.ElementAt(2).Id">@Model.ElementAt(2).Name</a></td>
-            <td class="Center">@Model.ElementAt(2).ReleaseFilmDate</td>
-            <td class="Center Rating">7.5</td>
-        </tr>
-        <tr>
-            <td class="Center"> <img src="@Url.Content(Model.ElementAt(3).PathToImage)"></td>
-            <td>4. <a href="/Film/SearchById/@Model.ElementAt(3).Id">@Model.ElementAt(3).Name</a></td>
-            <td class="Center">@Model.ElementAt(3).ReleaseFilmDate</td>
-            <td class="Center Rating">7.3</td>
-        </tr>
+        @for(int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td class="Center"> <img src="@Url.Content(Model.ElementAt(i).PathToImage)"></td>
+                <td>@(i+1). <a href="/Film/SearchById/@Model.ElementAt(i).Id">@Model.ElementAt(i).Name</a></td>
+                <td class="Center">@Model.ElementAt(i).ReleaseFilmDate</td>
+                <td class="Center Rating">@Model.ElementAt(i).Rating</td>
+            </tr>
+        }
     </table>
 </div>

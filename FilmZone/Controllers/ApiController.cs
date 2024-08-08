@@ -12,24 +12,16 @@ namespace FilmZone.Controllers
     [Route("api/[controller]")]
     public class ApiController : BaseController
     {
-        public ApiController(IHttpContextAccessor httpcontextAccessor, IFilmFeedbackService filmFeedbackService, IBestFilmService bestFilmService) : base(httpcontextAccessor, filmFeedbackService, bestFilmService) { }
+        public ApiController(IHttpContextAccessor httpcontextAccessor, IFilmFeedbackService filmFeedbackService, IBestFilmService bestFilmService, IFilmService filmService) : base(httpcontextAccessor, filmFeedbackService, bestFilmService, filmService) { }
         [HttpPost("addFilm")]
         public async Task<OkObjectResult> AddFilmToFavourites(JsonElement jsonElement)
         {
-            string login = httpcontextAccessor.HttpContext?.Session.GetString("_Name");
+            string? login = httpcontextAccessor.HttpContext?.Session.GetString("_Name");
             if (login != null)
             {
                 if (jsonElement.TryGetProperty("name", out var filmNameElement))
                 {
-                    string filmName = filmNameElement.GetString();
-                    //var checkBestFilm = await bestFilmService.GetListOfUserFilm(httpcontextAccessor.HttpContext?.Session.GetString("_Name"));
-                    //foreach (var f in checkBestFilm.Data)
-                    //{
-                    //    if (f.FilmName == filmName)
-                    //    {
-                    //        return Ok(new { success = true });
-                    //    }
-                    //}
+                    string? filmName = filmNameElement.GetString();
                     BestFilm film = new BestFilm();
                     film.UserName = login;
                     film.FilmName = filmName;
@@ -45,13 +37,13 @@ namespace FilmZone.Controllers
         [HttpPost("removeFilm")]
         public async Task<OkObjectResult> RemoveFilmToFavourites(JsonElement jsonElement)
         {
-            string login = httpcontextAccessor.HttpContext?.Session.GetString("_Name");
+            string? login = httpcontextAccessor.HttpContext?.Session.GetString("_Name");
             if (login != null)
             {
                 if (jsonElement.TryGetProperty("name", out var filmNameElement))
                 {
-                    string filmName = filmNameElement.GetString();
-                    var resp = await bestFilmService.DeleteFilmByUser(HttpContext.Session.GetString("_Name"), filmName);
+                    string? filmName = filmNameElement.GetString();
+                    var resp = await bestFilmService.DeleteFilmByUser(login, filmName);
                     if (resp.StatusCode == Domain.Enum.StatusCode.OK)
                     {
                         return Ok(new { success = true });
@@ -63,7 +55,7 @@ namespace FilmZone.Controllers
         [HttpPost("rating")]
         public async Task<OkObjectResult> UpdateRating(JsonElement jsonElement)
         {
-            string login = httpcontextAccessor.HttpContext?.Session.GetString("_Name");
+            string? login = httpcontextAccessor.HttpContext?.Session.GetString("_Name");
             if (login != null)
             {
                 if (jsonElement.TryGetProperty("rating", out var rate) && jsonElement.TryGetProperty("id", out var id))
@@ -78,22 +70,54 @@ namespace FilmZone.Controllers
                         filmFeedback.FilmId = filmId;
                         filmFeedback.Name = login;
                         var response = await filmFeedbackService.CreateFeedback(filmFeedback);
-                        if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                        if (response.StatusCode != Domain.Enum.StatusCode.OK)
                         {
-                            return Ok(new { success = true });
+                            return Ok(new { success = false });
                         }
                     }
                     else if(resp.StatusCode == Domain.Enum.StatusCode.OK)
                     {
-                        var response = await filmFeedbackService.UpdateFeedbackRating(login, filmId, rating);
-                        if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                        var response = await filmFeedbackService.UpdateFeedbackWithoutRating(login, filmId, rating);
+                        
+                        if (response.StatusCode != Domain.Enum.StatusCode.OK)
+                        {    
+                            return Ok(new { success = false });
+                        }
+                    }
+                    if(resp.StatusCode == Domain.Enum.StatusCode.OK)
+                    {
+                        var getListResponse = await filmFeedbackService.GetListOfValues(filmId);
+                        if (getListResponse.StatusCode == Domain.Enum.StatusCode.OK)
                         {
-                            return Ok(new { success = true });
+                            double ratingFilm = 0, sum = 0, col = 0;
+                            foreach (var v in getListResponse.Data)
+                            {
+                                if(v > 0)
+                                {
+                                    sum += v;
+                                    col++;
+                                }
+                            }
+                            ratingFilm = sum / col;
+                            var updateResponse = await filmService.UpdateFilmRating(filmId, ratingFilm);
+                            if(updateResponse.StatusCode == Domain.Enum.StatusCode.OK)
+                            {
+                                return Ok(new { success =  true });
+                            }
                         }
                     }
                 }
             }
             return Ok(new { success = false });
+        }
+        [HttpPost("acceptCookie")]
+        public void acceptCookie()
+        {
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(14)
+            };
+            httpcontextAccessor.HttpContext?.Response.Cookies.Append("IKnowAboutCookie", "Yes", cookieOptions);
         }
     }
 }

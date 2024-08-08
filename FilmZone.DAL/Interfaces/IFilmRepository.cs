@@ -10,7 +10,8 @@ namespace FilmZone.DAL.Interfaces
 {
     public interface IFilmRepository : IBaseRepository<Film>
     {
-        Task<Film> GetByName (string name);
+        Task<Film?> GetByName (string name);
         Task<List<Film>> GetByType(TypeFilm type);
+        Task<List<Film>> GetFilmByRating(int countFilm);
     }
 }

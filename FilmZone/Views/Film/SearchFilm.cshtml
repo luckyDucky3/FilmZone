@@ -113,11 +113,35 @@
                             <p>@feedback.Text</p>
                             @if(feedback.Value > 0)
                             {
-                                <div>@feedback.Value/5</div>
+                                <div id="Value">@feedback.Value/5</div>
                             }
                             else
                             {
-                                <div>Нет оценки</div>
+                                <div id="Value">-</div>
+                            }
+                            @if (feedback.Value <= 3)
+                            {
+                                <style>
+                                    #Value {
+                                        border-color: #ff6161;
+                                    }
+                                </style>
+                            }
+                            else if(feedback.Value == 4)
+                            {
+                                <style>
+                                    #Value {
+                                        border-color: #fca250;
+                                    }
+                                </style>
+                            }
+                            else if (feedback.Value == 5)
+                            {
+                                <style>
+                                    #Value {
+                                        border-color: #00be00;
+                                    }
+                                </style>
                             }
                         </div>
                     </div>

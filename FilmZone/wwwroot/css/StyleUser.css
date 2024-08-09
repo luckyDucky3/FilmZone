@@ -108,8 +108,7 @@ span#UserInfo {
     color: #494848;
     font-size: 20px;
     text-align: center;
-    /*font-family: cursive;*/
-    font-family: 'Yandex Sans Text';
+    font-family: 'Comic Sans MS', 'Yandex Sans Text', cursive;
 }
 
 hr#profile {
@@ -119,10 +118,10 @@ hr#profile {
     width: auto;
 }
 
-p#changeTheme {
+/*p#changeTheme {
     font-family: cursive;
     font-size: 20px;
-}
+}*/
 
 .form_toggle {
     display: inline-block;

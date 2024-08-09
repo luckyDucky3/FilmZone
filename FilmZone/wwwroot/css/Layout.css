@@ -22,7 +22,7 @@ p {
     padding: 0 0 20px 0;
     line-height: 1.2em;
     font-family: 'Yandex Sans Text';
-    font-weight: 300;
+    font-weight: 400;
     font-size: 17px;
 }
 
@@ -86,8 +86,8 @@ h2 {
 a {
     outline: none;
     color: #c0984d;
-    font-family: 'Yandex Sans Display', Arial;
     text-decoration: none;
+    font-family: 'Comic Sans MS', 'Yandex Sans Display', cursive;
 }
 
     a:hover {

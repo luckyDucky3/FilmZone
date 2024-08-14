@@ -240,6 +240,7 @@ h2#filmsOrSerials {
         margin: 0 50px;
         display: inline-block;
         height: 100%;
+        width: 50%;
     }
 
 .DescriptionFilm .lists ul li {

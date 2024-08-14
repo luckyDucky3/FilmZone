@@ -71,9 +71,19 @@ namespace FilmZone.DAL.Repositories
             return await _db.Film.Where(x => x.Type == type).ToListAsync();
         }
 
-        public async Task<List<Film>> GetFilmByRating(int countFilm)
+        public async Task<List<Film>> GetFilmOrSerialsByRating(int countFilm)
         {
             return await _db.Film.OrderByDescending(x => x.Rating).Take(countFilm).ToListAsync();
+        }
+
+        public async Task<List<Film>> GetFilmsByReleaseDate(int countFilm)
+        {
+            return await _db.Film.Where(x => x.FilmOrSerial == FilmOrSerial.Film).OrderByDescending(x => x.ReleaseFilmDate).Take(countFilm).ToListAsync();
+        }
+
+        public async Task<List<Film>> GetSerialsByReleaseDate(int countFilm)
+        {
+            return await _db.Film.Where(x => x.FilmOrSerial == FilmOrSerial.Serial).OrderByDescending(x => x.ReleaseFilmDate).Take(countFilm).ToListAsync();
         }
     }
 }

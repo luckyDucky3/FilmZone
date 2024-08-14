@@ -21,5 +21,7 @@ namespace FilmZone.Service.Interfaces
         Task<IBaseResponse<List<Film>>> GetFilmByType(TypeFilm type);
         Task<IBaseResponse<bool>> UpdateFilmRating(int filmId, double rating);
         Task<IBaseResponse<List<Film>>> GetFilmsInOrderByRating(int countFilms);
+        Task<IBaseResponse<List<Film>>> GetFilmsByReleaseDate(int countFilms);
+        Task<IBaseResponse<List<Film>>> GetSerialsByReleaseDate(int countFilms);
     }
 }

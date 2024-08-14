@@ -85,16 +85,50 @@
         <h2>Описание фильма</h2>
         <div class="DescriptionFilm">
             <p style="text-indent: 40px">@Model.Description</p>
-            <ul>
-            @for (int i = 0; i < Model.Links.Count; i++)
-            {
-                <li>
-                    <a href="@Model.Links[i]">@Model.Links[i].Split("/")[2]</a>
-                    <br/>@Model.Price[i]
-                    <br/>@Model.Advertisement[i]
-                </li>
-            }
-            </ul>
+            <div class="lists">
+                <ul>
+                    <li id="price">Платно</li>
+                    @{bool flag = false;}
+                    @for (int i = 0; i < Model.Links.Count; i++)
+                    {
+                        @if (@Model.Price[i] == "Платно")
+                        {
+                            flag = true;
+                            <li>
+                                <a href="@Model.Links[i]">@Model.Links[i].Split("/")[2]</a>
+                                <br />
+                                <span>@Model.Advertisement[i]</span>
+                            </li>
+                        }
+                    }
+                    @if (!flag)
+                    {
+                        <li id="none">Информации пока нет</li>
+                        <li><img src="/gifs/cry-crying-cat.gif" /></li>
+                    }
+                </ul>
+                <ul>
+                    <li id="price">Бесплатно</li>
+                    @{flag = false;}
+                    @for (int i = 0; i < Model.Links.Count; i++)
+                    {
+                        @if (@Model.Price[i] != "Платно")
+                        {
+                            flag = true;
+                            <li>
+                                <a href="@Model.Links[i]">@Model.Links[i].Split("/")[2]</a>
+                                <br />
+                                <span>@Model.Advertisement[i]</span>
+                            </li>
+                        }
+                    }
+                    @if (!flag)
+                    {
+                        <li id="none">Информации пока нет</li>
+                        <li><img src="/gifs/cry-crying-cat.gif" /></li>
+                    }
+                </ul>
+            </div>
         </div>
         <hr>
         <h2>Отзывы о фильме</h2>
@@ -228,15 +262,16 @@
                         if (this.checked) {
                             const rating = this.value;
                             sendRating(rating);
+                            console.log('Вызвался sendRating');
+                            updateStarColors(rating);
+                            console.log('Вызвался updateStarColors');
                         }
                     });
                 });
             });
 
             function updateStarColors(rating) {
-                const ratingGroup = document.querySelector('.full-stars .rating-group');
-                if (!ratingGroup) return;
-
+                const ratingGroup = document.getElementById('rating');
                 const labels = ratingGroup.querySelectorAll('label svg');
                 labels.forEach((svg, index) => {
                     if (index < rating) {
@@ -278,4 +313,3 @@
         </div>
     }
 </div>
-

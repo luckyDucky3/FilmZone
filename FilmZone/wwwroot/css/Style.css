@@ -218,10 +218,56 @@ h2#filmsOrSerials {
         fill: #ffe7bf;
     }
 
-.Reviews {
-    margin-bottom: 4%;
-    font-size: 0.9em;
+.DescriptionFilm .lists {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    position: relative;
 }
+
+    .DescriptionFilm .lists::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        bottom: 20px;
+        width: 2px;
+        background-color: #999;
+        transform: translateX(-50%);
+    }
+
+    .DescriptionFilm .lists ul {
+        margin: 0 50px;
+        display: inline-block;
+        height: 100%;
+    }
+
+.DescriptionFilm .lists ul li {
+    list-style: none;
+    font-family: 'Comic Sans MS', 'Yandex Sans Text', cursive;
+    text-align: center;
+}
+
+    .DescriptionFilm .lists ul li#price {
+        text-decoration: underline;
+        color: #9c6300;
+        font-weight: 400;
+        font-family: 'Yandex Sans Text';
+        font-size: 20px;
+    }
+
+    .DescriptionFilm .lists ul li img {
+        margin: 0;
+        float: none;
+        border: 1px solid #9999995c;
+        border-radius: 3px;
+        width: 65px;
+    }
+
+        .Reviews {
+            margin-bottom: 4%;
+            font-size: 0.9em;
+        }
 
     .Reviews .ReviewName {
         background-color: #5d5d5d;
@@ -296,7 +342,9 @@ h2#filmsOrSerials {
         height: 200px;
     }
 
-
+    .InfoFilm h2{
+        padding: 0;
+    }
 
 #ButtonWatchMore {
     margin-bottom: 5%;

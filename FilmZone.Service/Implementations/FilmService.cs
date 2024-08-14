@@ -301,7 +301,7 @@ namespace FilmZone.Service.Implementations
             var baseResponse = new BaseResponse<List<Film>>();
             try
             {
-                var film = await _filmRepository.GetFilmByRating(countFilms);
+                var film = await _filmRepository.GetFilmOrSerialsByRating(countFilms);
                 if (film == null)
                 {
                     baseResponse.Description = "Film not found";
@@ -318,6 +318,60 @@ namespace FilmZone.Service.Implementations
                 return new BaseResponse<List<Film>>()
                 {
                     Description = $"[GetFilmsInOrderByRating] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<List<Film>>> GetFilmsByReleaseDate(int countFilms)
+        {
+            var baseResponse = new BaseResponse<List<Film>>();
+            try
+            {
+                var film = await _filmRepository.GetFilmsByReleaseDate(countFilms);
+                if (film == null)
+                {
+                    baseResponse.Description = "Film not found";
+                    baseResponse.StatusCode = StatusCode.FilmNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = film;
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<Film>>()
+                {
+                    Description = $"[GetFilmsByReleaseDate] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<List<Film>>> GetSerialsByReleaseDate(int countFilms)
+        {
+            var baseResponse = new BaseResponse<List<Film>>();
+            try
+            {
+                var film = await _filmRepository.GetSerialsByReleaseDate(countFilms);
+                if (film == null)
+                {
+                    baseResponse.Description = "Film not found";
+                    baseResponse.StatusCode = StatusCode.FilmNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = film;
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<Film>>()
+                {
+                    Description = $"[GetSerialsByReleaseDate] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

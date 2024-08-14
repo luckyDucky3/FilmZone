@@ -247,8 +247,8 @@ input#find {
     z-index: 2;
     box-sizing: border-box;
     background-color: transparent;
-    transform: translateY(-44.5%) scale(0);
-    transition: .4s ease-in-out;
+    transform: translateY(-42%) scale(0);
+    transition: .2s ease-in-out;
 }
 
     .pop_up.active {

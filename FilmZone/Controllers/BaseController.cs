@@ -2,6 +2,7 @@
 using FilmZone.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace FilmZone.Controllers
 {
@@ -15,6 +16,7 @@ namespace FilmZone.Controllers
         protected readonly IFilmService filmService;
         protected readonly IFilmFeedbackService filmFeedbackService;
         protected readonly IBestFilmService bestFilmService;
+        protected readonly IMemoryCache cache;
         public BaseController(IHttpContextAccessor httpcontextAccessor, IUserService userService, TimerHostedService timerHostedService, IFilmFeedbackService filmfeedbackService, IBestFilmService best, IFilmService filmService)
         {
             this.httpcontextAccessor = httpcontextAccessor;
@@ -24,12 +26,13 @@ namespace FilmZone.Controllers
             bestFilmService = best;
             this.filmService = filmService;
         }
-        public BaseController(ILogger<FilmController> logger, IFilmService filmService, IHttpContextAccessor httpcontextAccessor, ISiteFeedbackService feedbackService)
+        public BaseController(ILogger<FilmController> logger, IFilmService filmService, IHttpContextAccessor httpcontextAccessor, ISiteFeedbackService feedbackService, IMemoryCache cache)
         {
             _logger = logger;
             this.filmService = filmService;
             this.httpcontextAccessor = httpcontextAccessor;
             this.feedbackService = feedbackService;
+            this.cache = cache;
         }
         public BaseController(IHttpContextAccessor httpcontextAccessor, IFilmFeedbackService filmFeedbackService, IBestFilmService bestFilmService, IFilmService filmService)
         {

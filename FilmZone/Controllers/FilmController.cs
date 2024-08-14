@@ -7,16 +7,16 @@ using FilmZone.Domain.Response;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace FilmZone.Controllers
 {
     public class FilmController : BaseController
     {
-        private int testValue = 0;
         
         public FilmController(IFilmService filmService, ILogger<FilmController> logger, 
-            ISiteFeedbackService feedbackService, IHttpContextAccessor httpcontextAccessor) 
-            : base(logger, filmService, httpcontextAccessor, feedbackService) 
+            ISiteFeedbackService feedbackService, IHttpContextAccessor httpcontextAccessor, IMemoryCache cache) 
+            : base(logger, filmService, httpcontextAccessor, feedbackService, cache) 
         { }
 
 
@@ -24,33 +24,28 @@ namespace FilmZone.Controllers
         public async Task<IActionResult> Index()
         {
             
-            int i = 1;
             int countFilm = 0, countSerial = 0;
-            List<FilmViewModel> ListOfFilm = new List<FilmViewModel>();
-            while (countSerial + countFilm < 16)
+            List<Film> listOfFilm = new List<Film>();
+            var firstResp = await filmService.GetFilmsByReleaseDate(8);
+            var secondResp = await filmService.GetSerialsByReleaseDate(8);
+            if (firstResp.StatusCode == Domain.Enum.StatusCode.OK && secondResp.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                var response = await filmService.GetFilmById(i);
-                i++;
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                listOfFilm = firstResp.Data;
+                listOfFilm.AddRange(secondResp.Data);
+            }
+            if(!cache.TryGetValue("MovieRatings", out List<Film> films))
+            {
+                var layoutResp = await filmService.GetFilmsInOrderByRating(5);
+                if (layoutResp.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    if (response.Data.FilmOrSerial == FilmOrSerial.Film && countFilm < 8)
+                    var options = new MemoryCacheEntryOptions
                     {
-                        countFilm++;
-                        ListOfFilm.Add(response.Data);
-                    }
-                    else if(response.Data.FilmOrSerial == FilmOrSerial.Serial && countSerial < 8)
-                    {
-                        countSerial++;
-                        ListOfFilm.Add(response.Data);
-                    }
-                }
-                if(response.StatusCode == Domain.Enum.StatusCode.InternalServerError || i > 60)
-                {
-                    break;
+                        AbsoluteExpiration = DateTime.Now.AddHours(10)
+                    };
+                    cache.Set("MovieRatings", layoutResp.Data, options);
                 }
             }
-            testValue++;
-            return View(ListOfFilm);
+            return View(listOfFilm);
         }
         [HttpGet]
         public IActionResult Films()

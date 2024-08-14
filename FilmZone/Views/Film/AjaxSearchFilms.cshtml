@@ -8,10 +8,11 @@
 {
     <div class="InfoFilm">
         <img src="@Url.Content(film.PathToImage)" />
+        <h2>@film.Name</h2>
         @{
-            if (film.Description.Length > 350)
+            if (film.Description.Length > 320)
             {
-                filmDesc = film.Description[..350] + "...";
+                filmDesc = film.Description[..320] + "...";
             }
             else
             {

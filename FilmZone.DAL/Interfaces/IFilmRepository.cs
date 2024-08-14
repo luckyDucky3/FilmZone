@@ -12,6 +12,8 @@ namespace FilmZone.DAL.Interfaces
     {
         Task<Film?> GetByName (string name);
         Task<List<Film>> GetByType(TypeFilm type);
-        Task<List<Film>> GetFilmByRating(int countFilm);
+        Task<List<Film>> GetFilmOrSerialsByRating(int countFilm);
+        Task<List<Film>> GetFilmsByReleaseDate(int countFilm);
+        Task<List<Film>> GetSerialsByReleaseDate(int countFilm);
     }
 }

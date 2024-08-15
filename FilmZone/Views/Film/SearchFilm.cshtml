@@ -30,9 +30,9 @@
                 {
                     if (f.FilmName == Model.Name)
                     {
-                                <script>
-                                    document.getElementById('heart').classList.add('focus');
-                                </script>
+                                    <script>
+                                        document.getElementById('heart').classList.add('focus');
+                                    </script>
                         break;
                     }
                 }
@@ -218,8 +218,10 @@
                         .then(data => {
                             if (data.success)
                                 console.log('C# метод addFilm успешно вызван');
-                            else
+                            else {
                                 console.log('Произошла ошибка при вызове C# addFilm метода');
+                                alert("Зарегистрируйтесь на сайте прежде чем добавить в избранное");
+                            }
                         })
                         .catch(error => {
                             console.error('Ошибка:', error);
@@ -297,8 +299,12 @@
                         return response.json();
                     })
                     .then(data => {
-                        console.log(rating);
-                        console.log('Success:', data);
+                        if (data.success)
+                            console.log('C# изменение рейтинга прошло успешно');
+                        else {
+                            console.log('Произошла ошибка при изменении рейтинга');
+                            alert("Зарегистрируйтесь на сайте прежде чем оценить фильм");
+                        }
                     })
                     .catch(error => {
                         console.error('Error:', error);

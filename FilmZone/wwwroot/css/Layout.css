@@ -444,3 +444,11 @@ input#find {
 .cookie_text .cookie_image {
     width: 35px;
 }
+
+.no-scroll {
+    overflow: hidden;
+}
+
+.fa-telegram{
+    margin: 0 4px;
+}

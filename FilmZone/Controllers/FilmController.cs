@@ -26,12 +26,25 @@ namespace FilmZone.Controllers
             
             int countFilm = 0, countSerial = 0;
             List<Film> listOfFilm = new List<Film>();
-            var firstResp = await filmService.GetFilmsByReleaseDate(8);
-            var secondResp = await filmService.GetSerialsByReleaseDate(8);
-            if (firstResp.StatusCode == Domain.Enum.StatusCode.OK && secondResp.StatusCode == Domain.Enum.StatusCode.OK)
+            if (!cache.TryGetValue("IndexFilms", out List<Film> indexFilms))
             {
-                listOfFilm = firstResp.Data;
-                listOfFilm.AddRange(secondResp.Data);
+                var firstResp = await filmService.GetFilmsByReleaseDate(8);
+                var secondResp = await filmService.GetSerialsByReleaseDate(8);
+                if (firstResp.StatusCode == Domain.Enum.StatusCode.OK && secondResp.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    listOfFilm = firstResp.Data;
+                    listOfFilm.AddRange(secondResp.Data);
+                }
+                var options = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpiration = DateTime.Now.AddDays(1)
+                };
+                cache.Set("IndexFilms", listOfFilm, options);
+                Console.WriteLine("Запись кэша");
+            }
+            else
+            {
+                listOfFilm.AddRange(indexFilms);
             }
             if(!cache.TryGetValue("MovieRatings", out List<Film> films))
             {

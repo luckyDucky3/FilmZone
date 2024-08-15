@@ -19,11 +19,6 @@ namespace FilmZone.Controllers
         const string SessionKeyLogin = "_Name";
         const string SessionKeyDate = "_Date";
         public UserController(IHttpContextAccessor httpContextAccessor, IUserService userService, TimerHostedService timerHostedService, IFilmFeedbackService filmFeedbackService, IBestFilmService bestFilmService, IFilmService filmService) : base(httpContextAccessor, userService, timerHostedService, filmFeedbackService, bestFilmService, filmService) { }
-        //public UserController(IUserService userService, TimerHostedService timerHostedService)
-        //{
-        //    this.userService = userService;
-        //    this.timerHostedService = timerHostedService;
-        //}
 
         [HttpPost]
         public async Task<IActionResult> Index(string LoginField, string PasswordField)
@@ -33,7 +28,6 @@ namespace FilmZone.Controllers
             {
                 if (response.Data.Password == PasswordField)
                 {
-                    //Session["SuccecfullRegistration"] = true;
                     HttpContext.Session.SetString(SessionKeyLogin, response.Data.Login);
                     HttpContext.Session.SetString(SessionKeyDate, DateTime.Now.ToString());
                     return View("Index", LoginField);

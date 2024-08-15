@@ -75,12 +75,10 @@
 }
 
 .ReadRef a {
-    font-size: 125%;
     text-decoration: underline;
 }
 
 .ReadRef a:hover {
-    font-size: 125%;
     text-decoration: none;
 }
 

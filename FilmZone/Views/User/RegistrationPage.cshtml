@@ -8,37 +8,28 @@
                 {
                     <span class="ErrorForm">Фамилия должна быть от 2 до 20 символов</span>
                 }
-                @* <div class="RegLabel">Фамилия:</div>
-                <input type="text" name="LastName"/> *@
                 <div class="field">
                     <span class="fa-solid fa-circle-info"></span>
                     <input type="text" name="LastName" required>
                     <label>Фамилия</label>
                 </div>
                 @if (Model[1])
-                {
-                    
+                {   
                     <span class="ErrorForm">Имя должно быть от 2 до 15 символов</span>
-                }
-                @* <div class="RegLabel">Имя:</div>
-                <input type="text" name="FirstName"/> *@
+                } 
                 <div class="field">
                     <span class="fa-solid fa-circle-info"></span>
                     <input type="text" name="FirstName" required>
                     <label>Имя</label>
                 </div>
                 @if (Model[2])
-                {
-                    
+                {   
                     <span class="ErrorForm">Логин должен быть от 3 до 20 символов</span>
                 }
                 @if (Model[7])
                 {
-                    
                     <span class="ErrorForm">Такой логин уже существует</span>
                 }
-                @* <div class="RegLabel">Логин(для входа в лк):</div>
-                <input type="text" name="LoginName"/> *@
                 <div class="field">
                     <span class="fas fa-user"></span>
                     <input type="text" name="LoginName" required>
@@ -54,8 +45,6 @@
                     
                     <span class="ErrorForm">Аккаунт с этой почтой уже был создан</span>
                 }
-                @* <div class="RegLabel">Почта:</div>
-                <input type="text" name="Email"/> *@
                 <div class="field">
                     <span class="fa-regular fa-envelope"></span>
                     <input type="text" name="Email" required>
@@ -63,24 +52,17 @@
                 </div>
                 @if (Model[4])
                 {
-                    
                         <span class="ErrorForm">Пароль содержит символы, отличные от латинских символов, цифр или указанных специальных знаков: (! ? , . % # * $)</span>
                 }
                 @if (Model[5])
-                {
-                    
+                { 
                     <span class="ErrorForm">Пароль должен быть из 8 и более символов</span>
                 }
-                
-               @*  <div class="RegLabel">Пароль:</div>
-                <input type="password" name="Password1"/> *@
                 <div class="field">
                     <span class="fas fa-lock"></span>
                     <input type="password" name="Password1" required>
                     <label>Пароль</label>
                 </div>
-                @* <div class="RegLabel">Повторите пароль:</div>
-                <input type="password" name="Password2"/> *@
                 @if (Model[6])
                 {
 

@@ -16,6 +16,8 @@ namespace FilmZone.Controllers
 {
     public class UserController : BaseController
     {
+        const string companyMailAuthentificate = "3jgiae1r4fQJFFA62VvA";
+        const string companyMailAdress = "film-zone@mail.ru";
         const string SessionKeyLogin = "_Name";
         const string SessionKeyDate = "_Date";
         public UserController(IHttpContextAccessor httpContextAccessor, IUserService userService, TimerHostedService timerHostedService, IFilmFeedbackService filmFeedbackService, IBestFilmService bestFilmService, IFilmService filmService) : base(httpContextAccessor, userService, timerHostedService, filmFeedbackService, bestFilmService, filmService) { }
@@ -216,17 +218,19 @@ namespace FilmZone.Controllers
         }
 
         [HttpPost]
-        public string ForgotPassword(string Email)
+        public async Task<string> ForgotPassword(string Email)
         {
-            return "Ссылка о смене пароля отправленна вам на почту:)\nЕсли ссылка не приходит, пожалуйста, еще раз проверьте правильность введенной почты или проверьте папку спам";
+            var response = await userService.GetUserByMail(Email);
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                SendMessageAboutForgotPasswordToEmail(response.Data.Id, response.Data.Login, Email);
+            }
+            else
+            {
+                return ("Ваша почта не зарегистрирована на нашем сайте");
+            }
+            return "Ссылка о смене пароля отправлена вам на почту:)\nЕсли ссылка не приходит, пожалуйста, еще раз проверьте правильность введенной почты или проверьте папку спам";
         }
-
-        //[HttpGet]
-        //public IActionResult SendMessageToEmail(string mail, string login, string token)
-        //{
-
-        //    return View();
-        //}
 
         [HttpGet]
         public async Task<IActionResult> ConfirmRegistration(int id, string token)
@@ -250,29 +254,71 @@ namespace FilmZone.Controllers
             {
                 return View(false);
             }
-
         }
-
-
-        private void SendMessageAboutRegistrationToEmail(int id, string login, string mail, string token)
+        public IActionResult ChangePassword(int Id)
+        {
+            return View(Id);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SubmitChangePassword(string Password1, string Password2, int Id)
+        {
+            Regex pattern = new Regex("^[a-zA-Z0-9!?,.%#*\\$]+$");
+            if (Password1 == Password2 && Password1.Length >= 8 && pattern.IsMatch(Password1))
+            {
+                var response = await userService.GetUserById(Id);
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    response.Data.Password = Password1;
+                    await userService.UpdateUserById(response.Data);
+                    return View(true);
+                }
+            }
+            else
+            {
+                return RedirectToAction("ChangePassword");
+            }
+            return View(false);
+        }
+        private void SendMessageAboutForgotPasswordToEmail(int Id, string login, string userMail)
         {
             using var emailMessage = new MimeMessage();
-            emailMessage.From.Add(new MailboxAddress("FilmZone (Подтверждение регистрации)", "makslebed04@mail.ru"));
-            emailMessage.To.Add(new MailboxAddress("Подтверждение регистрации", mail));
+            emailMessage.From.Add(new MailboxAddress("FilmZone (Смена пароля)", companyMailAdress));
+            emailMessage.To.Add(new MailboxAddress("Смена пароля", userMail));
+            emailMessage.Subject = "Смена пароля";
+            var builder = new BodyBuilder();
+
+            string confirmationLink = Url.Action("ChangePassword", "User", new { Id = Id});
+            builder.HtmlBody = string.Format(@$"<h1>Привет, {login}!</h1>
+<p>Для того, чтобы изменить пароль перейдите по ссылке: <a href =""https://film-zone.ru{confirmationLink}"">Кликни вот сюды</a></p>
+<br />
+<p>Вы получили это письмо, поскольку являетесь зарегистрированным пользователем нашего сайта и указали {userMail} при регистрации</p>");
+            emailMessage.Body = builder.ToMessageBody();
+            SendMessage(emailMessage);
+        }
+
+        private void SendMessageAboutRegistrationToEmail(int id, string login, string userMail, string token)
+        {
+            using var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress("FilmZone (Подтверждение регистрации)", companyMailAdress));
+            emailMessage.To.Add(new MailboxAddress("Подтверждение регистрации", userMail));
             emailMessage.Subject = "Завершите регистрацию";
             var builder = new BodyBuilder();
             
             string confirmationLink = Url.Action("ConfirmRegistration", "User", new { id = id, token = token });
-            builder.HtmlBody = string.Format(@$"<p>Привет, {login}!<br>
-<p>Поздравляем с регистрацией на FilmZone! Просим вас подтвердить Email адрес {mail}, для продолжения регистрации на нашем сайте перейдите по ссылке: <a href =""https://film-zone.ru{confirmationLink}"">Кликни вот сюды</a><br>
-<p>Вы получили это письмо, поскольку являетесь зарегистрированным пользователем нашего сайта и указали {mail} при регистрации");
+            builder.HtmlBody = string.Format(@$"<h1>Привет, {login}!</h1>
+<p>Поздравляем с регистрацией на FilmZone! Просим вас подтвердить Email адрес {userMail}, для продолжения регистрации на нашем сайте перейдите по ссылке: <a href =""https://film-zone.ru{confirmationLink}"">Кликни вот сюды</a></p><br />
+<p>Вы получили это письмо, поскольку являетесь зарегистрированным пользователем нашего сайта и указали {userMail} при регистрации</p>");
             emailMessage.Body = builder.ToMessageBody();
+            SendMessage(emailMessage);
+        }
+        private void SendMessage(MimeKit.MimeMessage emailMessage)
+        {
             using (var client = new SmtpClient())
             {
                 try
                 {
                     client.Connect("smtp.mail.ru", 587, false);
-                    client.Authenticate("makslebed04@mail.ru", "6C8uUq5ivrhTKKR534sA");
+                    client.Authenticate(companyMailAdress, companyMailAuthentificate);
                     client.Send(emailMessage);
                 }
                 catch (MailKit.ServiceNotConnectedException ex)

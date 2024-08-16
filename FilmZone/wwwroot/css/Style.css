@@ -547,3 +547,18 @@ td {
             box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #ffffff73;
             background: #ffe9b433;
         }
+
+.Content form button#enter {
+    padding: 9px;
+    background: #5d5d5d;
+    border-radius: 10px;
+    color: #f9f9f9;
+    font-size: 14px;
+    text-align: center;
+    height: 100%;
+}
+
+.Content input#enter {
+    border: 1px solid #a6a6a6;
+    border-radius: 10px;
+}

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\User\ChangePassword.cshtml" />
     <_ContentIncludedByDefault Remove="Views\User\ConfirmRegistration.cshtml" />
     <_ContentIncludedByDefault Remove="Views\User\ForgotPassword.cshtml" />
     <_ContentIncludedByDefault Remove="Views\User\LoginPage.cshtml" />
@@ -46,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\User\ChangePassword.cshtml" />
     <None Include="Views\User\Options.cshtml" />
   </ItemGroup>
 
@@ -55,6 +57,10 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\User\ChangePassword.cshtml" />
   </ItemGroup>
 
 </Project>

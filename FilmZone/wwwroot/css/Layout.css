@@ -452,3 +452,14 @@ input#find {
 .fa-telegram{
     margin: 0 4px;
 }
+
+#message {
+    font: italic 100% 'Yandex Sans Display';
+    margin: 0 0 15px 0;
+    padding: 5px 0 5px 0;
+    color: #595959;
+}
+
+.red{
+    color: red;
+}

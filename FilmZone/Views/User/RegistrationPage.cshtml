@@ -1,65 +1,98 @@
 ﻿@model List<bool>
-<h2>Регистрация</h2>
 <div class="Content">
-<div class="RegistrationForm">
-    <form method="post" action="/User/Registration" id="RegForm">
-        @if (Model[0])
-        {
-            <span class="ErrorForm">Фамилия должна быть от 2 до 20 символов</span>
-        }
-        <span class="RegLabel"><br />Фамилия:</span>
-        <br/><input type="text" name="LastName"/>
-        @if (Model[1])
-        {
-            <br />
-            <span class="ErrorForm">Имя должно быть от 2 до 15 символов</span>
-        }
-        <span class="RegLabel"><br/>Имя:</span>
-        <br/><input type="text" name="FirstName"/>
-        @if (Model[2])
-        {
-            <br />
-            <span class="ErrorForm">Логин должен быть от 3 до 20 символов</span>
-        }
-        @if (Model[7])
-        {
-            <br />
-            <span class="ErrorForm">Такой логин уже существует</span>
-        }
-        <span class="RegLabel"><br/>Логин(для входа в лк):</span>
-        <br/><input type="text" name="LoginName"/>
-        @if (Model[3])
-        {
-            <br />
-            <span class="ErrorForm">Почта должна содержать символ '@@'</span>
-        }
-        @if (Model[8])
-        {
-            <br />
-            <span class="ErrorForm">Аккаунт с этой почтой уже был создан</span>
-        }
-        <span class="RegLabel"><br/>Почта:</span>
-        <br/><input type="text" name="Email"/>
-        @if (Model[4])
-        {
-            <br />
-                <span class="ErrorForm">Пароль содержит символы, отличные от латинских символов, цифр или указанных специальных знаков: (! ? , . % # * $)</span>
-        }
-        @if (Model[5])
-        {
-            <br />
-            <span class="ErrorForm">Пароль должен быть из 8 и более символов</span>
-        }
-        @if (Model[6])
-        {
-            <br />
-            <span class="ErrorForm">Пароли не совпадают, повторите попытку</span>
-        }
-        <span class="RegLabel"><br/>Пароль:</span>
-        <br/><input type="password" name="Password1"/>
-        <span class="RegLabel"><br/>Повторите пароль:</span>
-        <br/><input type="password" name="Password2"/>
-        <br/><input type="submit" class="btn btnRegForm" value="Зарегестрироваться"/>
-    </form>
-</div>
+    <div class="Reg">
+        <div class="RegistrationForm">
+            <h2>Регистрация</h2>
+            <form method="post" action="/User/Registration" id="RegForm">
+                @if (Model[0])
+                {
+                    <span class="ErrorForm">Фамилия должна быть от 2 до 20 символов</span>
+                }
+                @* <div class="RegLabel">Фамилия:</div>
+                <input type="text" name="LastName"/> *@
+                <div class="field">
+                    <span class="fa-solid fa-circle-info"></span>
+                    <input type="text" name="LastName" required>
+                    <label>Фамилия</label>
+                </div>
+                @if (Model[1])
+                {
+                    
+                    <span class="ErrorForm">Имя должно быть от 2 до 15 символов</span>
+                }
+                @* <div class="RegLabel">Имя:</div>
+                <input type="text" name="FirstName"/> *@
+                <div class="field">
+                    <span class="fa-solid fa-circle-info"></span>
+                    <input type="text" name="FirstName" required>
+                    <label>Имя</label>
+                </div>
+                @if (Model[2])
+                {
+                    
+                    <span class="ErrorForm">Логин должен быть от 3 до 20 символов</span>
+                }
+                @if (Model[7])
+                {
+                    
+                    <span class="ErrorForm">Такой логин уже существует</span>
+                }
+                @* <div class="RegLabel">Логин(для входа в лк):</div>
+                <input type="text" name="LoginName"/> *@
+                <div class="field">
+                    <span class="fas fa-user"></span>
+                    <input type="text" name="LoginName" required>
+                    <label>Логин(для входа в лк)</label>
+                </div>
+                @if (Model[3])
+                {
+                    
+                    <span class="ErrorForm">Почта должна содержать символ '@@'</span>
+                }
+                @if (Model[8])
+                {
+                    
+                    <span class="ErrorForm">Аккаунт с этой почтой уже был создан</span>
+                }
+                @* <div class="RegLabel">Почта:</div>
+                <input type="text" name="Email"/> *@
+                <div class="field">
+                    <span class="fa-regular fa-envelope"></span>
+                    <input type="text" name="Email" required>
+                    <label>Почта</label>
+                </div>
+                @if (Model[4])
+                {
+                    
+                        <span class="ErrorForm">Пароль содержит символы, отличные от латинских символов, цифр или указанных специальных знаков: (! ? , . % # * $)</span>
+                }
+                @if (Model[5])
+                {
+                    
+                    <span class="ErrorForm">Пароль должен быть из 8 и более символов</span>
+                }
+                
+               @*  <div class="RegLabel">Пароль:</div>
+                <input type="password" name="Password1"/> *@
+                <div class="field">
+                    <span class="fas fa-lock"></span>
+                    <input type="password" name="Password1" required>
+                    <label>Пароль</label>
+                </div>
+                @* <div class="RegLabel">Повторите пароль:</div>
+                <input type="password" name="Password2"/> *@
+                @if (Model[6])
+                {
+
+                    <span class="ErrorForm">Пароли не совпадают, повторите попытку</span>
+                }
+                <div class="field">
+                    <span class="fa-solid fa-check"></span>
+                    <input type="password" name="Password2" required>
+                    <label>Подтвердите пароль</label>
+                </div>
+                <button>Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
 </div>

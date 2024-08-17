@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using FilmZone.DAL;
 using FilmZone.Service.Implementations;
 using FilmZone.Domain.ViewModels;
+using System.Web;
 
 namespace FilmZone.Controllers
 {
@@ -235,8 +236,9 @@ namespace FilmZone.Controllers
         [HttpGet]
         public async Task<IActionResult> ConfirmRegistration(int id, string token)
         {
+            string decodedToken = HttpUtility.UrlDecode(token);
             var response = await userService.GetUserById(id);
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            if (response.StatusCode == Domain.Enum.StatusCode.OK && decodedToken == response.Data.Token)
             {
                 var user = response.Data;
                 user.EmailConfirmation = true;
@@ -258,7 +260,8 @@ namespace FilmZone.Controllers
         [HttpGet]
         public IActionResult ChangePassword(int id, string token)
         {
-            ViewBag.Token = token;
+            string decodedToken = HttpUtility.UrlDecode(token);
+            ViewBag.Token = decodedToken;
             return View(id);
         }
         [HttpPost]
@@ -283,13 +286,14 @@ namespace FilmZone.Controllers
         }
         private void SendMessageAboutForgotPasswordToEmail(int id, string login, string userMail, string token)
         {
+            string encodedToken = HttpUtility.UrlEncode(token);
             using var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("FilmZone (Смена пароля)", companyMailAdress));
             emailMessage.To.Add(new MailboxAddress("Смена пароля", userMail));
             emailMessage.Subject = "Смена пароля";
             var builder = new BodyBuilder();
 
-            string confirmationLink = Url.Action("ChangePassword", "User", new { id = id, token = token});
+            string confirmationLink = Url.Action("ChangePassword", "User", new { id = id, token = encodedToken});
             builder.HtmlBody = string.Format(@$"<h1>Привет, {login}!</h1>
 <p>Для того, чтобы изменить пароль перейдите по ссылке: <a href =""https://film-zone.ru{confirmationLink}"">Кликни вот сюды</a></p>
 <br />
@@ -300,13 +304,13 @@ namespace FilmZone.Controllers
 
         private void SendMessageAboutRegistrationToEmail(int id, string login, string userMail, string token)
         {
+            string encodedToken = HttpUtility.UrlEncode(token);
             using var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("FilmZone (Подтверждение регистрации)", companyMailAdress));
             emailMessage.To.Add(new MailboxAddress("Подтверждение регистрации", userMail));
             emailMessage.Subject = "Завершите регистрацию";
-            var builder = new BodyBuilder();
-            
-            string confirmationLink = Url.Action("ConfirmRegistration", "User", new { id = id, token = token });
+            var builder = new BodyBuilder();           
+            string confirmationLink = Url.Action("ConfirmRegistration", "User", new { id = id, token = encodedToken });
             builder.HtmlBody = string.Format(@$"<h1>Привет, {login}!</h1>
 <p>Поздравляем с регистрацией на FilmZone! Просим вас подтвердить Email адрес {userMail}, для продолжения регистрации на нашем сайте перейдите по ссылке: <a href =""https://film-zone.ru{confirmationLink}"">Кликни вот сюды</a></p><br />
 <p>Вы получили это письмо, поскольку являетесь зарегистрированным пользователем нашего сайта и указали {userMail} при регистрации</p>");

@@ -467,3 +467,15 @@ input#find {
 .size23{
     font-size: 23px;
 }
+
+.userFont {
+    font-style: italic;
+    color: #5d5d5d;
+    font-size: 35px;
+    font-family: 'Yandex Sans Display';
+}
+
+#cryCat {
+    border: 2px solid #999;
+    width: 150px;
+}

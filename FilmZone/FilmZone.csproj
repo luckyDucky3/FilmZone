@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\User\ChangePassword.cshtml" />
+    <None Include="Views\Shared\ChangePassword.cshtml" />
     <None Include="Views\User\Options.cshtml" />
   </ItemGroup>
 

@@ -4,7 +4,7 @@
     string filmDesc;
     bool empty = true;
 }
-<div class="Content">
+<div class="Content Center">
     <h2 id="type">@ViewBag.Type</h2>
     <h2 id="filmsOrSerials">Фильмы:</h2>
     @foreach (var film in Model)
@@ -33,7 +33,8 @@
     }
     @if (empty)
     {
-        <p>Здесь пока пусто...</p>
+        <p>Здесь пока пусто, но мы уже вот-вот добавим новые фильмы🥲</p>
+        <img src="~/gifs/cry-crying-cat.gif" id="cryCat"/>
     }
     @{
         empty = true;
@@ -65,6 +66,7 @@
     }
     @if (empty)
     {
-        <p>Здесь пока пусто...</p>
+        <p>Здесь пока пусто, но мы уже вот-вот добавим новые фильмы🥲</p>
+        <img src="~/gifs/cry-crying-cat.gif" id="cryCat" />
     }
 </div>

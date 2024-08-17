@@ -255,10 +255,11 @@ namespace FilmZone.Controllers
                 return View(false);
             }
         }
-        public IActionResult ChangePassword(int Id, string Token)
+        [HttpGet]
+        public IActionResult ChangePassword(int id, string token)
         {
-            ViewBag.Id = Id;
-            return View(Token);
+            ViewBag.Token = token;
+            return View(id);
         }
         [HttpPost]
         public async Task<IActionResult> SubmitChangePassword(string Password1, string Password2, int Id, string Token)
@@ -280,7 +281,7 @@ namespace FilmZone.Controllers
             }
             return View(false);
         }
-        private void SendMessageAboutForgotPasswordToEmail(int Id, string login, string userMail, string token)
+        private void SendMessageAboutForgotPasswordToEmail(int id, string login, string userMail, string token)
         {
             using var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("FilmZone (Смена пароля)", companyMailAdress));
@@ -288,7 +289,7 @@ namespace FilmZone.Controllers
             emailMessage.Subject = "Смена пароля";
             var builder = new BodyBuilder();
 
-            string confirmationLink = Url.Action("ChangePassword", "User", new { Id = Id, Token = token});
+            string confirmationLink = Url.Action("ChangePassword", "User", new { id = id, token = token});
             builder.HtmlBody = string.Format(@$"<h1>Привет, {login}!</h1>
 <p>Для того, чтобы изменить пароль перейдите по ссылке: <a href =""https://film-zone.ru{confirmationLink}"">Кликни вот сюды</a></p>
 <br />

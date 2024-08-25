@@ -59,7 +59,7 @@
                         @if (httpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() == true)
                         {
                             <link rel="stylesheet" href="/css/StyleUser.css">
-                            <li class="selected">
+                            <li class="select">
                                 <div class="dropdown">
                                     <img class="icon" src="~/img/icon.png"><div class="_Name">@httpContextAccessor.HttpContext.Session.GetString("_Name")</div>
                                     <div class="dropdown-content">
@@ -73,7 +73,7 @@
                         }
                         else
                         {
-                            <li class="selected Enter">
+                            <li class="select Enter">
                                 <a href="#" id="open_pop_up">Войти</a>
                             </li>
                         }
@@ -200,5 +200,14 @@
     }
     @await RenderSectionAsync("Scripts", false)
     <script src="~/js/pop-up.js"></script>
+    <script>
+        document.querySelectorAll('ul.Menu li.selected a').forEach(
+            link => {
+                if (link.href === window.location.href) {
+                    link.classList.add('active');
+                }
+            }
+        );
+    </script>
 </body>
 </html>

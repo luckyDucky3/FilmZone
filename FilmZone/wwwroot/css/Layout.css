@@ -172,18 +172,25 @@ ul.Menu {
 
         }*/
 
-        ul.Menu li.selected a {
-            color: #d3cbbd; /*Выбор ссылки*/
+        ul.Menu li.selected a, ul.Menu li.select a {
+            color: #d3cbbd;
         }
 
-        ul.Menu li a:hover {
-            color: #ffeac2; /*Наведение на ссылку*/
+        ul.Menu li.select a:hover {
+            color: #ffeac2;
         }
 
-.SideBar li a {
-    font-size: 15px;
-    line-height: normal;
-}
+            ul.Menu li.selected a:hover, ul.Menu li.selected a.active {
+                color: #ffeac2;
+                text-decoration: underline;
+                text-decoration-thickness: 3px;
+                text-underline-offset: 22px;
+            }
+
+        .SideBar li a {
+            font-size: 15px;
+            line-height: normal;
+        }
 
 .btn {
     padding: 8px;

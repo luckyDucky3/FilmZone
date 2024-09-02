@@ -75,7 +75,16 @@
             </div>
         </div>
         <div class="InfoAboutFilm">
-            <span class="Label">Рейтинг: </span><span class="Value">@if(Model.Rating > 0){ @Model.Rating<span>/5</span>}else{<span>Оцените первым!</span>}</span>
+            <span class="Label">Рейтинг: </span><span class="Value">@if (Model.Rating > 0)
+                {
+                    @Math.Round(film.Rating, 2)
+
+                    <span>/5</span>
+                }
+                else
+                {
+                    <span>Оцените первым!</span>
+                }</span>
             <span class="Label">Год: </span><span class="Value">@Model.ReleaseFilmDate</span>
             <span class="Label">Режиссер: </span><span class="Value">@Model.Director</span>
             <span class="Label">Жанр: </span><span class="Value">@type</span>

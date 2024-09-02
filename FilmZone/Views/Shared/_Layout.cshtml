@@ -59,7 +59,7 @@
                         @if (httpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() == true)
                         {
                             <link rel="stylesheet" href="/css/StyleUser.css">
-                            <li class="select">
+                            <li class="selected">
                                 <div class="dropdown">
                                     <img class="icon" src="~/img/icon.png"><div class="_Name">@httpContextAccessor.HttpContext.Session.GetString("_Name")</div>
                                     <div class="dropdown-content">

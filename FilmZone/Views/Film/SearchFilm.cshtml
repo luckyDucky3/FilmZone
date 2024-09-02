@@ -77,7 +77,7 @@
         <div class="InfoAboutFilm">
             <span class="Label">Рейтинг: </span><span class="Value">@if (Model.Rating > 0)
                 {
-                    @Math.Round(film.Rating, 2)
+                    @Math.Round(Model.Rating, 2)
 
                     <span>/5</span>
                 }

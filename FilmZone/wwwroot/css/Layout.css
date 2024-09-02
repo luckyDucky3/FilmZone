@@ -192,6 +192,9 @@ ul.Menu {
             line-height: normal;
         }
 
+ul.Menu li.selected .dropdown .dropdown-content a {
+    text-decoration: none;
+}
 .btn {
     padding: 8px;
     background-color: #5d5d5d;

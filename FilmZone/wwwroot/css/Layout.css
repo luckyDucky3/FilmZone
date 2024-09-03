@@ -180,7 +180,12 @@ ul.Menu {
             color: #ffeac2;
         }
 
-            ul.Menu li.selected a:hover, ul.Menu li.selected a.active {
+            ul.Menu li.selected a:hover {
+                color: #ffeac2;
+                text-decoration: none;
+            }
+
+            ul.Menu li.selected a.active {
                 color: #ffeac2;
                 text-decoration: underline;
                 text-decoration-thickness: 3px;

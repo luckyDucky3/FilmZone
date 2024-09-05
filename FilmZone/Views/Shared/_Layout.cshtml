@@ -107,7 +107,7 @@
                             <ul>
                                 @foreach (var f in films)
                                 {
-                                    <li><a href="/Film/SearchById?id=@f.Id">@f.Name</a><span class="RatingSideBar">@f.Rating</span></li>
+                                    <li><a href="/Film/SearchById?id=@f.Id">@f.Name</a><span class="RatingSideBar">@Math.Round(f.Rating, 2)</span></li>
                                 }
                             </ul>
                         </div>

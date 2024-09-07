@@ -9,6 +9,7 @@ FilmZone.Domain/obj/
 FilmZone.Domain/bin/
 TGBot/bin
 TGBot/obj
+TGBot/PrivateClass.cs
 TestProjectForFilmZone
 TGBot/PrivateClass.cs
 TestDB/

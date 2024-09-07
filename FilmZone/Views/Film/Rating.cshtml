@@ -1,4 +1,5 @@
-﻿@model List<FilmZone.Domain.Models.Film>
+﻿@using System.Globalization
+@model List<FilmZone.Domain.Models.Film>
 <div class="Content">
     <table>
         <tr>
@@ -13,7 +14,7 @@
                 <td class="Center"> <img src="@Url.Content(Model.ElementAt(i).PathToImage)"></td>
                 <td>@(i+1). <a href="/Film/SearchById/@Model.ElementAt(i).Id">@Model.ElementAt(i).Name</a></td>
                 <td class="Center">@Model.ElementAt(i).ReleaseFilmDate</td>
-                <td class="Center Rating">@Math.Round(Model.ElementAt(i).Rating, 2)</td>
+                <td class="Center Rating">@Math.Round(Model.ElementAt(i).Rating, 2).ToString("F1", CultureInfo.InvariantCulture)</td>
             </tr>
         }
     </table>

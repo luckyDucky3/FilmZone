@@ -43,7 +43,7 @@ namespace TGBot
         static string authenticationData = PrivateClass.PrivateClass.authenticationData;
 
         private static Authorization auth = new Authorization(authenticationData, GigaChatAdapter.Auth.RateScope.GIGACHAT_API_PERS);
-        private static Completion completion;
+        private static Completion completion = new Completion();
         private static bool problem = false;
         private static bool sendMessageToAi = false;
         static ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
@@ -147,11 +147,14 @@ namespace TGBot
             if (authResult.AuthorizationSuccess)
             {
 
-                //completion.History = new List<GigaChatMessage>();
+                completion.History = new List<GigaChatMessage>();
                 Console.WriteLine($"---------------------------------History of user: {update.Message.Chat.Id}------------------\n");
-                for (int i = 0; i < completion.History.Count; i++)
+                for (int i = 0; i < completion?.History?.Count; i++)
+                {
                     Console.WriteLine(completion.History.ElementAt(i).Content);
+                }
                 Console.WriteLine("\n---------------------------------------------History-----------------------------------------");
+
                 if (update.Message.Text == null)
                     return;
                 var prompt = update.Message.Text;

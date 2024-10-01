@@ -23,6 +23,7 @@
     <_ContentIncludedByDefault Remove="Views\User\ForgotPassword.cshtml" />
     <_ContentIncludedByDefault Remove="Views\User\LoginPage.cshtml" />
     <_ContentIncludedByDefault Remove="Views\User\Options.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\Fonts\Comic Sans MS.ttf" />
     <_ContentIncludedByDefault Remove="wwwroot\img\cookie.png" />
   </ItemGroup>
 

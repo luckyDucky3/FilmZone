@@ -17,7 +17,7 @@ builder.Services.AddScoped<IFilmRepository, FilmRepository>();
 builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ISiteFeedbackRepository, SiteFeedbackRepository>();
+builder.Services.AddScoped<SiteFeedbackRepository>();
 builder.Services.AddScoped<ISiteFeedbackService, SiteFeedbackService>();
 builder.Services.AddScoped<IFilmFeedbackRepository, FilmFeedbackRepository>();
 builder.Services.AddScoped<IFilmFeedbackService, FilmFeedbackService>();

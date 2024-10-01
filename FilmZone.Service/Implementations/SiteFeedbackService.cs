@@ -15,9 +15,9 @@ namespace FilmZone.Service.Implementations
 {
     public class SiteFeedbackService : ISiteFeedbackService
     {
-        private readonly ISiteFeedbackRepository _feedbackRepository;
+        private readonly SiteFeedbackRepository _feedbackRepository;
 
-        public SiteFeedbackService(ISiteFeedbackRepository feedbackRepository)
+        public SiteFeedbackService(SiteFeedbackRepository feedbackRepository)
         {
             _feedbackRepository = feedbackRepository;
         }

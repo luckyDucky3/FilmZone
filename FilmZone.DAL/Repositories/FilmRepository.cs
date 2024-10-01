@@ -35,7 +35,7 @@ namespace FilmZone.DAL.Repositories
 
         public async Task<Film> GetById(int id)
         {
-            return await _db.Film.FirstOrDefaultAsync(x => x.Id == id);
+            return await _db.Film.FirstAsync(x => x.Id == id);
         }
 
         public async Task<Film?> GetByName(string name)

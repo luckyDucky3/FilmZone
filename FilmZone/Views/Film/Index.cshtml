@@ -1,15 +1,25 @@
 ﻿@using FilmZone.Domain.Enum
+@using FilmZone.Service
 @model List<FilmZone.Domain.Models.Film>
 <div class="Content">
     <h1>Новые фильмы</h1>
     <div class="FilmsBlock">
+@*         @{
+            KinopoiskParser kinopoiskParser = new KinopoiskParser();
+            var imagesStrings = await kinopoiskParser.ParseImages();
+        } *@
         @foreach (var film in Model)
         {
             if (film.FilmOrSerial == FilmOrSerial.Film)
             {
                 <a href="/Film/SearchById/@film.Id"><img src="@Url.Content(film.PathToImage)" alt=""></a>
             }
+            
         }
+@*         @for (int i = 0; i < imagesStrings.Count(); i++)
+        {
+            <a href="#">@Html.Raw(imagesStrings.ElementAt(i))</a>
+        } *@
     </div>
     <h1>Новые сериалы</h1>
     <div class="SerialsBlock">

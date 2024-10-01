@@ -109,13 +109,14 @@ ul {
 
 .Header {
     background-color: #3c3a33;
-    height: 120px;
+    height: 80px;
     font-size: 0.8em;
     margin-left: 0px;
     margin-right: 0px;
     min-width: 900px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
+    position: relative;
 }
 
 .Main {
@@ -134,11 +135,15 @@ ul {
     padding-left: 15px;
     padding-top: 15px;
     padding-bottom: 5px;
+    position: absolute;
 }
 
 .MenuBar {
     width: 900px;
     height: 46px;
+    position: absolute;
+    bottom: 0px;
+    left: 20%;
 }
 
 ul.Menu {

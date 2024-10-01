@@ -1,11 +1,5 @@
 ﻿using FilmZone.Domain.Models;
 using FilmZone.Domain.Response;
-using FilmZone.Domain.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FilmZone.Service.Interfaces
 {

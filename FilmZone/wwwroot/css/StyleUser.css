@@ -170,3 +170,9 @@ hr#profile {
 .form_toggle .radio1 label:hover .fa-sun {
     color: #fff !important;
 }
+
+
+.Reviews .fa-pen {
+    position: absolute;
+    right: 40px;
+}

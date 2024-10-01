@@ -138,7 +138,9 @@
                         </ul>
                     </div>
                 </div>
+                <div id="content-container">
                     @RenderBody()
+                </div>
             </div>
         
             <div class="Footer">
@@ -210,5 +212,25 @@
             }
         );
     </script>
+
+    @* <script>
+        // Функция загрузки контента через fetch
+        async function loadContent(url) {
+            const viewName = url.split('/').pop();
+
+            const response = await fetch(`/Film/LoadPageContent?url=${encodeURIComponent(viewName)}`);
+            const content = await response.text();
+            document.getElementById('content-container').innerHTML = content;
+        }
+
+        // Обработчик событий на ссылках для загрузки контента без перезагрузки всей страницы
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // Предотвращаем переход по ссылке
+                loadContent(this.getAttribute('href')); // Загружаем новый контент
+            });
+        });
+    </script> *@
+
 </body>
 </html>

@@ -36,7 +36,7 @@ namespace FilmZone.DAL.Repositories
         {
             if (entity.Id == 0)
             {
-                entity = await _db.BestFilm.Where(x => x.UserName == entity.UserName && x.FilmName == entity.FilmName).FirstOrDefaultAsync();
+                entity = await _db.BestFilm.Where(x => x.UserName == entity.UserName && x.FilmName == entity.FilmName).FirstAsync();
             }
             _db.BestFilm.Remove(entity);
             await _db.SaveChangesAsync();
@@ -45,7 +45,7 @@ namespace FilmZone.DAL.Repositories
 
         public async Task<BestFilm> GetById(int id)
         {
-            return await _db.BestFilm.FirstOrDefaultAsync(x => x.Id == id);
+            return await _db.BestFilm.FirstAsync(x => x.Id == id);
         }
 
         public Task<List<BestFilm>> Select()

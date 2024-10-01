@@ -51,12 +51,12 @@ namespace FilmZone.DAL.Repositories
 
         public async Task<User> GetByLogin(string name)
         {
-            return await _db.User.FirstOrDefaultAsync(x => x.Login == name);
+            return await _db.User.FirstAsync(x => x.Login == name);
         }
 
         public async Task<User> GetByMail(string mail)
         {
-            return await _db.User.FirstOrDefaultAsync(x => x.Email == mail);
+            return await _db.User.FirstAsync(x => x.Email == mail);
         }
     }
 }

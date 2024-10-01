@@ -8,6 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.Extensions.Caching.Memory;
+using FilmZone.Service;
 
 namespace FilmZone.Controllers
 {
@@ -19,11 +20,18 @@ namespace FilmZone.Controllers
             : base(logger, filmService, httpcontextAccessor, feedbackService, cache) 
         { }
 
+        //public ActionResult LoadPageContent(string url)
+        //{
+        //    var viewName = url.Split('/').Last();
+
+        //    // «агружаем частичное представление по имени
+        //    return PartialView(viewName);
+        //}
+
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            
             int countFilm = 0, countSerial = 0;
             List<Film> listOfFilm = new List<Film>();
             if (!cache.TryGetValue("IndexFilms", out List<Film> indexFilms))

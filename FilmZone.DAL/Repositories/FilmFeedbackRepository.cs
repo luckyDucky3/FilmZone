@@ -29,28 +29,35 @@ namespace FilmZone.DAL.Repositories
         {
             return await _db.FilmFeedback.Where(x => x.FilmId == filmId).ToListAsync();
         }
-        public Task<bool> Delete(FilmFeedback entity)
+        public async Task<bool> Delete(FilmFeedback entity)
         {
-            throw new NotImplementedException();
+            if (entity.Id == 0)
+            {
+                entity = await _db.FilmFeedback.Where(x => x.Name == entity.Name && x.Heading == entity.Heading && x.Value == entity.Value).FirstAsync();
+            }
+            _db.FilmFeedback.Remove(entity);
+            return true;
         }
 
         public Task<FilmFeedback> GetById(int id)
         {
-            throw new NotImplementedException();
+            return _db.FilmFeedback.Where(x => x.Id ==  id).FirstAsync();
         }
 
-        public Task<List<FilmFeedback>> Select()
+        public async Task<List<FilmFeedback>> Select()
         {
-            throw new NotImplementedException();
+            return await _db.FilmFeedback.ToListAsync();
         }
 
-        public Task<bool> Update(FilmFeedback entity)
+        public async Task<bool> Update(FilmFeedback entity)
         {
-            throw new NotImplementedException();
+            _db.FilmFeedback.Update(entity);
+            await _db.SaveChangesAsync();
+            return true;
         }
         public async Task<FilmFeedback> GetFeedbackByLoginAndFilmName(string login, int filmId)
         {
-            return await _db.FilmFeedback.Where(x => x.Name == login && x.FilmId == filmId).FirstOrDefaultAsync();
+            return await _db.FilmFeedback.Where(x => x.Name == login && x.FilmId == filmId).FirstAsync();
         }
         public async Task<bool> UpdateFeedback(string login, int filmId, int rating)
         {

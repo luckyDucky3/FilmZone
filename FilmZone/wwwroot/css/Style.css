@@ -275,6 +275,7 @@ h2#filmsOrSerials {
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
         width: 100%;
+        position: relative;
     }
 
     .Reviews .ReviewText {
@@ -416,7 +417,7 @@ td {
 
 .Footer {
     width: 100%;
-    height: 100px;
+    height: 80px;
     padding: 28px 0 5px 0;
     text-align: center;
     background-color: #3c3a33;

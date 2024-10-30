@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.Extensions.Caching.Memory;
 using FilmZone.Service;
+using FilmZone.DAL;
+using static System.Net.WebRequestMethods;
 
 namespace FilmZone.Controllers
 {
@@ -19,14 +21,6 @@ namespace FilmZone.Controllers
             ISiteFeedbackService feedbackService, IHttpContextAccessor httpcontextAccessor, IMemoryCache cache) 
             : base(logger, filmService, httpcontextAccessor, feedbackService, cache) 
         { }
-
-        //public ActionResult LoadPageContent(string url)
-        //{
-        //    var viewName = url.Split('/').Last();
-
-        //    // Загружаем частичное представление по имени
-        //    return PartialView(viewName);
-        //}
 
 
         [HttpGet]
@@ -66,6 +60,14 @@ namespace FilmZone.Controllers
                     cache.Set("MovieRatings", layoutResp.Data, options);
                 }
             }
+            using(ApplicationDbContext dbContext = new ApplicationDbContext())
+            {
+                var resp = await filmService.GetFilmByName("Лулу и Бриггс");
+                Film f = resp.Data;
+                f.PathToImage = "https://resizer.mail.ru/p/6f6befa8-c226-5a46-82df-814dbb63f3d9/dpr:200/AQACssbumnlAC3eTBpWlnIXAy3LPdj6EVMA01AnTHrMeS5HPHCIoP8GXCijH8kOYFh-YJx0p1SCxuOvS-Kk-AeypEvw.jpg";
+                dbContext.Film.Update(f);
+            }
+
             return View(listOfFilm);
         }
         [HttpGet]

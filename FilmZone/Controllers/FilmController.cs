@@ -60,13 +60,6 @@ namespace FilmZone.Controllers
                     cache.Set("MovieRatings", layoutResp.Data, options);
                 }
             }
-            //using(ApplicationDbContext dbContext = new ApplicationDbContext())
-            //{
-            //    var resp = await filmService.GetFilmByName("Ëóëó è Áðèããñ");
-            //    Film f = resp.Data;
-            //    f.PathToImage = "https://resizer.mail.ru/p/6f6befa8-c226-5a46-82df-814dbb63f3d9/dpr:200/AQACssbumnlAC3eTBpWlnIXAy3LPdj6EVMA01AnTHrMeS5HPHCIoP8GXCijH8kOYFh-YJx0p1SCxuOvS-Kk-AeypEvw.jpg";
-            //    dbContext.Film.Update(f);
-            //}
 
             return View(listOfFilm);
         }

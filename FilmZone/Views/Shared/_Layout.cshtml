@@ -14,6 +14,8 @@
     <script src="https://kit.fontawesome.com/1aa93cc05d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/Mobile.css">
     <title>FilmZone</title>
+</head>
+<body>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function (m, e, t, r, i, k, a) {
@@ -32,8 +34,6 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/98774724" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
-</head>
-<body>
     @if (httpContextAccessor.HttpContext?.Session.Get("_Name")?.Any() == true && httpContextAccessor.HttpContext?.Session.GetString("_BackgroundColor") == "dark")
     {
         <style>

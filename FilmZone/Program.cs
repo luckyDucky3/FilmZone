@@ -1,3 +1,4 @@
+using AngleSharp.Common;
 using FilmZone.DAL;
 using FilmZone.DAL.Interfaces;
 using FilmZone.DAL.Repositories;
@@ -30,6 +31,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddSingleton<TimerHostedService>();
 builder.Services.AddHostedService(provider => provider.GetRequiredService<TimerHostedService>());
+
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {

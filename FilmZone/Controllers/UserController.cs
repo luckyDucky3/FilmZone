@@ -18,7 +18,7 @@ namespace FilmZone.Controllers
     public class UserController : BaseController
     {
 
-        int df = 0;
+        //int df = 0;
         const string companyMailAuthentificate = "3jgiae1r4fQJFFA62VvA";
         const string companyMailAdress = "film-zone@mail.ru";
         const string SessionKeyLogin = "_Name";

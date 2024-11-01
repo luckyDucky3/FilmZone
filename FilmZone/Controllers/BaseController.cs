@@ -8,6 +8,8 @@ namespace FilmZone.Controllers
 {
     public class BaseController : Controller
     {
+        //htftfth
+
         protected readonly IHttpContextAccessor httpcontextAccessor;
         protected readonly IUserService userService;
         protected readonly TimerHostedService timerHostedService;

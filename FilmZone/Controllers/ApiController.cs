@@ -12,6 +12,8 @@ namespace FilmZone.Controllers
     [Route("api/[controller]")]
     public class ApiController : BaseController
     {
+
+
         public ApiController(IHttpContextAccessor httpcontextAccessor, IFilmFeedbackService filmFeedbackService, IBestFilmService bestFilmService, IFilmService filmService) : base(httpcontextAccessor, filmFeedbackService, bestFilmService, filmService) { }
         [HttpPost("addFilm")]
         public async Task<OkObjectResult> AddFilmToFavourites(JsonElement jsonElement)
